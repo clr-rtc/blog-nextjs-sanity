@@ -1,4 +1,6 @@
+
 export const useCdn = false
+
 
 /**
  * As this file is reused in several other files, try to keep it lean and small.
@@ -7,7 +9,7 @@ export const useCdn = false
 
 export const dataset = assertValue(
   process.env.NEXT_PUBLIC_SANITY_DATASET,
-  'Missing environment variable: NEXT_PUBLIC_SANITY_DATASET',
+  `Missing environment variable: NEXT_PUBLIC_SANITY_DATASET, env=${JSON.stringify(process?.env)} ${JSON.stringify(process.execPath)} ${JSON.stringify(process.cwd())}`,
 )
 
 export const projectId = assertValue(

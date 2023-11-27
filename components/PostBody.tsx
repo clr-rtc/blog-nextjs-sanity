@@ -20,12 +20,24 @@ const myPortableTextComponents: Partial<PortableTextReactComponents> = {
     image: ({ value }) => {
       return <SanityImage {...value} />
     },
+    block: (props) => {
+      const { value, isInline, index, renderNode } = props
+      switch(value.style){
+        case 'small':
+          return <p className="text-sm py-0 my-0" >{value.children?.[0]?.text}</p> 
+        case 'very-small':
+          return <p className="text-xs py-0 my-0 " >{value.children?.[0]?.text}</p> 
+        default:
+          return <PortableText value={value}/>
+      }
+    },
+    
   },
 }
 
 export default function PostBody({ content }) {
   return (
-    <div className={`mx-auto max-w-2xl ${styles.portableText}`}>
+    <div className={`max-w-4xl ${styles.portableText}`}>
       <PortableText value={content} components={myPortableTextComponents} />
     </div>
   )

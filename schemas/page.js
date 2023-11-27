@@ -1,8 +1,16 @@
 import { BookIcon } from '@sanity/icons'
 import { format, parseISO } from 'date-fns'
-import { defineField, defineType } from 'sanity'
+import { defineField, defineType, defineArrayMember } from 'sanity'
 
 import authorType from './author'
+
+const SmallStyle = props => (
+  <span className="text-sm">{props.children} </span>
+)
+
+const VerySmallStyle = props => (
+  <span className="text-xs ">{props.children} </span>
+)
 
 /**
  * This file is the schema definition for a post.
@@ -17,8 +25,8 @@ import authorType from './author'
  */
 
 export default defineType({
-  name: 'post',
-  title: 'Articles',
+  name: 'page',
+  title: 'Pages Standard',
   icon: BookIcon,
   type: 'document',
   fields: [
@@ -43,8 +51,22 @@ export default defineType({
       name: 'content',
       title: 'Content',
       type: 'array',
+     
       of: [
-        { type: 'block' },
+        defineArrayMember({ type: 'block',
+       
+        styles: [
+          {title: 'Normal', value: 'normal'},
+          {title: 'Petit', value: 'small', component: SmallStyle },
+          {title: 'Très Petit', value: 'very-small', component: VerySmallStyle },
+          {title: 'H1', value: 'h1'},
+          {title: 'H2', value: 'h2'},
+          {title: 'H3', value: 'h3'},
+          {title: 'H4', value: 'h4'},
+          {title: 'H5', value: 'h5'},
+          {title: 'H6', value: 'h6'},
+          {title: 'Quote', value: 'blockquote'}]
+         }),
         {
           type: 'image',
           options: {
@@ -65,6 +87,7 @@ export default defineType({
             },
           ],
         },
+       
       ],
     }),
     defineField({

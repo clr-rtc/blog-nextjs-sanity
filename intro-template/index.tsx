@@ -44,9 +44,7 @@ export default memo(function IntroTemplate() {
             alt="An illustration of a browser window, a terminal window, the Sanity.io logo and the NextJS logo"
             src={cover}
           />
-          <div className="mt-10 hidden px-14 text-xs text-gray-700 md:block">
-            <RemoveBlock url={removeBlockURL} />
-          </div>
+
         </div>
 
         <div className="mx-6 md:mx-0 md:mr-24">

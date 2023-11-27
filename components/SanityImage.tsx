@@ -7,6 +7,7 @@ interface Props {
   asset: SanityImageSource
   alt: string
   caption?: string
+  size?: string
 }
 
 export const SanityImage = (props: Props) => {
@@ -15,18 +16,19 @@ export const SanityImage = (props: Props) => {
 
   if (!imageProps) return null
 
-  return (
-    <figure>
-      <Image
-        {...imageProps}
-        alt={alt}
-        sizes="(max-width: 800px) 100vw, 800px"
-      />
-      {caption && (
-        <figcaption className="mt-2 text-center italic text-sm text-gray-500 dark:text-gray-400">
-          {caption}
-        </figcaption>
-      )}
-    </figure>
-  )
+  const imageComponent =  <figure>
+  <Image
+    {...imageProps}
+    alt={alt}
+    sizes="(max-width: 800px) 100vw, 800px"
+  />
+  {caption && (
+    <figcaption className="mt-2 text-center italic text-sm text-gray-500 dark:text-gray-400">
+      {caption}
+    </figcaption>
+  )}
+</figure>
+
+  return    imageComponent
+  
 }

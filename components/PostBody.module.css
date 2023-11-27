@@ -2,7 +2,11 @@
   @apply text-lg leading-relaxed;
 }
 
-.portableText p,
+.portableText p
+{
+  @apply my-2;
+}
+
 .portableText ul,
 .portableText ol,
 .portableText blockquote {

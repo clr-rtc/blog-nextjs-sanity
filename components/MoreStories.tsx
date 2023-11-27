@@ -3,11 +3,14 @@ import type { Post } from 'lib/sanity.queries'
 
 export default function MoreStories({ posts }: { posts: Post[] }) {
   return (
+
     <section>
-      <h2 className="mb-8 text-6xl font-bold leading-tight tracking-tighter md:text-7xl">
-        More Stories
-      </h2>
-      <div className="mb-32 grid grid-cols-1 gap-y-20 md:grid-cols-2 md:gap-x-16 md:gap-y-32 lg:gap-x-32">
+      <div className="flex flex-col w-full gap-y-4" >
+      <div className="py-4 bg-gray-300 text-center  text-2xl tracking-wider font-semibold  md:text-2xl">
+        Autres Informations
+      </div>
+
+      <div className="w-full flex flex-col gap-y-2">
         {posts.map((post) => (
           <PostPreview
             key={post._id}
@@ -19,6 +22,7 @@ export default function MoreStories({ posts }: { posts: Post[] }) {
             excerpt={post.excerpt}
           />
         ))}
+      </div>
       </div>
     </section>
   )
