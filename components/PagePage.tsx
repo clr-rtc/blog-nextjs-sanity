@@ -8,7 +8,7 @@ import PostPageHead from 'components/PostPageHead'
 import PostTitle from 'components/PostTitle'
 import SectionSeparator from 'components/SectionSeparator'
 import * as demo from 'lib/demo.data'
-import type { Part, Post, Page, Settings } from 'lib/sanity.queries'
+import type { Part, Post, Page, Settings, MenuItem } from 'lib/sanity.queries'
 import { notFound } from 'next/navigation'
 import StandardPageLayout from 'components/StandardPageLayout'
 
@@ -18,6 +18,7 @@ export interface PagePageProps {
   page: Page
   parts: Part[]
   posts: Post[]
+  menuItems: MenuItem[]
   settings: Settings
 }
 
@@ -39,7 +40,7 @@ export default function PagePage(props: PagePageProps) {
 
       <Layout preview={preview} loading={loading}>
         <Container>
-          <BlogHeader title={title} parts={props.parts} />
+          <BlogHeader title={title} parts={props.parts} menuItems={props.menuItems}/>
           <StandardPageLayout parts={props.parts}>
           {preview && !page ? (
             <PostTitle>Loading…</PostTitle>

@@ -27,7 +27,9 @@ export default function PreviewPostPage(props: PostPageProps) {
     <PostPage
       preview
       loading={loadingPost || loadingSettings}
+      menuItems={props.menuItems}
       post={postPreview}
+      parts={props.parts}
       morePosts={morePosts}
       settings={settings}
     />

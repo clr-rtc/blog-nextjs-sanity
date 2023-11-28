@@ -19,6 +19,8 @@ export default function PreviewIndexPage(props: IndexPageProps) {
       preview
       loading={loadingPosts || loadingSettings}
       posts={posts || []}
+      parts={props.parts || []}
+      menuItems={props.menuItems || []}
       settings={settings || {}}
     />
   )

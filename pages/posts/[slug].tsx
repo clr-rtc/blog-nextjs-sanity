@@ -7,8 +7,9 @@ import {
   getPostAndMoreStories,
   getAllParts,
   getSettings,
+  getMenuItems
 } from 'lib/sanity.client'
-import { Post, Part, Settings } from 'lib/sanity.queries'
+import { Post, Part, Settings, MenuItem } from 'lib/sanity.queries'
 import { GetStaticProps } from 'next'
 import type { SharedPageProps } from 'pages/_app'
 
@@ -16,6 +17,7 @@ interface PageProps extends SharedPageProps {
   post: Post
   morePosts: Post[]
   parts: Part[]
+  menuItems: MenuItem[]
   settings?: Settings
 }
 
@@ -28,21 +30,22 @@ export default function ProjectSlugRoute(props: PageProps) {
 
   if (draftMode) {
     return (
-      <PreviewPostPage post={post} parts={parts} morePosts={morePosts} settings={settings} />
+      <PreviewPostPage menuItems={props.menuItems} post={post} parts={parts} morePosts={morePosts} settings={settings} />
     )
   }
 
-  return <PostPage post={post} parts={props.parts} morePosts={morePosts} settings={settings} />
+  return <PostPage menuItems={props.menuItems} post={post} parts={props.parts} morePosts={morePosts} settings={settings} />
 }
 
 export const getStaticProps: GetStaticProps<PageProps, Query> = async (ctx) => {
   const { draftMode = false, params = {} } = ctx
   const client = getClient(draftMode ? { token: readToken } : undefined)
 
-  const [settings, {post, morePosts}, parts ] = await Promise.all([
+  const [settings, {post, morePosts}, parts, menuItems ] = await Promise.all([
     getSettings(client),
     getPostAndMoreStories(client, params.slug),
-    getAllParts(client)
+    getAllParts(client),
+    getMenuItems(client)
   ])
 
   if (!post) {
@@ -56,6 +59,7 @@ export const getStaticProps: GetStaticProps<PageProps, Query> = async (ctx) => {
       post,
       parts,
       morePosts,
+      menuItems,
       settings,
       draftMode,
       token: draftMode ? readToken : '',

@@ -33,6 +33,7 @@ export default function PreviewPagePage(props: PagePageProps) {
       preview
       loading={loadingPost || loadingSettings}
       page={pagePreview}
+      menuItems={props.menuItems}
       parts={props.parts}
       posts={posts}
       settings={settings}

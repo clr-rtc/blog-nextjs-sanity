@@ -22,6 +22,14 @@ const pageFields = groq`
   "author": author->{name, picture},
 `
 
+const menuItemFields = groq`
+  _id,
+  title,
+  menuSequenceNo,
+  "slug": slug.current,
+`
+
+
 const partFields = groq`
   _id,
   title,
@@ -42,9 +50,15 @@ export const indexQuery = groq`
 }`
 
 export const pagesQuery = groq`
-*[_type == "page"] | order(date desc, _updatedAt desc) {
+*[_type == "page" && slug.current != "/"] | order(date desc, _updatedAt desc) {
   ${pageFields}
 }`
+
+export const menuItemsQuery = groq`
+*[_type == "page"] | order(date desc, _updatedAt desc) {
+  ${menuItemFields}
+}`
+
 
 export const partsQuery = groq`
 *[_type == "part"] | order(date desc, _updatedAt desc) {
@@ -89,7 +103,7 @@ export const postSlugsQuery = groq`
 `
 
 export const pageSlugsQuery = groq`
-*[_type == "page" && defined(slug.current)][].slug.current
+*[_type == "page" && slug.current != "/" && defined(slug.current)][].slug.current
 `
 
 export const postBySlugQuery = groq`
@@ -125,6 +139,12 @@ export interface Page {
   author?: Author
   slug?: string
   content?: any
+}
+
+export interface MenuItem {
+  label?: string
+  uri?: string
+  menuSequenceNo?: number
 }
 
 export interface Part {

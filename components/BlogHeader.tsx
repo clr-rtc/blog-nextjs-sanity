@@ -6,21 +6,18 @@ import Image from 'next/image'
 import styles from './BlogHeader.module.css'
 
 import BlogPart from 'components/BlogPart'
-import type { Part } from 'lib/sanity.queries'
+import type { Part, MenuItem } from 'lib/sanity.queries'
 
-const menu = [
-  {label: "Accueil", uri: '/'},
-  {label: "Histoire du Rockhill", uri: '/pages/historique'},
-  {label: "État des lieux", uri: '/pages/etat'},
-  {label: "Témoignages", uri: ''},
-  {label: "Galerie photo", uri: ''},
-  {label: "Priorités", uri: '/pages/priorites'},
-  {label: "Code de vie", uri: '/pages/code'},
 
-]
+type MenuProps = {
+  menuItems: MenuItem[]
+}
 
-const Menu = () => {
-  return <div className="flex flex-row gap-4 justify-start pb-4 text-xs text-[#8b6b36]">{menu.map((item, index) => 
+const Menu = (props: MenuProps) => {
+  
+  const menuItems = props.menuItems.filter((item) => item.label && item.menuSequenceNo).sort((item1, item2) => item1.menuSequenceNo - item2.menuSequenceNo)
+
+  return <div className="flex flex-row gap-4 justify-start pb-4 text-xs text-[#8b6b36]">{menuItems.map((item, index) => 
   (
   <Link key={index} href={item.uri} className="hover:underline">
               {item.label || 'Untitled'}
@@ -31,11 +28,13 @@ const Menu = () => {
 export default function BlogHeader({
   title,
   description,
-  parts
+  parts,
+  menuItems
 }: {
   title: string
   description?: any[]
   parts: Part[]
+  menuItems: MenuItem[]
 }) {
       return (
         <header className="mb-10 mt-4 flex flex-col items-center md:mb-12 md:flex-row md:justify-between border-b-2 pb-4 border-gray-700">
@@ -48,7 +47,7 @@ export default function BlogHeader({
           </div>          
          
           <div className="flex flex-col items-start w-5/6">
-            <Menu />
+            <Menu menuItems={menuItems} />
             <div className="flex flex-col w-full" >
               <BlogPart name="titre-principal" parts={parts} align="left" className="italic text-xs" />
             </div>

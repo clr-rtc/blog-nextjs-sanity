@@ -7,7 +7,7 @@ import IndexPageHead from 'components/IndexPageHead'
 import MoreStories from 'components/MoreStories'
 import IntroTemplate from 'intro-template'
 import * as demo from 'lib/demo.data'
-import type { Post, Part, Settings } from 'lib/sanity.queries'
+import type { Post, Part, Settings, MenuItem } from 'lib/sanity.queries'
 
 import BlogPart from 'components/BlogPart'
 import StandardPageLayout from 'components/StandardPageLayout'
@@ -18,6 +18,7 @@ export interface IndexPageProps {
   loading?: boolean
   posts: Post[]
   parts: Part[]
+  menuItems: MenuItem[]
   settings: Settings
 }
 
@@ -34,7 +35,7 @@ export default function IndexPage(props: IndexPageProps) {
 
       <Layout preview={preview} loading={loading}>
         <Container>
-          <BlogHeader title={title} description={description} parts={parts} />
+          <BlogHeader title={title} description={description} parts={parts} menuItems={props.menuItems} />
           
           <StandardPageLayout parts={parts}>
             {heroPost && (<HeroPost
