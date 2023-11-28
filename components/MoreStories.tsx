@@ -6,7 +6,7 @@ export default function MoreStories({ posts }: { posts: Post[] }) {
 
     <section>
       <div className="flex flex-col w-full gap-y-4" >
-      <div className="py-4 bg-gray-300 text-center  text-2xl tracking-wider font-semibold  md:text-2xl">
+      <div className="py-1 bg-gray-300 text-center  text-xl tracking-[0.35em] font-semibold  md:text-xl">
         Autres Informations
       </div>
 
