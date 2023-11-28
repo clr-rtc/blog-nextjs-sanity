@@ -65,7 +65,7 @@ export const getStaticProps: GetStaticProps<PageProps, Query> = async (ctx) => {
 
 export const getStaticPaths = async () => {
   const slugs = await getAllPagesSlugs()
-  console.log(`FFF${JSON.stringify(slugs)}`)
+  
   return {
     paths: slugs?.map(({ slug }) => `/pages/${slug}`) || [],
     fallback: 'blocking',

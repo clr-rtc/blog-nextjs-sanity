@@ -10,11 +10,14 @@ import type { Part } from 'lib/sanity.queries'
 
 const menu = [
   {label: "Accueil", uri: '/'},
-  {label: "Histoire du Rockhill", uri: ''},
+  {label: "Histoire du Rockhill", uri: '/pages/historique'},
   {label: "État des lieux", uri: '/pages/etat'},
   {label: "Témoignages", uri: ''},
   {label: "Galerie photo", uri: ''},
-  {label: "Liste des problèmes", uri: ''}]
+  {label: "Priorités", uri: '/pages/priorites'},
+  {label: "Code de vie", uri: '/pages/code'},
+
+]
 
 const Menu = () => {
   return <div className="flex flex-row gap-4 justify-start pb-4 text-xs text-[#8b6b36]">{menu.map((item, index) => 

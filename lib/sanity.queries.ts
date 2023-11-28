@@ -69,7 +69,7 @@ export const pageAndPostsQuery = groq`
     content,
     ${pageFields}
   },
-  "posts": *[_type == "post" ] | order(date desc, _updatedAt desc) [0...2] {
+  "posts": *[_type == "post" ] | order(date desc, _updatedAt desc) [0...3] {
     content,
     ${postFields}
   }

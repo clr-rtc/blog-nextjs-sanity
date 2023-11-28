@@ -12,6 +12,53 @@ export default function PostPreview({
   author,
   slug,
 }: Omit<Post, '_id'>) {
+
+    return (
+    <div className="w-full flex flex-row">
+      <div className="flex flex-col  w-full">
+        <div className="py-2  text-left  ">
+        {coverImage && <div className="flex flex-row justify-center float-right p-4 w-48">
+       
+            <CoverImage
+              slug={slug}
+              title={title}
+              image={coverImage}
+              priority={false}
+            />
+           
+          </div>
+          }
+        
+          <p className="text-xl font-bold  md:text-xl">
+            <Link href={`/posts/${slug}`} className="hover:underline">
+              {title}
+            </Link>
+          </p>
+          <p className="mb-4 text-lg">
+            <Date dateString={date} />
+          </p>
+          {excerpt && <p className="mb-4 text-sm leading-relaxed">{excerpt}</p>}
+      
+        
+        </div>
+      </div>
+     
+      {author && <Avatar name={author.name} picture={author.picture} />}
+    </div>
+      
+    
+  )
+   
+}
+
+export  function PostPreview2({
+  title,
+  coverImage,
+  date,
+  excerpt,
+  author,
+  slug,
+}: Omit<Post, '_id'>) {
   return (
     <div className="w-full ">
     

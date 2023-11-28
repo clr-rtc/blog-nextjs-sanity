@@ -8,9 +8,12 @@
 }
 
 .portableText ul,
-.portableText ol,
+.portableText ol {
+  @apply my-6 px-6 list-disc;
+}
+
 .portableText blockquote {
-  @apply my-6;
+  @apply my-6 px-6 text-sm border-l-2 border-gray-400;
 }
 
 .portableText h2 {
