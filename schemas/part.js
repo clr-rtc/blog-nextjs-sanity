@@ -26,7 +26,7 @@ const VerySmallStyle = props => (
 
 export default defineType({
   name: 'part',
-  title: 'Parties Fixes',
+  title: 'Contenu partagé',
   icon: BookIcon,
   type: 'document',
   fields: [
