@@ -26,6 +26,7 @@ export interface IndexPageProps {
 export default function IndexPage(props: IndexPageProps) {
   const { preview, loading, posts, parts, settings } = props
 
+  const heroPosts = posts?.filter((p)=> p.)
   const [heroPost, ...morePosts] = posts || []
   const { title = demo.title, description = demo.description } = settings || {}
 

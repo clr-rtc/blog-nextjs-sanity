@@ -1,7 +1,6 @@
-import { BookIcon } from '@sanity/icons'
 import { format, parseISO } from 'date-fns'
 import { defineField, defineType, defineArrayMember } from 'sanity'
-
+import { BookIcon } from '@sanity/icons'
 import authorType from './author'
 
 const SmallStyle = props => (
@@ -74,12 +73,22 @@ export function defineFormattedTextField(name, title, description, hidden){
     })
 }
 
+
 export function defineExcerpt(){
+  return defineField({
+      name: 'excerpt',
+      title: 'Sommaire',
+      description: "Texte court résumant la page pour les références d'autres pages",
+      type: 'text',
+  })
+}
+
+export function defineTags(){
     return defineField({
-        name: 'excerpt',
-        title: 'Sommaire',
-        description: "Texte court résumant la page pour les références d'autres pages",
-        type: 'text',
+        name: 'tags',
+        title: 'Étiquettes',
+        description: "Mots-clé permettant de catégoriser l'article",
+        type: 'tags',
     })
 }
 

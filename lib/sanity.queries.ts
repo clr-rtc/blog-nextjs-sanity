@@ -3,12 +3,21 @@ import { groq } from 'next-sanity'
 const postFields = groq`
   _id,
   title,
+  tags,
+  whereToShow,
+  postType,
+  originalProblem,
+  severity,s
+  problem,
+  impact,
+  risks,
   date,
   _updatedAt,
   excerpt,
   coverImage,
   "slug": slug.current,
   "author": author->{name, picture},
+
 `
 
 const pageFields = groq`
@@ -120,6 +129,9 @@ export interface Author {
 export interface Post {
   _id: string
   title?: string
+  tags:{label: string, value: string}[]
+  whereToShow: 'hero' | 'archives' | 'none'
+  postType:'problem' | 'follow-up' | 'announcement' |'general'
   coverImage?: any
   date?: string
   _updatedAt?: string
@@ -128,6 +140,23 @@ export interface Post {
   slug?: string
   content?: any
 }
+/*
+ title,
+  tags,
+  whereToShow,
+  postType,
+  originalProblem,
+  severity,s
+  problem,
+  impact,
+  risks,
+  date,
+  _updatedAt,
+  excerpt,
+  coverImage,
+  "slug": slug.current,
+  "author": author->{name, picture},
+*/
 
 export interface Page {
   _id: string

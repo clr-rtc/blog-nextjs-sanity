@@ -14,6 +14,9 @@ import {
 import { locate } from 'plugins/locate'
 import { previewDocumentNode } from 'plugins/previewPane'
 import { settingsPlugin, settingsStructure } from 'plugins/settings'
+
+import {tags} from 'sanity-plugin-tags'
+
 import { defineConfig } from 'sanity'
 import { deskTool } from 'sanity/desk'
 import { unsplashImageAsset } from 'sanity-plugin-asset-source-unsplash'
@@ -64,5 +67,6 @@ export default defineConfig({
     // Vision lets you query your content with GROQ in the studio
     // https://www.sanity.io/docs/the-vision-plugin
     visionTool({ defaultApiVersion: apiVersion }),
+    tags({})
   ],
 })

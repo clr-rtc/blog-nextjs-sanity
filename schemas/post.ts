@@ -1,7 +1,7 @@
 import { BookIcon } from '@sanity/icons'
 import { format, parseISO } from 'date-fns'
 import { defineField, defineType } from 'sanity'
-import {defineAuthor, defineCoverImage, defineExcerpt, defineFormattedTextField, definePublicationDate, defineSlugField} from './fields'
+import {defineAuthor, defineTags, defineCoverImage, defineExcerpt, defineFormattedTextField, definePublicationDate, defineSlugField} from './fields'
 import authorType from './author'
 
 /**
@@ -28,18 +28,20 @@ export default defineType({
       type: 'string',
       validation: (rule) => rule.required(),
     }),
+    defineTags(),
     defineField({
       title: "Affichage",
       description: "Choisir où apparait cet articles",
-      name: 'showInHero',
+      name: 'whereToShow',
       type: 'string',
       options: {
         list: [
-          {title: "Afficher dans la section principale de l'accueil", value: 'true'},
-          {title: "Afficher seulement dans les historiques et archives", value: 'false'}
+          {title: "Afficher à l'accueil, dans les listes et archives", value: 'hero'},
+          {title: "Afficher seulement dans les listes et archives", value: 'archives'},
+          {title: "Ne pas afficher", value: 'none'}
         ], 
       },
-      initialValue: 'true'
+      initialValue: 'hero'
       
     }),
     defineField({
@@ -95,7 +97,7 @@ export default defineType({
     defineFormattedTextField('content', 'Contenu', "Contenu principal de l'article", ({document}) => document.postType === 'problem'),
     defineFormattedTextField('problem', 'Description', "Explication générale du problème", ({document}) => document.postType !== 'problem'),
     defineFormattedTextField('impact', 'Impact Courant', "Quels sont les dommages qui ont été causés", ({document}) => document.postType !== 'problem'),
-    defineFormattedTextField('risques', 'Risques', "Quels sont les rispques potentiels", ({document}) => document.postType !== 'problem'),
+    defineFormattedTextField('risks', 'Risques', "Quels sont les rispques potentiels", ({document}) => document.postType !== 'problem'),
 
     defineExcerpt(),
     defineCoverImage(),
