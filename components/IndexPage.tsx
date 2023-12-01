@@ -46,14 +46,15 @@ export default function IndexPage(props: IndexPageProps) {
             </ListBanner>
 
             {heroPosts?.length > 0 && heroPosts.map((heroPost, index) =>
-              (<HeroPost
-                key={index}
+              (<div key={index} className="border-b border-gray-500"><HeroPost
+                
                 {...heroPost}
                 /> 
+                </div>
               ))}  
             <div className="py-1 my-4  text-center  text-xl    md:text-xl">
             <Link href={`/pages/problems`} className={"text-white bg-gray-900/60 hover:bg-gray-900 rounded-lg py-2 px-4 "}>
-             Voir toutes les priorités&nbsp;&#8674;</Link>
+             Voir toutes les priorités du comité&nbsp;&#8674;</Link>
             </div>          
 
             <ListBanner>  

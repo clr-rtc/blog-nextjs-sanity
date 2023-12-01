@@ -77,17 +77,26 @@ type ProblemPostBodyProps = {
 
 export function ProblemPostBody(props: ProblemPostBodyProps){
   return <div className="flex flex-col">
+    <div className="w-full border-b border-gray-500 mb-2" />
     <Severity post={props.post}/>
     <Status post={props.post}/>
-    <ProblemDescription post={props.post}/>
+    <div className="w-full border-b border-gray-500 mt-2" />
     <ProblemImpact post={props.post}/>
+    <div className="w-full border-b border-gray-500 mt-2" />
     <ProblemRisks post={props.post}/>
+    <div className="w-full border-b border-gray-500 mt-2" />
+    <NextSteps post={props.post}/>
+    <div className="w-full border-b border-gray-500 mb-2" />
+    <ProblemDescription post={props.post}/>
+
+
   </div>
 }
 
 export const severityShortDescription = {
   "critical": "Critique",
-  "important": "Grave",
+  "important": "Important",
+  "service": "Important",
   "prevention" : "Prévention",
   "nuisance" : "Nuisance"
 }
@@ -95,6 +104,7 @@ export const severityShortDescription = {
 const severityDescription = {
   "critical": "Critique - à régler d'urgence",
   "important": "Important - réduit grandement la qualité de vie",
+  "service": "Important - réduit grandement la qualité du service",
   "prevention" : "Prévention - agir avant que le problème ne produise",
   "nuisance" : "Nuisance - nuisance à régler dans le courant de l'année"
 }
@@ -109,18 +119,20 @@ function Severity(props: {post: Post}){
 export const shortStatusDescription = {
   "new": "Nouveau",
   "accepted" : "À l'étude",
-  "in progress" : "En cours",
+  "in progress" : "À suivre",
   "rejected" : "Rejeté",
   "resolved" : "Résolu",
+  "verify" : "À vérifier",
   "closed" : "Fermé"
 }
 
 const statusDescription = {
   "new": "Nouveau - à discuter avec l'administration",
   "under review": "À l'étude - l'administation doit étudier la situation pour confirmer une solution",
-  "in progress" : "En cours - l'administation reconnait le problèem et traville dessus",
+  "in progress" : "À suivre - l'administation reconnait le problème et traville dessus",
   "rejected" : "Rejeté - l'administration ne veut pas reconnaitre le problème",
   "resolved" : "Résolu - le problème est réglé",
+  "verify" : "À vérifier - l'administration dit que le problème est réglé",
   "closed" : "Fermé - le problème n'est plus prioritaire"
 }
 
@@ -135,9 +147,9 @@ function ProblemDescription(props: {post: Post}){
     return <></>
   }
 
-  return <div><div className="font-bold">Description du problème:</div><div className='px-0'>
-    <PortableText value={props.post.problem} components={customPortableTextComponents} />
-    </div></div>
+  return <div><div className="font-bold">Description du problème:</div>
+    <PostBody content={props.post.problem}  />
+    </div>
 }
 
 function ProblemImpact(props: {post: Post}){
@@ -146,7 +158,7 @@ function ProblemImpact(props: {post: Post}){
   }
   
   return <div className="pt-2"><div className="font-bold">Impact du problème:</div><div className='px-0'>
-    <PortableText value={props.post.impact} components={customPortableTextComponents} />
+    <PostBody content={props.post.impact}  />
     </div></div>
 }
 
@@ -156,6 +168,16 @@ function ProblemRisks(props: {post: Post}){
   }
   
   return <div className="pt-2"><div className="font-bold">Risques:</div><div className='px-0'>
-    <PortableText value={props.post.risks} components={customPortableTextComponents} />
+    <PostBody content={props.post.risks}  />
+    </div></div>
+}
+
+function NextSteps(props: {post: Post}){
+  if (!props?.post?.next_steps){
+    return <></>
+  }
+  
+  return <div className="pt-2"><div className="font-bold">Prochaines démarches:</div><div className='px-0'>
+    <PostBody content={props.post.next_steps}  />
     </div></div>
 }

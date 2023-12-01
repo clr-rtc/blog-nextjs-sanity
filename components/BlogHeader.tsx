@@ -1,4 +1,4 @@
-import { PortableText } from '@portabletext/react'
+
 import HeaderImage from './header_image.jpg'
 import Link from 'next/link'
 import Image from 'next/image'

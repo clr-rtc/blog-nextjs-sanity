@@ -12,6 +12,7 @@ const VerySmallStyle = props => (
   <span className="text-xs ">{props.children} </span>
 )
 
+
 export function defineSlugField() {
     return defineField({
         name: 'slug',

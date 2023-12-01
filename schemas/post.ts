@@ -28,7 +28,7 @@ export default defineType({
       type: 'string',
       validation: (rule) => rule.required(),
     }),
-    defineTags(),
+    definePublicationDate(),
     defineField({
       title: "Type d'article",
       description: "Choisir la sorte de contenu de l'article",
@@ -60,6 +60,7 @@ export default defineType({
       initialValue: 'hero',
       hidden:  ({document}) => document.postType === 'follow-up',
     }),
+    defineTags(),
 
     defineField({
       title: "Problème original",
@@ -87,7 +88,8 @@ export default defineType({
         list: [
           {title: "Critique - à régler d'urgence", value: 'critical'},
           {title: "Important - réduit grandement la qualité de vie", value: 'important'},
-          {title: "Prévention - agir avant que le problème ne produise", value: 'prevention'},
+          {title: "Important - réduit grandement la qualité du service", value: 'service'},
+          {title: "Prévention - agir avant que le problème ne se produise", value: 'prevention'},
           {title: "Nuisance - nuisance à régler dans le courant de l'année", value: 'nuisance'}
         ], 
       },
@@ -103,8 +105,9 @@ export default defineType({
         list: [
           {title: "Nouveau - à discuter avec l'administration", value: 'new'},
           {title: "À l'étude - l'administation doit étudier la situation pour confirmer une solution", value: 'under review'},
-          {title: "Travaux en cours - l'administation admet le problème et travaille dessus", value: 'in progress'},
+          {title: "À suivre - l'administation admet le problème et travaille dessus", value: 'in progress'},
           {title: "Rejeté - l'administration ne veut pas reconnaitre le problème", value: 'rejected'},
+          {title: "À vérifier - l'administration dit que le problème est réglé", value: 'verify'},
           {title: "Résolu - le problème est réglé", value: 'resolved'},
           {title: "Fermé - le problème n'est plus prioritaire", value: 'closed'}
         ], 
@@ -116,10 +119,11 @@ export default defineType({
     defineFormattedTextField('problem', 'Description', "Explication générale du problème", ({document}) => document.postType !== 'problem'),
     defineFormattedTextField('impact', 'Impact Courant', "Quels sont les dommages qui ont été causés", ({document}) => document.postType !== 'problem'),
     defineFormattedTextField('risks', 'Risques', "Quels sont les rispques potentiels", ({document}) => document.postType !== 'problem'),
+    defineFormattedTextField('next_steps', 'Prochaines Démarches', "Quels seront les prochaines démarches pour réglé le prolbème", ({document}) => document.postType !== 'problem'),
 
     defineExcerpt(),
     defineCoverImage(),
-    definePublicationDate(),
+
     defineAuthor(),
     defineSlugField()
   ],

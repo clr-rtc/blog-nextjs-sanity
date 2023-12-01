@@ -24,9 +24,11 @@
   @apply mb-4 mt-8 text-2xl leading-snug;
 }
 
-.portableText a {
+div.portableText  a {
   @apply text-blue-500 underline;
 }
+
+
 .portableText a:hover {
   @apply text-blue-800;
 }

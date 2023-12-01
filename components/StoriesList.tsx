@@ -27,8 +27,8 @@ export default function StoriesList({ posts, maxStories=3, noNavigation, compact
           if (compact){
             return (
             <div key={index} className="flex flex-row">
-              <div className="w-36 text-xs"><PostDate dateString={post.date} plain={true}/></div>
-              <div className="w-24 text-xs">{shortStatusDescription[post.status||'new']}</div>
+              <div className="w-36 text-sm"><PostDate dateString={post.date} plain={true}/></div>
+              <div className="w-24 text-sm">{shortStatusDescription[post.status||'new']}</div>
               <div className="w-24 text-sm">{severityShortDescription[post.severity||'important']}</div>
               <div className="w-96 flex flex-col">
               <div className="w-96 text-sm text-indigo-800"><Link href={`/posts/${post.slug}`}>{post.title}</Link></div>

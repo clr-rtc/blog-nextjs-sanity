@@ -4,7 +4,7 @@ import Date from 'components/PostDate'
 import type { Post } from 'lib/sanity.queries'
 import Link from 'next/link'
 import { COLOR_LINK } from './colors'
-import { PortableText } from '@portabletext/react'
+import PostBody from './PostBody'
 
 export default function HeroPost(
   props: Pick<
@@ -28,7 +28,7 @@ export default function HeroPost(
               <CoverImage key={slug} slug={slug} title={title} image={coverImage} priority />
             </div>}
 
-            {(!excerpt && content) && <PortableText value={content} />}
+            {(!excerpt && content) &&  <PostBody content={content} />}
 
           {(excerpt ) && (<><p className="mb-4 text-lg leading-relaxed">{excerpt}</p>
          
