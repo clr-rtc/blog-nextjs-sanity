@@ -4,14 +4,15 @@ import BlogHeader from 'components/BlogHeader'
 import Layout from 'components/BlogLayout'
 import HeroPost from 'components/HeroPost'
 import IndexPageHead from 'components/IndexPageHead'
-import MoreStories from 'components/MoreStories'
+import StoriesList from 'components/StoriesList'
 import IntroTemplate from 'intro-template'
 import * as demo from 'lib/demo.data'
 import type { Post, Part, Settings, MenuItem } from 'lib/sanity.queries'
 
 import BlogPart from 'components/BlogPart'
 import StandardPageLayout from 'components/StandardPageLayout'
-
+import ListBanner  from './ListBanner'
+import Link from 'next/link'
 
 export interface IndexPageProps {
   preview?: boolean
@@ -26,9 +27,10 @@ export interface IndexPageProps {
 export default function IndexPage(props: IndexPageProps) {
   const { preview, loading, posts, parts, settings } = props
 
-  const heroPosts = posts?.filter((p)=> p.)
-  const [heroPost, ...morePosts] = posts || []
-  const { title = demo.title, description = demo.description } = settings || {}
+  const heroPosts = posts?.filter((p)=> p.whereToShow === 'hero')
+  const linkedPosts = posts?.filter((p)=> p.whereToShow !== 'hero' && p.whereToShow !== 'none')
+
+  const { title , description } = settings || {}
 
   return (
     <>
@@ -39,15 +41,25 @@ export default function IndexPage(props: IndexPageProps) {
           <BlogHeader title={title} description={description} parts={parts} menuItems={props.menuItems} />
           
           <StandardPageLayout parts={parts}>
-            {heroPost && (<HeroPost
-                title={heroPost.title}
-                coverImage={heroPost.coverImage}
-                date={heroPost.date}
-                author={heroPost.author}
-                slug={heroPost.slug}
-                excerpt={heroPost.excerpt}
-                /> )}            
-                {morePosts.length > 0 && <div className="w-full pt-4"><MoreStories posts={morePosts} /></div>}
+          <ListBanner highlight={true}>
+            Actualités
+            </ListBanner>
+
+            {heroPosts?.length > 0 && heroPosts.map((heroPost, index) =>
+              (<HeroPost
+                key={index}
+                {...heroPost}
+                /> 
+              ))}  
+            <div className="py-1 my-4  text-center  text-xl    md:text-xl">
+            <Link href={`/pages/problems`} className={"text-white bg-gray-900/60 hover:bg-gray-900 rounded-lg py-2 px-4 "}>
+             Voir toutes les priorités&nbsp;&#8674;</Link>
+            </div>          
+
+            <ListBanner>  
+            Autres Articles
+            </ListBanner>        
+            {linkedPosts.length > 0 && <div className="w-full pt-4"><StoriesList posts={linkedPosts} maxStories={2}/></div>}
           </StandardPageLayout>
             
         </Container>

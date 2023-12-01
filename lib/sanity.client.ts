@@ -7,6 +7,7 @@ import {
 } from 'lib/sanity.api'
 import {
   indexQuery,
+  postListQuery,
   type Post,
   type Page,
   postAndMoreStoriesQuery,
@@ -53,8 +54,12 @@ export async function getSettings(client: SanityClient): Promise<Settings> {
   return (await client.fetch(settingsQuery)) || {}
 }
 
-export async function getAllPosts(client: SanityClient): Promise<Post[]> {
+export async function getIndexPosts(client: SanityClient): Promise<Post[]> {
   return (await client.fetch(indexQuery)) || []
+}
+
+export async function getAllPosts(client: SanityClient): Promise<Post[]> {
+  return (await client.fetch(postListQuery)) || []
 }
 
 export async function getAllParts(client: SanityClient): Promise<Post[]> {
@@ -67,10 +72,10 @@ export async function getAllPages(client: SanityClient): Promise<Page[]> {
 
 export async function getMenuItems(client: SanityClient): Promise<MenuItem[]> {
   const menuItems = (await client.fetch(menuItemsQuery))?.map((item) => {
-    return {label: item.title, uri: item.slug && item.slug !== '/' ? `/pages/${item.slug}` : '/', menuSequenceNo: (item.menuSequenceNo||0) }
+    return {label: item.title, uri: item.slug && item.slug !== '/' ? `/pages/${item.slug}` : '/', slug: item.slug, menuSequenceNo: (item.menuSequenceNo||0) }
   }) || []
 
-  console.log(`getMenuItems: ${JSON.stringify(menuItems)}`)
+ // console.log(`getMenuItems: ${JSON.stringify(menuItems)}`)
   return menuItems
 }
 
@@ -83,7 +88,7 @@ export async function getAllPostsSlugs(): Promise<Pick<Post, 'slug'>[]> {
 export async function getAllPagesSlugs(): Promise<Pick<Page, 'slug'>[]> {
   const client = getClient()
   const slugs = (await client.fetch<string[]>(pageSlugsQuery)) || []
-  console.log(`getAllPagesSlugs: ${JSON.stringify(slugs)}`)
+
   return slugs.map((slug) => ({ slug }))
 }
 export async function getPostBySlug(

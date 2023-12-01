@@ -4,6 +4,8 @@ import Date from 'components/PostDate'
 import type { Post } from 'lib/sanity.queries'
 import Link from 'next/link'
 
+import TagButtonList from './TagButtonList'
+
 export default function PostPreview({
   title,
   coverImage,
@@ -11,6 +13,7 @@ export default function PostPreview({
   excerpt,
   author,
   slug,
+  tags
 }: Omit<Post, '_id'>) {
 
     return (
@@ -33,7 +36,8 @@ export default function PostPreview({
             <Link href={`/posts/${slug}`} className="hover:underline">
               {title}
             </Link>
-          </p>
+            {tags && <TagButtonList tags={tags} />}        
+            </p>
           <p className="mb-4 text-lg">
             <Date dateString={date} />
           </p>

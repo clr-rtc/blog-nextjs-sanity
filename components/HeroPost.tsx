@@ -3,14 +3,16 @@ import CoverImage from 'components/CoverImage'
 import Date from 'components/PostDate'
 import type { Post } from 'lib/sanity.queries'
 import Link from 'next/link'
+import { COLOR_LINK } from './colors'
+import { PortableText } from '@portabletext/react'
 
 export default function HeroPost(
   props: Pick<
     Post,
-    'title' | 'coverImage' | 'date' | 'excerpt' | 'author' | 'slug'
+    'title' | 'coverImage' | 'date' | 'excerpt' | 'author' | 'slug' | 'content'
   >,
 ) {
-  const { title, coverImage, date, excerpt, author, slug } = props
+  const { title, coverImage, date, excerpt, author, slug, content } = props
   return (
     <section >
           <h3 className="py-4 text-2xl font-semibold lg:text-4xl  text-blue-900 text-center  ">
@@ -26,10 +28,13 @@ export default function HeroPost(
               <CoverImage key={slug} slug={slug} title={title} image={coverImage} priority />
             </div>}
 
-          {excerpt && <p className="mb-4 text-lg leading-relaxed">{excerpt}</p>}
-          <Link href={`/posts/${slug}`} className="hover:underline italic font-bold text-blue-500">
-              {'En savoir plus...'}
-            </Link>
+            {(!excerpt && content) && <PortableText value={content} />}
+
+          {(excerpt ) && (<><p className="mb-4 text-lg leading-relaxed">{excerpt}</p>
+         
+          <Link href={`/posts/${slug}`} className={"hover:underline font-bold italic " + COLOR_LINK} >
+              En savoir plus...
+            </Link></>)}
           {author && (
             <AuthorAvatar name={author.name} picture={author.picture} />
           )}

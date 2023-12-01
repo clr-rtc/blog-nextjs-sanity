@@ -2,6 +2,7 @@ import { format, parseISO } from 'date-fns'
 import { defineField, defineType, defineArrayMember } from 'sanity'
 import { BookIcon } from '@sanity/icons'
 import authorType from './author'
+import { defaultSlugify } from './slugOnSave'
 
 const SmallStyle = props => (
   <span className="text-sm">{props.children} </span>
@@ -21,8 +22,8 @@ export function defineSlugField() {
           source: 'title',
           maxLength: 96,
           isUnique: (value, context) => context.defaultIsUnique(value, context),
-        },
-        validation: (rule) => rule.required(),
+          slugify: defaultSlugify
+        }
       })
 }
 
@@ -89,6 +90,9 @@ export function defineTags(){
         title: 'Étiquettes',
         description: "Mots-clé permettant de catégoriser l'article",
         type: 'tags',
+        options: {
+            includeFromRelated: 'tags'
+        }
     })
 }
 

@@ -27,9 +27,9 @@ import pageType from 'schemas/page'
 import blockType from 'schemas/block'
 import settingsType from 'schemas/settings'
 import block from 'schemas/block'
+import {SlugOnSave} from 'schemas/slugOnSave'
 
-const title =
-  process.env.NEXT_PUBLIC_SANITY_PROJECT_TITLE || 'Next.js Blog with Sanity.io'
+const title = process.env.NEXT_PUBLIC_SANITY_PROJECT_TITLE || "Blog" 
 
   
 export default defineConfig({
@@ -40,6 +40,13 @@ export default defineConfig({
   schema: {
     // If you want more content types, you can add them to this array
     types: [authorType, postType, partType, pageType, settingsType, blockType],
+  },
+  document: {
+    actions: (prev) =>{
+      console.log(`map previous actions: ${JSON.stringify(prev)}`)
+      return prev.map((originalAction) =>
+        originalAction.action === 'publish' ? SlugOnSave(originalAction) : originalAction
+      )},
   },
   plugins: [
     deskTool({

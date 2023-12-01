@@ -1,8 +1,9 @@
 import Container from 'components/BlogContainer'
 import BlogHeader from 'components/BlogHeader'
 import Layout from 'components/BlogLayout'
-import MoreStories from 'components/MoreStories'
-import PostBody from 'components/PostBody'
+import StoriesList from 'components/StoriesList'
+import PostBody, { FollowUpBody } from 'components/PostBody'
+import {ProblemPostBody} from 'components/PostBody'
 import PostHeader from 'components/PostHeader'
 import PostPageHead from 'components/PostPageHead'
 import PostTitle from 'components/PostTitle'
@@ -12,6 +13,8 @@ import type { Part, Post, Settings, MenuItem } from 'lib/sanity.queries'
 import { notFound } from 'next/navigation'
 
 import StandardPageLayout from 'components/StandardPageLayout'
+import ListBanner  from './ListBanner'
+
 
 
 export interface PostPageProps {
@@ -36,6 +39,13 @@ export default function PostPage(props: PostPageProps) {
     notFound()
   }
 
+  let followUps: Post[] = undefined
+  if (post.postType === 'problem'){
+    followUps = morePosts.filter((p) => p.postType === 'follow-up' && 
+    p.originalProblem?._ref === post._id
+    )
+  }
+
   return (
     <>
       <PostPageHead settings={settings} post={post}  />
@@ -51,15 +61,24 @@ export default function PostPage(props: PostPageProps) {
             <>
               <article>
                 <PostHeader
-                  title={post.title}
-                  
-                  date={post.date}
-                  author={post.author}
+                  {...post}
                 />
-                <PostBody content={post.content} />
+                {post.postType !== 'problem' ?
+                  <PostBody content={post.content} /> : <></>}
+                {post.postType === 'problem' ?
+                  <ProblemPostBody post={post} /> : <></>}
+                {followUps?.length > 0 && <div className="pt-2">
+                  <ListBanner highlight={true}>{'Suivis'}</ListBanner> 
+                  {followUps.map((f, index) => {
+                  return <FollowUpBody key={index} post={f} />
+                })}</div>}
               </article>
               <SectionSeparator />
-              {morePosts?.length > 0 && <MoreStories posts={morePosts} />}
+              {morePosts?.length > 0 && 
+              <div className="flex flex-col">
+                 <ListBanner>{'Autres articles'}</ListBanner>
+                <StoriesList posts={morePosts} />
+              </div>}
             </>
           )}
           </StandardPageLayout>

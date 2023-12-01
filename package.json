@@ -36,6 +36,7 @@
     "sanity-plugin-asset-source-unsplash": "1.1.2",
     "sanity-plugin-iframe-pane": "3.1.1",
     "sanity-plugin-tags": "^2.0.1",
+    "speakingurl": "^14.0.1",
     "styled-components": "6.1.1",
     "swr": "2.2.4"
   },

@@ -1,5 +1,6 @@
 import { groq } from 'next-sanity'
 
+
 const postFields = groq`
   _id,
   title,
@@ -7,17 +8,18 @@ const postFields = groq`
   whereToShow,
   postType,
   originalProblem,
-  severity,s
+  severity,
+  status,
   problem,
   impact,
   risks,
   date,
   _updatedAt,
+  content,
   excerpt,
   coverImage,
   "slug": slug.current,
-  "author": author->{name, picture},
-
+  "author": author->{name, picture}
 `
 
 const pageFields = groq`
@@ -45,10 +47,10 @@ const partFields = groq`
   date,
   _updatedAt,
   excerpt,
-  coverImage,
   content,
+  coverImage,
   "slug": slug.current,
-  "author": author->{name, picture},
+  "author": author->{name, picture}
 `
 
 export const settingsQuery = groq`*[_type == "settings"][0]`
@@ -56,7 +58,15 @@ export const settingsQuery = groq`*[_type == "settings"][0]`
 export const indexQuery = groq`
 *[_type == "post"] | order(date desc, _updatedAt desc) {
   ${postFields}
-}`
+}
+`
+
+export const postListQuery = groq`
+*[_type == "post"] | order(date desc, _updatedAt desc) {
+  ${postFields}
+}
+`
+
 
 export const pagesQuery = groq`
 *[_type == "page" && slug.current != "/"] | order(date desc, _updatedAt desc) {
@@ -80,7 +90,7 @@ export const postAndMoreStoriesQuery = groq`
     content,
     ${postFields}
   },
-  "morePosts": *[_type == "post" && slug.current != $slug] | order(date desc, _updatedAt desc) [0...2] {
+  "morePosts": *[_type == "post" && slug.current != $slug] | order(date desc, _updatedAt desc) {
     content,
     ${postFields}
   }
@@ -112,7 +122,7 @@ export const postSlugsQuery = groq`
 `
 
 export const pageSlugsQuery = groq`
-*[_type == "page" && slug.current != "/" && defined(slug.current)][].slug.current
+*[_type == "page" && slug.current && defined(slug.current)][].slug.current
 `
 
 export const postBySlugQuery = groq`
@@ -139,24 +149,16 @@ export interface Post {
   author?: Author
   slug?: string
   content?: any
+  severity?: string
+  status: string
+  problem?: any
+  impact?: any
+  risks?: any
+  originalProblem?: {
+    _ref: string
+    _type: string
+  }
 }
-/*
- title,
-  tags,
-  whereToShow,
-  postType,
-  originalProblem,
-  severity,s
-  problem,
-  impact,
-  risks,
-  date,
-  _updatedAt,
-  excerpt,
-  coverImage,
-  "slug": slug.current,
-  "author": author->{name, picture},
-*/
 
 export interface Page {
   _id: string
@@ -173,6 +175,7 @@ export interface Page {
 export interface MenuItem {
   label?: string
   uri?: string
+  slug?: string
   menuSequenceNo?: number
 }
 

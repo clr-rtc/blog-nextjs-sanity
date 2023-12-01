@@ -1,8 +1,9 @@
 import Container from 'components/BlogContainer'
 import BlogHeader from 'components/BlogHeader'
 import Layout from 'components/BlogLayout'
-import MoreStories from 'components/MoreStories'
+import StoriesList from 'components/StoriesList'
 import PostBody from 'components/PostBody'
+
 import PostHeader from 'components/PostHeader'
 import PostPageHead from 'components/PostPageHead'
 import PostTitle from 'components/PostTitle'
@@ -55,8 +56,6 @@ export default function PagePage(props: PagePageProps) {
                 />
                 <PostBody content={page.content} />
               </article>
-              <SectionSeparator />
-              {posts?.length > 0 && <MoreStories posts={posts} />}
             </>
           )}
           </StandardPageLayout>

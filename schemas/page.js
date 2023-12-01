@@ -19,7 +19,7 @@ import authorType from './author'
 
 export default defineType({
   name: 'page',
-  title: 'Pages Standard',
+  title: 'Pages',
   icon: BookIcon,
   type: 'document',
   fields: [

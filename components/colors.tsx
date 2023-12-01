@@ -1,0 +1,1 @@
+export const COLOR_LINK = "text-indigo-800/75"

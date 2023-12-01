@@ -7,6 +7,7 @@ import styles from './BlogHeader.module.css'
 
 import BlogPart from 'components/BlogPart'
 import type { Part, MenuItem } from 'lib/sanity.queries'
+import { useRouter } from 'next/router'
 
 
 type MenuProps = {
@@ -14,13 +15,19 @@ type MenuProps = {
 }
 
 const Menu = (props: MenuProps) => {
+  const router = useRouter()
+  const route =router.route
+  const slug = router.query['slug']
+
+  const pageNo = props.menuItems.find((item) => (slug && item.slug === slug) || item.uri === route)?.menuSequenceNo || 1
   
   const menuItems = props.menuItems.filter((item) => item.label && item.menuSequenceNo).sort((item1, item2) => item1.menuSequenceNo - item2.menuSequenceNo)
-
-  return <div className="flex flex-row gap-4 justify-start pb-4 text-xs text-[#8b6b36]">{menuItems.map((item, index) => 
+ console.log(`menuItems: ${JSON.stringify(menuItems)}`)
+  return <div className="flex flex-row gap-6 justify-start pb-4 text-lg text-[#8b6b36]/50  ">
+    {menuItems.map((item, index) => 
   (
-  <Link key={index} href={item.uri} className="hover:underline">
-              {item.label || 'Untitled'}
+  <Link key={index} href={item.uri} className={"hover:underline hover:text-gray-700 px-2 active:bg-[#8b6b36]/50 " + (pageNo === item.menuSequenceNo? ' text-[#8b6b36]' : '')}>
+             {item.label || 'Untitled'}
             </Link>
   ) )}</div>
 }
