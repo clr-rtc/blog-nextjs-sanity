@@ -23,14 +23,19 @@ export default function Page(props: PageProps) {
 
   const { posts, parts, menuItems, settings, draftMode } = props
   const router = useRouter()
-  const { pageNo } = router.query
+   
+  const  pageNoMatch = router.query['pageNo']
   
+  const pageNo = Number(pageNoMatch?.[0] || 1)
+  const filter = pageNoMatch?.[1] as string
+
+  console.log( `pageNo: ${JSON.stringify(pageNo)}`)
 
   if (draftMode) {
-    return <PreviewPostListPage menuItems={menuItems} posts={posts} parts={parts} settings={settings} pageNo={Number(pageNo)}/>
+    return <PreviewPostListPage menuItems={menuItems} posts={posts} parts={parts} settings={settings} pageNo={pageNo} filter={filter}/>
   }
 
-  return <PostListPage menuItems={menuItems} posts={posts} parts={parts} settings={settings} pageNo={Number(pageNo)}/>
+  return <PostListPage menuItems={menuItems} posts={posts} parts={parts} settings={settings}  pageNo={pageNo} filter={filter}/>
 }
 
 export const getServerSideProps: GetStaticProps<PageProps, Query> = async (ctx) => {

@@ -24,7 +24,7 @@ export default defineType({
   fields: [
     defineField({
       name: 'title',
-      title: 'Titre',
+      title: "Nom de l'article",
       type: 'string',
       validation: (rule) => rule.required(),
     }),
@@ -45,21 +45,7 @@ export default defineType({
       initialValue: 'problem'
       
     }),
-    defineField({
-      title: "Affichage",
-      description: "Choisir où apparait cet articles",
-      name: 'whereToShow',
-      type: 'string',
-      options: {
-        list: [
-          {title: "Afficher dans les actualités, les listes et les archives", value: 'hero'},
-          {title: "Afficher seulement dans les listes et les archives", value: 'archives'},
-          {title: "Ne pas afficher", value: 'none'}
-        ], 
-      },
-      initialValue: 'hero',
-      hidden:  ({document}) => document.postType === 'follow-up',
-    }),
+
     defineTags(),
 
     defineField({
@@ -123,7 +109,21 @@ export default defineType({
 
     defineExcerpt(),
     defineCoverImage(),
-
+    defineField({
+      title: "Affichage",
+      description: "Choisir où apparait cet articles",
+      name: 'whereToShow',
+      type: 'string',
+      options: {
+        list: [
+          {title: "Afficher dans les actualités, les listes et les archives", value: 'hero'},
+          {title: "Afficher seulement dans les listes et les archives", value: 'list'},
+          {title: "Afficher seulement dans la liste de priorités et les archives", value: 'problems'},
+          {title: "Ne pas afficher", value: 'none'}
+        ], 
+      },
+      hidden:  ({document}) => document.postType === 'follow-up',
+    }),
     defineAuthor(),
     defineSlugField()
   ],

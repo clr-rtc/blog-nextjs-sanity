@@ -28,7 +28,7 @@ export default function IndexPage(props: IndexPageProps) {
   const { preview, loading, posts, parts, settings } = props
 
   const heroPosts = posts?.filter((p)=> p.whereToShow === 'hero')
-  const linkedPosts = posts?.filter((p)=> p.whereToShow !== 'hero' && p.whereToShow !== 'none')
+  const linkedPosts = posts?.filter((p)=> p.whereToShow === 'list')
 
   const { title , description } = settings || {}
 
@@ -53,14 +53,26 @@ export default function IndexPage(props: IndexPageProps) {
                 </div>
               ))}  
             <div className="py-1 my-4  text-center  text-xl    md:text-xl">
-            <Link href={`/pages/problems`} className={"text-white bg-gray-900/60 hover:bg-gray-900 rounded-lg py-2 px-4 "}>
+            <Link href={`/pages/problems`} className={"text-white bg-gray-900/75 hover:bg-gray-900 rounded-lg py-2 px-4 "}>
              Voir toutes les priorités du comité&nbsp;&#8674;</Link>
             </div>          
 
-            <ListBanner>  
+             
+            {linkedPosts.length > 0 && 
+            <>
+                <ListBanner>  
             Autres Articles
-            </ListBanner>        
-            {linkedPosts.length > 0 && <div className="w-full pt-4"><StoriesList posts={linkedPosts} maxStories={2}/></div>}
+            </ListBanner>   
+            <div className="w-full pt-4"><StoriesList posts={linkedPosts} maxStories={5}/></div>
+            <div className="py-1 mt-4  text-center  text-xl    md:text-xl">
+            <Link href={`/postlist/1`} className={"text-white bg-gray-900/75 hover:bg-gray-900 rounded-lg py-2 px-4 "}>
+             Voir tous les articles&nbsp;&#8674;</Link>
+      </div>   
+            </>
+            }
+        
+            
+   
           </StandardPageLayout>
             
         </Container>

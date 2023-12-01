@@ -29,6 +29,7 @@ interface Query {
 export default function ProjectSlugRoute(props: PageProps) {
   const { settings, posts, parts, page, draftMode } = props
 
+  console.log(`page slug: ${props.page?.slug}`)
   if (!props.page?.slug){
     return <></>
   }
@@ -54,6 +55,7 @@ export const getStaticProps: GetStaticProps<PageProps, Query> = async (ctx) => {
 
   ])
 
+  console.log(`slug:${params.slug} oage:${page?.title}`)
   return {
     props: {
       page,

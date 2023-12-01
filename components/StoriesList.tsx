@@ -44,11 +44,7 @@ export default function StoriesList({ posts, maxStories=3, noNavigation, compact
           }
         })}
       </div>
-      {!noNavigation && stories?.length < posts?.length &&
-      <div className="py-1 mt-4  text-center  text-xl    md:text-xl">
-            <Link href={`/postlist/1`} className={"text-white bg-gray-900/60 hover:bg-gray-900 rounded-lg py-2 px-4 "}>
-             Voir tous les articles&nbsp;&#8674;</Link>
-      </div> }         
+          
       </div>
     </section>
   )

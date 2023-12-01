@@ -17,11 +17,19 @@ import ListBanner  from './ListBanner'
 type NavButtonProps = {
   url: string
   children: any
+  disabled?: boolean
 }
+
 const NavButton = (props: NavButtonProps) => {
-  return <div className="py-1 mt-4  text-center  text-xl  font-semibold  md:text-xl">
-            <Link href={props.url} className={"text-white bg-indigo-800/75 hover:bg-indigo-800  py-2 px-4 rounded-lg"}>
-             {props.children}</Link>
+  
+  return <div className="py-1 mt-4 w-48 text-center  text-sm  font-semibold  ">
+          {props.disabled? (
+            <span className= "text-gray-400 bg-gray-300   py-2 px-4 rounded-lg">
+            {props.children}</span>) : 
+            <Link href={props.url} 
+            className={
+             "text-white  bg-gray-900/75 hover:bg-gray-900  py-2 px-4 rounded-lg"}>
+             {props.children}</Link>}
       </div>
 }
 
@@ -58,11 +66,10 @@ export default function PostListPage(props: PostListPageProps) {
          
           <StandardPageLayout parts={parts}>
           <ListBanner highlight={true}>{filter? ("Recherche: " + filter) : 'Tous les articles'}</ListBanner>
-            {pagePosts.length > 0 && <div className="w-full pt-4"><StoriesList posts={pagePosts} maxStories={PAGE_SIZE} noNavigation={true}/></div>}
-            <div className="flex flex-row">
-            {pageNo > 1 ? <NavButton url={`/postlist/${pageNo-1}${filterSuffix}`}> Précédent</NavButton> : <></>}
-            {pageNo*PAGE_SIZE < filteredPosts.length ? <NavButton url={`/postlist/${pageNo+1}${filterSuffix}`}>Suivant</NavButton> : <></>}
-            </div>
+          <NavBar />
+            {pagePosts.length > 0 && <div className="w-full pt-4">
+              <StoriesList posts={pagePosts} maxStories={PAGE_SIZE} noNavigation={true}/></div>}
+            <NavBar />
           </StandardPageLayout>
             
         </Container>
@@ -70,4 +77,19 @@ export default function PostListPage(props: PostListPageProps) {
       </Layout>
     </>
   )
+
+  function NavBar() {
+    const lastPageNo =filteredPosts.length? Math.floor((filteredPosts.length-1)/PAGE_SIZE) + 1 : 0
+    return <div className="flex flex-row ">
+      <NavButton 
+        disabled={pageNo === 1} 
+        url={`/postlist/${pageNo - 1}${filterSuffix}`}>
+        &lsaquo;&nbsp;Page précédente</NavButton>
+      <div className="flex flex-col w-18 justify-end">Page {pageNo} de {lastPageNo}</div>
+      <NavButton 
+        disabled={pageNo  >= lastPageNo} 
+        url={`/postlist/${pageNo + 1}${filterSuffix}`}>
+          Page suivante&nbsp;&rsaquo;</NavButton>
+    </div>
+  }
 }

@@ -27,7 +27,7 @@ import pageType from 'schemas/page'
 import blockType from 'schemas/block'
 import settingsType from 'schemas/settings'
 import block from 'schemas/block'
-import {SlugOnSave} from 'schemas/slugOnSave'
+import {CustomizedPublish} from 'schemas/customizedPublish'
 
 const title = process.env.NEXT_PUBLIC_SANITY_PROJECT_TITLE || "Blog" 
 
@@ -45,7 +45,7 @@ export default defineConfig({
     actions: (prev) =>{
       console.log(`map previous actions: ${JSON.stringify(prev)}`)
       return prev.map((originalAction) =>
-        originalAction.action === 'publish' ? SlugOnSave(originalAction) : originalAction
+        originalAction.action === 'publish' ? CustomizedPublish(originalAction) : originalAction
       )},
   },
   plugins: [

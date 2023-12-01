@@ -72,7 +72,15 @@ export async function getAllPages(client: SanityClient): Promise<Page[]> {
 
 export async function getMenuItems(client: SanityClient): Promise<MenuItem[]> {
   const menuItems = (await client.fetch(menuItemsQuery))?.map((item) => {
-    return {label: item.title, uri: item.slug && item.slug !== '/' ? `/pages/${item.slug}` : '/', slug: item.slug, menuSequenceNo: (item.menuSequenceNo||0) }
+    const isWildCard = item.slug?.endsWith('*')
+    const slug = isWildCard? item.slug.slice(0, item.slug.length - 1) : item.slug
+
+    return {
+      label: item.title, 
+      uri: slug && slug[0] !== '/' ? 
+        `/pages/${slug}` : slug, 
+        slug: item.slug, // Use the unmodified slug so we carry the * if present
+        menuSequenceNo: (item.menuSequenceNo||0) } // 0 is an invalid menu position
   }) || []
 
  // console.log(`getMenuItems: ${JSON.stringify(menuItems)}`)

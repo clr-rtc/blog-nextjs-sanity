@@ -2,7 +2,7 @@ import { format, parseISO } from 'date-fns'
 import { defineField, defineType, defineArrayMember } from 'sanity'
 import { BookIcon } from '@sanity/icons'
 import authorType from './author'
-import { defaultSlugify } from './slugOnSave'
+import { defaultSlugify } from './customizedPublish'
 
 const SmallStyle = props => (
   <span className="text-sm">{props.children} </span>

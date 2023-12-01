@@ -1,7 +1,7 @@
 import speakingurl from 'speakingurl'
 import {useDocumentOperation} from 'sanity'
 
-export function SlugOnSave(originalPublishAction) {
+export function CustomizedPublish(originalPublishAction) {
    
 
   const BetterAction = (props) => {
@@ -9,6 +9,9 @@ export function SlugOnSave(originalPublishAction) {
     const {patch} = useDocumentOperation(props.id, props.type)
     const patchSlug = (slugValue) => {
       patch.execute([{set: {slug: {current: slugValue, _type: 'slug'}}}])
+    }
+    const patchWhereToShow = (whereToShowValue) => {
+      patch.execute([{set: {whereToShow: whereToShowValue}}])
     }
     const originalResult = originalPublishAction(props)
     return {
@@ -26,6 +29,20 @@ export function SlugOnSave(originalPublishAction) {
             patchSlug(generatedSlug)
           }
         }
+
+        if ((props.type !== 'post' || props.type !== 'page') && props.draft.title && !props.draft.whereToShow) {
+          switch(props.draft.postType){
+            case 'problem':
+            patchWhereToShow('problems')
+            break;
+            case 'announcement':
+            case 'information':
+              patchWhereToShow('hero')
+            break;
+          }  
+        }
+
+        // check if there's no default whereToShow
         // then delegate to original handler
         originalResult.onHandle()
       },

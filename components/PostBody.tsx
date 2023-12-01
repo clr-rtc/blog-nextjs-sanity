@@ -82,11 +82,11 @@ export function ProblemPostBody(props: ProblemPostBodyProps){
     <Status post={props.post}/>
     <div className="w-full border-b border-gray-500 mt-2" />
     <ProblemImpact post={props.post}/>
-    <div className="w-full border-b border-gray-500 mt-2" />
+    
     <ProblemRisks post={props.post}/>
-    <div className="w-full border-b border-gray-500 mt-2" />
+    
     <NextSteps post={props.post}/>
-    <div className="w-full border-b border-gray-500 mb-2" />
+    
     <ProblemDescription post={props.post}/>
 
 
@@ -129,7 +129,7 @@ export const shortStatusDescription = {
 const statusDescription = {
   "new": "Nouveau - à discuter avec l'administration",
   "under review": "À l'étude - l'administation doit étudier la situation pour confirmer une solution",
-  "in progress" : "À suivre - l'administation reconnait le problème et traville dessus",
+  "in progress" : "À suivre - l'administation reconnait le problème et travaille dessus",
   "rejected" : "Rejeté - l'administration ne veut pas reconnaitre le problème",
   "resolved" : "Résolu - le problème est réglé",
   "verify" : "À vérifier - l'administration dit que le problème est réglé",
@@ -142,42 +142,38 @@ function Status(props: {post: Post}){
     </span></div>
 }
 
-function ProblemDescription(props: {post: Post}){
-  if (!props?.post?.problem){
+function ProblemSection(props: {content: any, children: any}){
+  if (!props.content){
     return <></>
   }
+  
+  return (
+    <div className="pt-2">
+      <div className="font-bold ">
+        {props.children}
+      </div>
+      <div className='px-0 border-b border-gray-500 mt-2'>
+        <PostBody content={props.content}  />
+      </div>
+    </div>)
+}
 
-  return <div><div className="font-bold">Description du problème:</div>
-    <PostBody content={props.post.problem}  />
-    </div>
+function ProblemDescription(props: {post: Post}){
+  return <ProblemSection content={props.post.problem} >
+    Description du problème:</ProblemSection>
 }
 
 function ProblemImpact(props: {post: Post}){
-  if (!props?.post?.impact){
-    return <></>
-  }
-  
-  return <div className="pt-2"><div className="font-bold">Impact du problème:</div><div className='px-0'>
-    <PostBody content={props.post.impact}  />
-    </div></div>
+  return <ProblemSection content={props.post.impact} >
+    Impact du problème:</ProblemSection>
 }
 
 function ProblemRisks(props: {post: Post}){
-  if (!props?.post?.risks){
-    return <></>
-  }
-  
-  return <div className="pt-2"><div className="font-bold">Risques:</div><div className='px-0'>
-    <PostBody content={props.post.risks}  />
-    </div></div>
+  return <ProblemSection content={props.post.risks} >
+    Risques:</ProblemSection>
 }
 
 function NextSteps(props: {post: Post}){
-  if (!props?.post?.next_steps){
-    return <></>
-  }
-  
-  return <div className="pt-2"><div className="font-bold">Prochaines démarches:</div><div className='px-0'>
-    <PostBody content={props.post.next_steps}  />
-    </div></div>
+  return <ProblemSection content={props.post.next_steps} >
+  Prochaines démarches:</ProblemSection>
 }

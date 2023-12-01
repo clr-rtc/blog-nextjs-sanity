@@ -141,7 +141,7 @@ export interface Post {
   _id: string
   title?: string
   tags:{label: string, value: string}[]
-  whereToShow: 'hero' | 'archives' | 'none'
+  whereToShow: 'hero' | 'list' | 'problems' | 'none'
   postType:'problem' | 'follow-up' | 'announcement' |'general'
   coverImage?: any
   date?: string

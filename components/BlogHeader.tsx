@@ -10,19 +10,28 @@ import type { Part, MenuItem } from 'lib/sanity.queries'
 import { useRouter } from 'next/router'
 
 
+function menuItemMatches(item: MenuItem, route: string){
+  const isWildCard = item.slug?.endsWith('*')
+  if (isWildCard){
+    return route.startsWith(item.uri)
+  } else {
+    return item.uri === route
+  }
+}
+
 type MenuProps = {
   menuItems: MenuItem[]
 }
 
 const Menu = (props: MenuProps) => {
   const router = useRouter()
-  const route =router.route
   const slug = router.query['slug']
+  const route =slug? `/pages/${slug}` : router.route
 
-  const pageNo = props.menuItems.find((item) => (slug && item.slug === slug) || item.uri === route)?.menuSequenceNo || 1
+  const pageNo = props.menuItems.find((item) => menuItemMatches(item, route))?.menuSequenceNo || 1
   
   const menuItems = props.menuItems.filter((item) => item.label && item.menuSequenceNo).sort((item1, item2) => item1.menuSequenceNo - item2.menuSequenceNo)
- console.log(`menuItems: ${JSON.stringify(menuItems)}`)
+
   return <div className="flex flex-row gap-6 justify-start pb-4 text-lg text-[#8b6b36]/50  ">
     {menuItems.map((item, index) => 
   (
