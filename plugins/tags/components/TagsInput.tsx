@@ -201,7 +201,7 @@ export const TagsInput = forwardRef<StateManagedSelect, TagsInputProps>(
         })
 
         // save the values
-        onChange(tagsForEvent ? set(tagsForEvent) : unset(tagsForEvent))
+        onChange(tagsForEvent ? set(tagsForEvent) : unset())
       },
       [onChange]
     )
