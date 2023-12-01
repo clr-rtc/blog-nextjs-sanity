@@ -37,7 +37,7 @@ export default function PagePage(props: PagePageProps) {
 
   return (
     <>
-      <PostPageHead settings={settings} post={page} />
+      <PostPageHead settings={settings} title={page.title} />
 
       <Layout preview={preview} loading={loading}>
         <Container>

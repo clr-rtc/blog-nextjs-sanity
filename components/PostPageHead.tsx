@@ -6,19 +6,20 @@ import Head from 'next/head'
 
 export interface PostPageHeadProps {
   settings: Settings
-  post: Post
+  title?: string
+  coverImage?: any
 }
 
-export default function PostPageHead({ settings, post }: PostPageHeadProps) {
-  const title = settings.title ?? demo.title
+export default function PostPageHead({ settings, title, coverImage  }: PostPageHeadProps) {
+
   return (
     <Head>
-      <title>{post.title ? `${post.title} | ${title}` : title}</title>
+      <title>{title ? `${title} | ${title}` : settings.title}</title>
       <BlogMeta />
-      {post.coverImage?.asset?._ref && (
+      {coverImage?.asset?._ref && (
         <meta
           property="og:image"
-          content={urlForImage(post.coverImage)
+          content={urlForImage(coverImage)
             .width(1200)
             .height(627)
             .fit('crop')

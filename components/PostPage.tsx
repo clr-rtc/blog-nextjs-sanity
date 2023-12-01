@@ -48,7 +48,7 @@ export default function PostPage(props: PostPageProps) {
 
   return (
     <>
-      <PostPageHead settings={settings} post={post}  />
+      <PostPageHead settings={settings} title={post.title} coverImage={post.coverImage}  />
 
       <Layout preview={preview} loading={loading}>
         <Container>
