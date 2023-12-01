@@ -15,7 +15,7 @@ import { locate } from 'plugins/locate'
 import { previewDocumentNode } from 'plugins/previewPane'
 import { settingsPlugin, settingsStructure } from 'plugins/settings'
 
-import {tags} from 'sanity-plugin-tags'
+import {tags} from 'plugins/tags'
 
 import { defineConfig } from 'sanity'
 import { deskTool } from 'sanity/desk'
