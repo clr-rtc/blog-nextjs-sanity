@@ -36,7 +36,7 @@ export interface PostListPageProps {
   filter?: string
 }
 
-const PAGE_SIZE = 4
+const PAGE_SIZE = 10
 
 export default function PostListPage(props: PostListPageProps) {
   const { preview, loading, posts, parts, settings, pageNo = 1, filter } = props
@@ -57,7 +57,7 @@ export default function PostListPage(props: PostListPageProps) {
           <BlogHeader title={title} description={description} parts={parts} menuItems={props.menuItems} />
          
           <StandardPageLayout parts={parts}>
-          <ListBanner highlight={true}>{("Recherche: " + filter) || 'Tous les articles'}</ListBanner>
+          <ListBanner highlight={true}>{filter? ("Recherche: " + filter) : 'Tous les articles'}</ListBanner>
             {pagePosts.length > 0 && <div className="w-full pt-4"><StoriesList posts={pagePosts} maxStories={PAGE_SIZE} noNavigation={true}/></div>}
             <div className="flex flex-row">
             {pageNo > 1 ? <NavButton url={`/postlist/${pageNo-1}${filterSuffix}`}> Précédent</NavButton> : <></>}

@@ -131,18 +131,30 @@ function Status(props: {post: Post}){
 }
 
 function ProblemDescription(props: {post: Post}){
+  if (!props?.post?.problem){
+    return <></>
+  }
+
   return <div><div className="font-bold">Description du problème:</div><div className='px-0'>
     <PortableText value={props.post.problem} components={customPortableTextComponents} />
     </div></div>
 }
 
 function ProblemImpact(props: {post: Post}){
+  if (!props?.post?.impact){
+    return <></>
+  }
+  
   return <div className="pt-2"><div className="font-bold">Impact du problème:</div><div className='px-0'>
     <PortableText value={props.post.impact} components={customPortableTextComponents} />
     </div></div>
 }
 
 function ProblemRisks(props: {post: Post}){
+  if (!props?.post?.risks){
+    return <></>
+  }
+  
   return <div className="pt-2"><div className="font-bold">Risques:</div><div className='px-0'>
     <PortableText value={props.post.risks} components={customPortableTextComponents} />
     </div></div>

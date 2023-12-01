@@ -36,7 +36,7 @@ export default function PostPreview({
             <Link href={`/posts/${slug}`} className="hover:underline">
               {title}
             </Link>
-            {tags && <TagButtonList tags={tags} />}        
+            {tags && <TagButtonList tags={tags} className="mx-2"/>}        
             </p>
           <p className="mb-4 text-lg">
             <Date dateString={date} />

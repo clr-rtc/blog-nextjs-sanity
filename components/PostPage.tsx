@@ -73,12 +73,7 @@ export default function PostPage(props: PostPageProps) {
                   return <FollowUpBody key={index} post={f} />
                 })}</div>}
               </article>
-              <SectionSeparator />
-              {morePosts?.length > 0 && 
-              <div className="flex flex-col">
-                 <ListBanner>{'Autres articles'}</ListBanner>
-                <StoriesList posts={morePosts} />
-              </div>}
+              
             </>
           )}
           </StandardPageLayout>

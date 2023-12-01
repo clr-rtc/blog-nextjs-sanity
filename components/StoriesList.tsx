@@ -22,11 +22,11 @@ export default function StoriesList({ posts, maxStories=3, noNavigation, compact
       <div className="flex flex-col w-full gap-y-4" >
 
       <div className="w-full flex flex-col gap-y-2">
-        {stories.map((post) => {
+        {stories.map((post, index) => {
        
           if (compact){
             return (
-            <div key={post._id} className="flex flex-row">
+            <div key={index} className="flex flex-row">
               <div className="w-36 text-xs"><PostDate dateString={post.date} plain={true}/></div>
               <div className="w-24 text-xs">{shortStatusDescription[post.status||'new']}</div>
               <div className="w-24 text-sm">{severityShortDescription[post.severity||'important']}</div>
@@ -38,7 +38,7 @@ export default function StoriesList({ posts, maxStories=3, noNavigation, compact
             )
           } else {
             return <PostPreview
-              key={post._id}
+              key={index}
               {...post}
             />
           }
