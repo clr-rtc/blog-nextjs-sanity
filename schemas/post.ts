@@ -125,7 +125,7 @@ export default defineType({
       hidden:  ({document}) => document.postType === 'follow-up',
     }),
     defineAuthor(),
-    defineSlugField()
+    defineSlugField(),
   ],
   preview: {
     select: {

@@ -9,6 +9,8 @@ import BlogPart from 'components/BlogPart'
 import type { Part, MenuItem } from 'lib/sanity.queries'
 import { useRouter } from 'next/router'
 
+import posthog from 'posthog-js'
+posthog.init('phc_4OvszK6fA4xvRYyWFv5ZCKj6FvfN2ntiUUgMkojjYGP', { api_host: 'https://app.posthog.com' })
 
 function menuItemMatches(item: MenuItem, route: string){
   const isWildCard = item.slug?.endsWith('*')
@@ -25,6 +27,7 @@ type MenuProps = {
 
 const Menu = (props: MenuProps) => {
   const router = useRouter()
+  posthog.capture('load', { property: "Testing Path " +router.asPath  })
   const slug = router.query['slug']
   const route =slug? `/pages/${slug}` : router.route
 
