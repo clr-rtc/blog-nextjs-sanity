@@ -21,6 +21,7 @@ import {
   pageAndPostsQuery,
   menuItemsQuery,
   MenuItem,
+  findReferencePostSlug,
 } from 'lib/sanity.queries'
 import { createClient, type SanityClient } from 'next-sanity'
 
@@ -119,4 +120,19 @@ export async function getPageAndPosts(
   slug: string,
 ): Promise<{ page: Page; posts: Post[] }> {
   return await client.fetch(pageAndPostsQuery, { slug })
+}
+
+export async function getReferencePostSlug(
+  client: SanityClient,
+  reference: any,
+): Promise<string> {
+
+  if (!reference){
+    return undefined
+  }
+  
+  const result = (await client.fetch(findReferencePostSlug, { original: reference['_ref'] })) || ({} as any)
+
+  const referencedSlug = result[0]?.originalProblem?.slug?.current
+  return referencedSlug
 }

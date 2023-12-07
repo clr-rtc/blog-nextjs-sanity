@@ -9,14 +9,16 @@ import PostBody from './PostBody'
 export default function HeroPost(
   props: Pick<
     Post,
-    'title' | 'coverImage' | 'date' | 'excerpt' | 'author' | 'slug' | 'content'
+    'title' | 'coverImage' | 'date' | 'excerpt' | 'author' | 'slug' | 'originalProblemSlug' | 'content' | 'problem'
   >,
 ) {
-  const { title, coverImage, date, excerpt, author, slug, content } = props
+  const { title, coverImage, date, excerpt, author, slug, originalProblemSlug, content, problem } = props
+  const effectiveSlug = originalProblemSlug?.['slug']?.['current'] || slug
+  const textContent = content || problem
   return (
     <section >
           <h3 className="py-4 text-2xl font-semibold lg:text-3xl  text-blue-900 text-center  ">
-            <Link href={`/posts/${slug}`} className="hover:underline">
+            <Link href={`/posts/${effectiveSlug}`} className="hover:underline">
               {title || 'Untitled'}
             </Link>
           </h3>
@@ -25,12 +27,12 @@ export default function HeroPost(
           </div>
           {coverImage &&
             <div className="py-2">
-              <CoverImage key={slug} slug={slug} title={title} image={coverImage} priority />
+              <CoverImage key={slug} slug={effectiveSlug} title={title} image={coverImage} priority />
             </div>}
 
-            {(!excerpt && content) &&  <PostBody content={content} />}
+            {(!excerpt && textContent) &&  <PostBody content={textContent} />}
 
-          {(excerpt ) && (<><p className="mb-4 text-lg leading-relaxed">{excerpt}</p>
+          {(excerpt && !textContent ) && (<><p className="mb-4 text-lg leading-relaxed">{excerpt}</p>
          
           <Link href={`/posts/${slug}`} className={"hover:underline font-bold italic " + COLOR_LINK} >
               En savoir plus...

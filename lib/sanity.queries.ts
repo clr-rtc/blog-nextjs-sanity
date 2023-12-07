@@ -20,6 +20,7 @@ const postFields = groq`
   excerpt,
   coverImage,
   "slug": slug.current,
+  "originalProblemSlug": originalProblem -> {slug {current}},
   "author": author->{name, picture}
 `
 
@@ -132,6 +133,13 @@ export const postBySlugQuery = groq`
 }
 `
 
+export const findReferencePostSlug = groq`
+*[_type == "post" && originalProblem._ref == $original ]{
+  originalProblem -> {slug { current }}
+ }
+`
+
+
 export interface Author {
   name?: string
   picture?: any
@@ -149,6 +157,7 @@ export interface Post {
   excerpt?: string
   author?: Author
   slug?: string
+  originalProblemSlug: string
   content?: any
   severity?: string
   status: string

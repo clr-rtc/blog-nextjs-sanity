@@ -1,5 +1,7 @@
 import speakingurl from 'speakingurl'
 import {useDocumentOperation} from 'sanity'
+import { getClient, getReferencePostSlug } from 'lib/sanity.client'
+import { readToken } from 'lib/sanity.api'
 
 export function CustomizedPublish(originalPublishAction) {
    
@@ -17,11 +19,9 @@ export function CustomizedPublish(originalPublishAction) {
     return {
       ...originalResult,
       label: 'Publier',
-      onHandle: () => {
+      onHandle: async () => {
         
-        // check for a title and existing slug
-        console.log(`SLUG:${props.slug}`)
-        if ((props.type !== 'post' || props.type !== 'page') && props.draft.title && !props.draft.slug) {
+        if ((props.type === 'post' || props.type === 'page') && props.draft.title && !props.draft.slug) {
           // use the generator package used in sanity core with default values
           const generatedSlug = props.draft.title ? defaultSlugify(props.draft.title) : null
           // double check we've got a slug and patch it in
@@ -30,7 +30,8 @@ export function CustomizedPublish(originalPublishAction) {
           }
         }
 
-        if ((props.type !== 'post' || props.type !== 'page') && props.draft.title && !props.draft.whereToShow) {
+
+        if (props.type === 'post'  && props.draft.title && !props.draft.whereToShow) {
           switch(props.draft.postType){
             case 'problem':
             patchWhereToShow('problems')

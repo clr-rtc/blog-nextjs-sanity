@@ -122,7 +122,7 @@ export default defineType({
           {title: "Ne pas afficher", value: 'none'}
         ], 
       },
-      hidden:  ({document}) => document.postType === 'follow-up',
+      
     }),
     defineAuthor(),
     defineSlugField(),
