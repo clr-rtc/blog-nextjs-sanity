@@ -32,8 +32,8 @@ export default function HeroPost(
 
             {(!excerpt && textContent) &&  <PostBody content={textContent} />}
 
-          {(excerpt && !textContent ) && (<><p className="mb-4 text-lg leading-relaxed">{excerpt}</p>
-         
+          {(excerpt ) && (<><p className="mb-4 text-lg leading-relaxed">{excerpt}</p>
+      
           <Link href={`/posts/${slug}`} className={"hover:underline font-bold italic " + COLOR_LINK} >
               En savoir plus...
             </Link></>)}

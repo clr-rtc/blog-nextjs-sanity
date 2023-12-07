@@ -24,6 +24,10 @@
   @apply mb-4 mt-8 text-2xl leading-snug;
 }
 
+div.portableText {
+  @apply flex-none inline-block
+}
+
 div.portableText  a {
   @apply text-blue-500 underline;
 }

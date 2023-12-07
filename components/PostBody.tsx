@@ -31,8 +31,12 @@ const customPortableTextComponents: Partial<PortableTextReactComponents> = {
           return <p className="text-sm py-0 my-0" >{value.children?.[0]?.text}</p> 
         case 'very-small':
           return <p className="text-xs py-0 my-0 " >{value.children?.[0]?.text}</p> 
+        case 'left':
+          return <div className="w-1/3 float-left" >{value.children?.[0]?.text}</div> 
+        case 'right':
+          return <div className="w-1/3 float-right" >{value.children?.[0]?.text}</div> 
         default:
-          return <PortableText value={value}/>
+          return <PortableText inline={true} value={value}/>
       }
     },
     

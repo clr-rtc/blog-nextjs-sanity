@@ -12,7 +12,6 @@ const VerySmallStyle = props => (
   <span className="text-xs ">{props.children} </span>
 )
 
-
 export function defineSlugField() {
     return defineField({
         name: 'slug',
@@ -69,6 +68,23 @@ export function defineFormattedTextField(name, title, description, hidden){
                         title: 'Texte Alternatif',
                         description: "Important pour l'accessibilité et les moteurs de recherche",
                     },
+                    {
+                      title: "Position",
+                      description: "Choisir comment positionner l'image",
+                      name: 'position',
+                      type: 'string',
+                      options: {
+                        list: [
+                          {title: "À la suite", value: 'inline'},
+                          {title: "À gauche", value: 'left'},
+                          {title: "À droite", value: 'right'},
+                          {title: "Au centre", value: 'center'},
+                          {title: "Pleine largeur", value: 'full'}
+                        ], 
+                      },
+                      initialValue: 'full',
+                      
+                    }
                 ],
             },
         ]
@@ -108,6 +124,7 @@ export function defineCoverImage(){
     },
   })
 }
+
 
 export function definePublicationDate(){
     return defineField({

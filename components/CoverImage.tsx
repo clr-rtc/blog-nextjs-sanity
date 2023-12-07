@@ -12,7 +12,7 @@ interface CoverImageProps {
 }
 
 export default function CoverImage(props: CoverImageProps) {
-  const { title, type='post', slug, image: source, priority } = props
+  const { title, type='posts', slug, image: source, priority } = props
 
   if (!source?.asset?._ref){
     throw new Error("No ref")
