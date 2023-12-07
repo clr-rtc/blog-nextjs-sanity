@@ -49,7 +49,7 @@ export const SanityImage = (props: Props) => {
 
   
   const imageComponent = <div className={widthAlignment}><figure  className={widthAlignment}> <div className={widthAlignment}> {image}{caption && (    
-      <p className={"mt-2 text-center italic text-sm text-gray-500 dark:text-gray-400 "}>
+      <p className={"mt-2 text-center italic text-sm text-gray-500 dark:text-gray-400 "+ width }>
         {caption}
       </p>
   ) }</div>

@@ -36,7 +36,7 @@ const customPortableTextComponents: Partial<PortableTextReactComponents> = {
         case 'right':
           return <div className="w-1/3 float-right" >{value.children?.[0]?.text}</div> 
         default:
-          return <PortableText inline={true} value={value}/>
+          return <PortableText value={value}/>
       }
     },
     

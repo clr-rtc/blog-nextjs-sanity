@@ -13,17 +13,21 @@ export default function PostPreview({
   excerpt,
   author,
   slug,
-  tags
+  tags,
+  originalProblemSlug
 }: Omit<Post, '_id'>) {
+
+  const effectiveSlug = originalProblemSlug?.['slug']?.['current'] || slug
+
 
     return (
     <div className="w-full flex flex-row">
       <div className="flex flex-col  w-full">
         <div className="py-2  text-left  ">
-        {coverImage && <div className="flex flex-row justify-center float-right p-4 w-48">
+        {coverImage && <div className="flex flex-row justify-center float-right p-4 w-72">
        
             <CoverImage
-              slug={slug}
+              slug={effectiveSlug}
               title={title}
               image={coverImage}
               priority={false}

@@ -82,7 +82,7 @@ export function defineFormattedTextField(name, title, description, hidden){
                           {title: "Pleine largeur", value: 'full'}
                         ], 
                       },
-                      initialValue: 'full',
+                      initialValue: 'inline',
                       
                     }
                 ],

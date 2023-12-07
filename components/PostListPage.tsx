@@ -48,7 +48,7 @@ const PAGE_SIZE = 10
 
 export default function PostListPage(props: PostListPageProps) {
   const { preview, loading, posts, parts, settings, pageNo = 1, filter } = props
-  const filteredPosts =  posts.filter((p) => p.postType !== 'follow-up' && (!filter || p.tags?.find((t) => t.value === filter)))
+  const filteredPosts =  posts.filter((p) =>  (!filter || p.tags?.find((t) => t.value === filter)))
 
   const pagePosts = filteredPosts.slice((pageNo-1)*PAGE_SIZE, pageNo*PAGE_SIZE)
 

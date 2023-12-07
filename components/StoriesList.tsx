@@ -14,8 +14,8 @@ type StoriesListProps = {
 }
 
 export default function StoriesList({ posts, maxStories=3, noNavigation, compact }:StoriesListProps) {
-  const filtered = posts.filter((p) => p.postType !== 'follow-up')
-  const stories = maxStories? filtered?.slice(0, maxStories) : filtered
+
+  const stories = maxStories? posts?.slice(0, maxStories) : posts
   return (
 
     <section>
@@ -23,7 +23,8 @@ export default function StoriesList({ posts, maxStories=3, noNavigation, compact
 
       <div className="w-full flex flex-col gap-y-2">
         {stories.map((post, index) => {
-       
+
+          const effectiveSlug = post['originalProblemSlug']?.['slug']?.['current'] || post.slug
           if (compact){
             return (
             <div key={index} className="flex flex-row">
@@ -31,7 +32,7 @@ export default function StoriesList({ posts, maxStories=3, noNavigation, compact
               <div className="w-24 text-sm">{shortStatusDescription[post.status||'new']}</div>
               <div className="w-24 text-sm">{severityShortDescription[post.severity||'important']}</div>
               <div className="w-96 flex flex-col">
-              <div className="w-96 text-sm text-indigo-800"><Link href={`/posts/${post.slug}`}>{post.title}</Link></div>
+              <div className="w-96 text-sm text-indigo-800"><Link href={`/posts/${effectiveSlug}`}>{post.title}</Link></div>
               <div className="w-96"><TagButtonList tags={post.tags} /></div>
               </div>
             </div>
