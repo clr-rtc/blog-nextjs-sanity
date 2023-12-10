@@ -27,8 +27,8 @@ const NavButton = (props: NavButtonProps) => {
 
             <a href={props.disabled? undefined : props.url} 
             className={
-              props.disabled? "text-gray-400 w-32 block bg-gray-300   py-2 px-4 rounded-lg"
-            : "text-white w-36 bg-gray-900/75 block hover:bg-gray-900  py-2 px-4 rounded-lg"}>
+              props.disabled? "text-gray-400 w-30 block bg-gray-300   py-2 px-4 rounded-lg"
+            : "text-white w-32 bg-gray-900/75 block hover:bg-gray-900  py-2 px-4 rounded-lg"}>
              {props.children}</a>
       </div>
 }
@@ -85,9 +85,10 @@ export default function PostListPage(props: PostListPageProps) {
   function NavBar() {
     const lastPageNo =filteredPosts.length? Math.floor((filteredPosts.length-1)/PAGE_SIZE) + 1 : 0
    
+    
     const pages = []
     for (let i = 1; i <= lastPageNo; i++){
-      pages.push(<a key={i} href={pageUrl(i)} className="w-4 h-4 bg-gray-300 text-center">{i}</a>)
+      pages.push(<a key={i} href={pageUrl(i)} className={"w-4 h-4 text-center " + (pageNo === i? 'bg-indigo-300' : 'bg-grey-300')} >{i}</a>)
     }
 
    return <><div className="flex flex-row py-1 mt-1 sm:mt-2 gap-x-2 ">
@@ -101,7 +102,7 @@ export default function PostListPage(props: PostListPageProps) {
           Suivants&nbsp;&rsaquo;</NavButton>
           
 
-      <div className="text-xs w-32 gap-1 sm:items-center flex flex-row flex-wrap justify-start h-full">
+      <div className="text-xs w-32  gap-1 sm:items-center flex flex-row flex-wrap justify-start h-full">
         {pages}        
         </div>
       </div>
