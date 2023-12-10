@@ -30,7 +30,7 @@ export default function BlogPart(props: PartsProps) {
     const alignmentClass = alignments.find((a) => a.value === (props.align||'center'))?.class || ''
 
     return <><div className="flex flex-col w-full">
-      <div className={"uppercase tracking-widest text-lg font-serif " + titleAlignmentClass}>{part.title}</div>
-      <div className={"text-[#8b6b36] " + alignmentClass + " " + (props.className || '')}><PostBody content={part.content} /></div></div></>
+      {part.appearance !== 'no-title'  ? <div className={"uppercase tracking-widest text-lg font-serif " + titleAlignmentClass}>{part.title}</div> : <></>}
+      {part.appearance !== 'title-only'  ? <div className={"text-[#8b6b36] " + alignmentClass + " " + (props.className || '')}><PostBody content={part.content} /></div> : <></>}</div></>
   }
   

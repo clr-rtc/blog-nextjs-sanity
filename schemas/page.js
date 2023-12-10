@@ -30,6 +30,12 @@ export default defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
+      name: 'menu',
+      title: 'Texte du menu',
+      description: 'Remplir si différent du titre, autrement le titre sera utilisé',
+      type: 'string',
+    }),
+    defineField({
       name: 'menuSequenceNo',
       title: 'Position de la page dans le menu',
       description: "Laisser vide si la page ne doit pas apparaître dans le menu.",

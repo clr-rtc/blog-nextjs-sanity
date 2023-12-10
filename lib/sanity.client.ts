@@ -77,7 +77,7 @@ export async function getMenuItems(client: SanityClient): Promise<MenuItem[]> {
     const slug = isWildCard? item.slug.slice(0, item.slug.length - 1) : item.slug
 
     return {
-      label: item.title, 
+      label: item.menu||item.title, 
       uri: slug && slug[0] !== '/' ? 
         `/pages/${slug}` : slug, 
         slug: item.slug, // Use the unmodified slug so we carry the * if present

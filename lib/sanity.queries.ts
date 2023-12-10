@@ -38,6 +38,7 @@ const pageFields = groq`
 const menuItemFields = groq`
   _id,
   title,
+  menu,
   menuSequenceNo,
   "slug": slug.current,
 `
@@ -46,6 +47,7 @@ const menuItemFields = groq`
 const partFields = groq`
   _id,
   title,
+  appearance,
   date,
   _updatedAt,
   excerpt,
@@ -174,6 +176,7 @@ export interface Post {
 export interface Page {
   _id: string
   title?: string
+  menu?: string
   coverImage?: any
   date?: string
   _updatedAt?: string
@@ -193,6 +196,7 @@ export interface MenuItem {
 export interface Part {
   _id: string
   title?: string
+  appearance: 'title' | 'no-title' | 'title-only'
   coverImage?: any
   date?: string
   _updatedAt?: string

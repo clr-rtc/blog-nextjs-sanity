@@ -26,7 +26,8 @@ const VerySmallStyle = props => (
 
 export default defineType({
   name: 'part',
-  title: 'Contenu partagé',
+  title: 'Éléments prédéfinis',
+  description: 'Éléments référencés par le gabarit de page mais dont on peut changer le contenu',
   icon: BookIcon,
   type: 'document',
   fields: [
@@ -37,16 +38,21 @@ export default defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
-      name: 'slug',
-      title: 'Slug',
-      type: 'slug',
+      title: "Apparemce",
+      description: "Choisir comment apparait cet item",
+      name: 'appearance',
+      type: 'string',
       options: {
-        source: 'title',
-        maxLength: 96,
-        isUnique: (value, context) => context.defaultIsUnique(value, context),
+        list: [
+          {title: "Afficher avec titre", value: 'title'},
+          {title: "Afficher sans titre", value: 'no-title'},
+          {title: "Afficher seulement le titre", value: 'title-only'},
+        ], 
       },
-      validation: (rule) => rule.required(),
+      initialValue: 'title'
+      
     }),
+    
     defineField({
       name: 'content',
       title: 'Content',
@@ -90,6 +96,7 @@ export default defineType({
        
       ],
     }),
+
     defineField({
       name: 'excerpt',
       title: 'Excerpt',
@@ -114,6 +121,17 @@ export default defineType({
       title: 'Author',
       type: 'reference',
       to: [{ type: authorType.name }],
+    }),
+    defineField({
+      name: 'slug',
+      title: 'Slug',
+      type: 'slug',
+      options: {
+        source: 'title',
+        maxLength: 96,
+        isUnique: (value, context) => context.defaultIsUnique(value, context),
+      },
+      validation: (rule) => rule.required(),
     }),
   ],
   preview: {
