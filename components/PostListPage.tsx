@@ -18,18 +18,18 @@ type NavButtonProps = {
   url: string
   children: any
   disabled?: boolean
+  className?: string
 }
 
 const NavButton = (props: NavButtonProps) => {
   
-  return <div className="py-1 mt-4 w-48 text-center  text-sm  font-semibold  ">
-          {props.disabled? (
-            <span className= "text-gray-400 bg-gray-300   py-2 px-4 rounded-lg">
-            {props.children}</span>) : 
-            <Link href={props.url} 
+  return <div className={"py-1 mt-4   text-sm text-center  font-semibold  " + (props.className||'')}>
+
+            <a href={props.disabled? undefined : props.url} 
             className={
-             "text-white  bg-gray-900/75 hover:bg-gray-900  py-2 px-4 rounded-lg"}>
-             {props.children}</Link>}
+              props.disabled? "text-gray-400 w-32 block bg-gray-300   py-2 px-4 rounded-lg"
+            : "text-white w-36 bg-gray-900/75 block hover:bg-gray-900  py-2 px-4 rounded-lg"}>
+             {props.children}</a>
       </div>
 }
 
@@ -80,16 +80,16 @@ export default function PostListPage(props: PostListPageProps) {
 
   function NavBar() {
     const lastPageNo =filteredPosts.length? Math.floor((filteredPosts.length-1)/PAGE_SIZE) + 1 : 0
-    return <div className="flex flex-row ">
+    return <div className="flex flex-row  ">
       <NavButton 
         disabled={pageNo === 1} 
         url={`/postlist/${pageNo - 1}${filterSuffix}`}>
-        &lsaquo;&nbsp;Page précédente</NavButton>
-      <div className="flex flex-col w-18 justify-end">Page {pageNo} de {lastPageNo}</div>
+        &lsaquo;&nbsp;Précédents</NavButton>
+      <div className="text-xs w-48 pb-3 flex flex-col justify-end text-center  h-full">{pageNo} de {lastPageNo}</div>
       <NavButton 
         disabled={pageNo  >= lastPageNo} 
         url={`/postlist/${pageNo + 1}${filterSuffix}`}>
-          Page suivante&nbsp;&rsaquo;</NavButton>
+          Suivants&nbsp;&rsaquo;</NavButton>
     </div>
   }
 }
