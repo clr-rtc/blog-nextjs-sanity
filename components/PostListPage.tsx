@@ -23,7 +23,7 @@ type NavButtonProps = {
 
 const NavButton = (props: NavButtonProps) => {
   
-  return <div className={"py-1 mt-4   text-sm text-center  font-semibold  " + (props.className||'')}>
+  return <div className={"  text-sm text-center  font-semibold  " + (props.className||'')}>
 
             <a href={props.disabled? undefined : props.url} 
             className={
@@ -67,7 +67,7 @@ export default function PostListPage(props: PostListPageProps) {
           <StandardPageLayout parts={parts}>
           <ListBanner highlight={true}>{filter? ("Recherche: " + filter) : 'Tous les articles'}</ListBanner>
           <NavBar />
-            {pagePosts.length > 0 && <div className="w-full pt-4">
+            {pagePosts.length > 0 && <div className="w-full pt-0 sm:pt-4">
               <StoriesList posts={pagePosts} maxStories={PAGE_SIZE} noNavigation={true}/></div>}
             <NavBar />
           </StandardPageLayout>
@@ -78,18 +78,33 @@ export default function PostListPage(props: PostListPageProps) {
     </>
   )
 
+  function pageUrl(pageNo: number){
+    return `/postlist/${pageNo}${filterSuffix}`
+  }
+
   function NavBar() {
     const lastPageNo =filteredPosts.length? Math.floor((filteredPosts.length-1)/PAGE_SIZE) + 1 : 0
-    return <div className="flex flex-row  ">
+   
+    const pages = []
+    for (let i = 1; i <= lastPageNo; i++){
+      pages.push(<a key={i} href={pageUrl(i)} className="w-4 h-4 bg-gray-300 text-center">{i}</a>)
+    }
+
+   return <><div className="flex flex-row py-1 mt-1 sm:mt-2 gap-x-2 ">
       <NavButton 
         disabled={pageNo === 1} 
         url={`/postlist/${pageNo - 1}${filterSuffix}`}>
         &lsaquo;&nbsp;Précédents</NavButton>
-      <div className="text-xs w-48 pb-3 flex flex-col justify-end text-center  h-full">{pageNo} de {lastPageNo}</div>
       <NavButton 
         disabled={pageNo  >= lastPageNo} 
         url={`/postlist/${pageNo + 1}${filterSuffix}`}>
           Suivants&nbsp;&rsaquo;</NavButton>
-    </div>
-  }
+          
+
+      <div className="text-xs w-32 gap-1 sm:items-center flex flex-row flex-wrap justify-start h-full">
+        {pages}        
+        </div>
+      </div>
+    </>  
+    }
 }
