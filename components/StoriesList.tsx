@@ -27,13 +27,13 @@ export default function StoriesList({ posts, maxStories=3, noNavigation, compact
           const effectiveSlug = post['originalProblemSlug']?.['slug']?.['current'] || post.slug
           if (compact){
             return (
-            <div key={index} className="flex flex-row">
+            <div key={index} className="flex flex-row border-b border-gray-400 pb-1">
               <div className="w-36 text-xs sm:text-sm"><PostDate dateString={post.date} plain={true}/></div>
               <div className="border-l border-gray-300"/>
-              <div className="flex flex-col justify-start  gap-2  sm:flex-row" >
-              <div className="w-16 p-1 sm:w-20 text-xs sm:text-sm">{shortStatusDescription[post.status||'new']}</div>
+              <div className="flex flex-col justify-start    sm:flex-row" >
+              <div className="w-16 p-1 pl-2 sm:w-20 text-xs sm:text-sm">{shortStatusDescription[post.status||'new']}</div>
               <div className="border-l border-gray-300"/>
-              <div className="w-16 p-1 sm:w-20 text-xs sm:text-sm">{severityShortDescription[post.severity||'important']}</div>
+              <div className="w-16 p-1 pl-2 sm:w-20 text-xs sm:text-sm">{severityShortDescription[post.severity||'important']}</div>
               </div>
               <div className="border-l border-gray-300 pr-2"/>
               <div className="w-48 flex flex-col flex-wrap">

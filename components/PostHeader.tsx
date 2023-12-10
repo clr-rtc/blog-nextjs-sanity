@@ -13,16 +13,16 @@ export default function PostHeader(
   return (
     <>
       <PostTitle>{title}</PostTitle>
-      <div className="hidden md:mb-12 md:block">
-        {author && <Avatar name={author.name} picture={author.picture} />}
-      </div>
+      {author &&<div className="mb-4 mt-4 sm:mb-6 md:block">
+        <Avatar name={author?.name} picture={author?.picture} />
+      </div>}
       {coverImage && 
-      <div className="mb-8 sm:mx-0 md:mb-16">
+      <div className="mt-4 mb-2">
         <CoverImage title={title} image={coverImage} priority slug={slug} />
       </div>}
       <div className="max-w-2xl">
         
-        <div className="mb-6 text-lg">
+        <div className="mb-2 text-lg">
           <Date dateString={date} />
           <TagButtonList tags={props['tags']} className='mx-2'/>
         </div>

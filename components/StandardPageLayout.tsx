@@ -13,7 +13,7 @@ type StandardPageLayoutProps = {
   
     return (   
     <div className="flex flex-col sm:flex-row w-full h-full">
-      <div className="flex flex-col sm:w-3/4 sm:px-16">
+      <div className="flex flex-col sm:w-3/4 mr-4 pr-4 sm:px-16">
         {children}
       </div>
       <div className="gap-2 flex flex-col sm:w-1/4 h-full">

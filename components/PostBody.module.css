@@ -1,5 +1,5 @@
 .portableText {
-  @apply text-lg leading-relaxed;
+  @apply text-lg leading-relaxed ;
 }
 
 .portableText p
@@ -9,7 +9,7 @@
 
 .portableText ul,
 .portableText ol {
-  @apply my-6 px-6 list-disc;
+  @apply my-6 px-6 list-disc w-full;
 }
 
 .portableText blockquote {
@@ -24,9 +24,6 @@
   @apply mb-4 mt-8 text-2xl leading-snug;
 }
 
-div.portableText {
-  @apply flex-none inline-block
-}
 
 div.portableText  a {
   @apply text-blue-500 underline;
@@ -36,3 +33,4 @@ div.portableText  a {
 .portableText a:hover {
   @apply text-blue-800;
 }
+

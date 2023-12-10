@@ -67,9 +67,10 @@ export function FollowUpBody(props: FollowUpBodyProps) {
 
   return (
     <div className={`w-full ${styles.portableText} flex flex-col`}>
-      <div className="text-lg flex flex-row"><PostDate dateString={post.date}/> <span className="font-bold px-2">{post.title}</span> </div>
-                  
-      <PortableText value={post.content} components={customPortableTextComponents} />
+      <div className="text-lg flex flex-col"><div className="font-bold ">{post.title}</div><PostDate dateString={post.date}/>  </div>
+      <div className="flex flex-wrap justify-around">    
+      <PortableText value={post.content} components={customPortableTextComponents}  />
+      </div>
     </div>
   )
 
@@ -109,7 +110,7 @@ const severityDescription = {
   "critical": "Critique - à régler d'urgence",
   "important": "Important - réduit grandement la qualité de vie",
   "service": "Important - réduit grandement la qualité du service",
-  "prevention" : "Prévention - agir avant que le problème ne produise",
+  "prevention" : "Prévention - agir avant que le problème ne se produise ou s'aggrave",
   "nuisance" : "Nuisance - nuisance à régler dans le courant de l'année"
 }
 
