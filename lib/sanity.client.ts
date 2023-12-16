@@ -10,6 +10,7 @@ import {
   postListQuery,
   type Post,
   type Page,
+  type Part,
   postAndMoreStoriesQuery,
   postBySlugQuery,
   postSlugsQuery,
@@ -91,7 +92,7 @@ export async function getAllPosts(client: SanityClient, lang?: string): Promise<
   return posts || []
 }
 
-export async function getAllParts(client: SanityClient, lang?: string): Promise<Post[]> {
+export async function getAllParts(client: SanityClient, lang?: string): Promise<Part[]> {
   let parts = (await client.fetch(partsQuery)) 
 
   if (parts && lang === 'en'){
@@ -229,7 +230,7 @@ export async function getFullPage(
   client: SanityClient,
   slug: string,
   lang?: string
-): Promise<{ post: Post }> {  
+): Promise<Post> {  
   const page = await client.fetch(fullPageQuery, { slug })
 
   if (!page){

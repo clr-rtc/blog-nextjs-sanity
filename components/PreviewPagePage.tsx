@@ -5,16 +5,16 @@ import {
   pageAndPostsQuery,
   Settings,
   settingsQuery,
+  fullPageQuery,
 } from 'lib/sanity.queries'
 import { useLiveQuery } from 'next-sanity/preview'
 
 export default function PreviewPagePage(props: PagePageProps) {
-  const [{ page: pagePreview, posts }, loadingPost] = useLiveQuery<{
-    page: Page
-    posts: Post[]
-  }>(
-    { page: props.page, posts: props.posts },
-    pageAndPostsQuery,
+  const [ pagePreview, loadingPage] = useLiveQuery<
+    Page
+  >(
+     props.page,
+    fullPageQuery,
     {
       slug: props.page?.slug,
     },
@@ -31,11 +31,10 @@ export default function PreviewPagePage(props: PagePageProps) {
   return (
     <PagePage
       preview
-      loading={loadingPost || loadingSettings}
+      loading={loadingPage || loadingSettings}
       page={pagePreview}
       menuItems={props.menuItems}
       parts={props.parts}
-      posts={posts}
       settings={settings}
     />
   )

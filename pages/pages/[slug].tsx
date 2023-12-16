@@ -9,13 +9,13 @@ import {
   getAllParts,
   getSettings,
   getMenuItems,
+  getFullPage,
 } from 'lib/sanity.client'
 import { Post, Part, Page, Settings, MenuItem } from 'lib/sanity.queries'
 import { GetStaticProps } from 'next'
 import type { SharedPageProps } from 'pages/_app'
 
 interface PageProps extends SharedPageProps {
-  posts: Post[] 
   parts: Part[]
   page: Page
   menuItems: MenuItem[]
@@ -27,7 +27,7 @@ interface Query {
 }
 
 export default function ProjectSlugRoute(props: PageProps) {
-  const { settings, posts, parts, page, draftMode } = props
+  const { settings, parts, page, draftMode } = props
 
   console.log(`page slug: ${props.page?.slug}`)
   if (!props.page?.slug){
@@ -36,20 +36,20 @@ export default function ProjectSlugRoute(props: PageProps) {
 
   if (draftMode) {
     return (
-      <PreviewPagePage menuItems={props.menuItems} page={page} posts={posts} parts={parts}  settings={settings} />
+      <PreviewPagePage menuItems={props.menuItems} page={page} parts={parts}  settings={settings} />
     )
   }
 
-  return <PagePage menuItems={props.menuItems} page={page} posts={posts} parts={parts}  settings={settings} />
+  return <PagePage menuItems={props.menuItems} page={page}  parts={parts}  settings={settings} />
 }
 
 export const getStaticProps: GetStaticProps<PageProps, Query> = async (ctx) => {
   const { draftMode = false, params = {} } = ctx
   const client = getClient(draftMode ? { token: readToken } : undefined)
 
-  const [settings, {page, posts}, parts, menuItems ] = await Promise.all([
+  const [settings, page, parts, menuItems ] = await Promise.all([
     getSettings(client),
-    getPageAndPosts(client, params.slug),
+    getFullPage(client, params.slug),
     getAllParts(client),
     getMenuItems(client)
 
@@ -59,7 +59,6 @@ export const getStaticProps: GetStaticProps<PageProps, Query> = async (ctx) => {
   return {
     props: {
       page,
-      posts,
       parts,
       menuItems,
       settings,
