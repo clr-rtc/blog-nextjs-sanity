@@ -36,6 +36,7 @@ export default function StoriesList({ posts, maxStories=3, noNavigation, compact
   }
 
   function getSeverityClass(post: Post){
+    
     switch(post.severity){
       case 'critical':
         return " text-red-500 font-semibold"
