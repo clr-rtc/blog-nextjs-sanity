@@ -29,15 +29,16 @@ export default function Page(props: PageProps) {
   
   const pageNo = Number(pageNoMatch?.[0] || 1)
   const filter = pageNoMatch?.[1] as string
-  const filterName = !filter ? undefined : keywords?.find((item) => item._id === filter)?.title
+  const filterName = !filter ? undefined : keywords?.find((item) => item._id === filter)?.title_en
+  
 
   console.log( `pageNo: ${JSON.stringify(pageNo)}`)
 
   if (draftMode) {
-    return <PreviewPostListPage menuItems={menuItems} posts={posts} parts={parts} settings={settings} pageNo={pageNo} filter={filter} filterName={filterName}/>
+    return <PreviewPostListPage menuItems={menuItems} posts={posts} parts={parts} settings={settings} pageNo={pageNo} filter={filter} filterName={filterName} />
   }
 
-  return <PostListPage menuItems={menuItems} posts={posts} parts={parts} settings={settings}  pageNo={pageNo} filter={filter} filterName={filterName} />
+  return <PostListPage menuItems={menuItems} posts={posts} parts={parts} settings={settings}  pageNo={pageNo} filter={filter} filterName={filterName}/>
 }
 
 export const getServerSideProps: GetStaticProps<PageProps, Query> = async (ctx) => {
@@ -46,9 +47,9 @@ export const getServerSideProps: GetStaticProps<PageProps, Query> = async (ctx) 
 
   const [settings, posts, parts = [], menuItems=[], keywords=[]] = await Promise.all([
     getSettings(client),
-    getAllPosts(client),
-    getAllParts(client),
-    getMenuItems(client),
+    getAllPosts(client, 'en'),
+    getAllParts(client, 'en'),
+    getMenuItems(client, 'en'),
     getAllKeywords(client)
   ])
 

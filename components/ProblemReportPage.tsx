@@ -13,6 +13,7 @@ import Link from 'next/link'
 import BlogPart from 'components/BlogPart'
 import StandardPageLayout from 'components/StandardPageLayout'
 import ListBanner  from './ListBanner'
+import { useLabel } from 'lib/lang'
 
 type NavButtonProps = {
   url: string
@@ -46,6 +47,8 @@ export default function ProblemReportPage(props: ProblemReportPageProps) {
 
   const { title = demo.title, description = demo.description } = settings || {}
 
+  const SUMMARY = useLabel('Sommaire des problèmes', 'Summary of Problems')
+  const RESOLVED = useLabel('Derniers résolus','Latest Resolved')
   return (
     <>
       <IndexPageHead settings={settings} />
@@ -55,7 +58,7 @@ export default function ProblemReportPage(props: ProblemReportPageProps) {
           <BlogHeader title={title} description={description} parts={parts} menuItems={props.menuItems} />
          
           <StandardPageLayout parts={parts}>
-          <ListBanner highlight={true} >Sommaire des problèmes</ListBanner>
+          <ListBanner highlight={true} >{SUMMARY}</ListBanner>
             {newProblems.length > 0 && <div className="w-full pt-4">
               <StoriesList compact={true} posts={newProblems} maxStories={MAX_PROBLEMS} noNavigation={true}/>
               </div>}            
@@ -63,7 +66,7 @@ export default function ProblemReportPage(props: ProblemReportPageProps) {
               <StoriesList compact={true} posts={activeProblems} maxStories={MAX_PROBLEMS} noNavigation={true}/>
               </div>}
             {resolvedProblems.length > 0 && <div className="w-full pt-4">   
-            <ListBanner highlight={false} >Derniers résolus</ListBanner>
+            <ListBanner highlight={false} >{RESOLVED}</ListBanner>
               <StoriesList compact={true} posts={resolvedProblems} maxStories={4} noNavigation={false}/>
             </div>}
         

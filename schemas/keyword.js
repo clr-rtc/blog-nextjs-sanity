@@ -1,9 +1,17 @@
 import { BookIcon } from '@sanity/icons'
 import { format, parseISO } from 'date-fns'
 import { defineField, defineType, defineArrayMember } from 'sanity'
-import {defineAuthor, defineBilingualFormattedTextField, defineBilingualTextField, defineCoverImage, defineExcerpt, defineFormattedTextField, definePublicationDate, defineSlugField} from './fields'
-import authorType from './author'
 
+import authorType from './author'
+import { defineBilingualFormattedTextField, defineBilingualTextField, defineExcerpt } from './fields'
+
+const SmallStyle = props => (
+  <span className="text-sm">{props.children} </span>
+)
+
+const VerySmallStyle = props => (
+  <span className="text-xs ">{props.children} </span>
+)
 
 /**
  * This file is the schema definition for a post.
@@ -18,35 +26,19 @@ import authorType from './author'
  */
 
 export default defineType({
-  name: 'page',
-  title: 'Pages',
+  name: 'keyword',
+  title: 'Mots clés',
+  description: "Mots-clé permettant de catégoriser l'article",
   icon: BookIcon,
   type: 'document',
   fields: [
     ...defineBilingualTextField({
       name: 'title',
-      title: 'Titre de la page',
+      title: 'Libellé',
       type: 'string',
       validation: (rule) => rule.required(),
     }),
-    ...defineBilingualTextField({
-      name: 'menu',
-      title: 'Texte du menu',
-      description: 'Remplir si différent du titre, autrement le titre sera utilisé',
-      type: 'string',
-    }),
-    defineField({
-      name: 'menuSequenceNo',
-      title: 'Position de la page dans le menu',
-      description: "Laisser vide si la page ne doit pas apparaître dans le menu.",
-      type: 'number'
-    }),
-    defineSlugField(),
-    ...defineBilingualFormattedTextField('content', 'Contenu', 'Contenu principal de la page'),
-    ...defineExcerpt(),
-    defineCoverImage(),
-    definePublicationDate(),
-    defineAuthor(),
+    
   ],
   preview: {
     select: {

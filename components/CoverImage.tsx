@@ -1,4 +1,5 @@
 import cn from 'classnames'
+import { useLangUri } from 'lib/lang'
 import { urlForImage } from 'lib/sanity.image'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -13,6 +14,8 @@ interface CoverImageProps {
 
 export default function CoverImage(props: CoverImageProps) {
   const { title, type='posts', slug, image: source, priority } = props
+
+  const prefix = useLangUri()
 
   if (!source?.asset?._ref){
     throw new Error("No ref")
@@ -31,7 +34,7 @@ export default function CoverImage(props: CoverImageProps) {
   
 
   if (slug){
-      return  <Link href={`/${type}/${slug}`} aria-label={title}>
+      return  <Link href={`${prefix}/${type}/${slug}`} aria-label={title}>
     {image}
   </Link>
   } else {

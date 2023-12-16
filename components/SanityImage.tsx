@@ -26,11 +26,11 @@ export const SanityImage = (props: Props) => {
       alignment = ""
       break;
     case 'left':
-      width="w-full sm:w-1/2"
+      width="w-full sm:w-1/2 px-3"
       alignment = "float-left"
       break;
     case 'right':
-      width="w-full sm:w-1/2"
+      width="w-full sm:w-1/2 px-3"
       alignment = "float-right"
       break;
     case 'center':

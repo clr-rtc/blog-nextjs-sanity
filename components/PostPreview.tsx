@@ -5,6 +5,7 @@ import type { Post } from 'lib/sanity.queries'
 import Link from 'next/link'
 
 import TagButtonList from './TagButtonList'
+import { useLangUri } from 'lib/lang'
 
 export default function PostPreview({
   title,
@@ -13,12 +14,12 @@ export default function PostPreview({
   excerpt,
   author,
   slug,
-  tags,
-  originalProblemSlug
+  keywords,
+  originalProblemSlug,
 }: Omit<Post, '_id'>) {
 
   const effectiveSlug = originalProblemSlug?.['slug']?.['current'] || slug
-
+  const link = useLangUri() + '/posts/' + effectiveSlug
 
     return (
     <div className="w-full flex flex-row">
@@ -37,10 +38,10 @@ export default function PostPreview({
           }
         
           <p className="text-xl font-bold  md:text-xl">
-            <Link href={`/posts/${slug}`} className="hover:underline">
+            <Link href={link} className="hover:underline">
               {title}
             </Link>
-            {tags && <TagButtonList tags={tags} className="mx-2"/>}        
+            {keywords && <TagButtonList keywords={keywords} className="mx-2"/>}        
             </p>
           <p className="mb-4 text-lg">
             <Date dateString={date} />

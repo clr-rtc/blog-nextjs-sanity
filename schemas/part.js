@@ -3,6 +3,7 @@ import { format, parseISO } from 'date-fns'
 import { defineField, defineType, defineArrayMember } from 'sanity'
 
 import authorType from './author'
+import { defineBilingualFormattedTextField, defineBilingualTextField, defineExcerpt } from './fields'
 
 const SmallStyle = props => (
   <span className="text-sm">{props.children} </span>
@@ -31,7 +32,7 @@ export default defineType({
   icon: BookIcon,
   type: 'document',
   fields: [
-    defineField({
+    ...defineBilingualTextField({
       name: 'title',
       title: 'Title',
       type: 'string',
@@ -53,55 +54,9 @@ export default defineType({
       
     }),
     
-    defineField({
-      name: 'content',
-      title: 'Content',
-      type: 'array',
-     
-      of: [
-        defineArrayMember({ type: 'block',
-       
-        styles: [
-          {title: 'Normal', value: 'normal'},
-          {title: 'Petit', value: 'small', component: SmallStyle },
-          {title: 'Très Petit', value: 'very-small', component: VerySmallStyle },
-          {title: 'H1', value: 'h1'},
-          {title: 'H2', value: 'h2'},
-          {title: 'H3', value: 'h3'},
-          {title: 'H4', value: 'h4'},
-          {title: 'H5', value: 'h5'},
-          {title: 'H6', value: 'h6'},
-          {title: 'Quote', value: 'blockquote'}]
-         }),
-        {
-          type: 'image',
-          options: {
-            hotspot: true,
-          },
-          fields: [
-            {
-              name: 'caption',
-              type: 'string',
-              title: 'Image caption',
-              description: 'Caption displayed below the image.',
-            },
-            {
-              name: 'alt',
-              type: 'string',
-              title: 'Alternative text',
-              description: 'Important for SEO and accessiblity.',
-            },
-          ],
-        },
-       
-      ],
-    }),
+    ...defineBilingualFormattedTextField('content', 'Contenu', "Contenu principal de l'article"),
+    ...defineExcerpt(),
 
-    defineField({
-      name: 'excerpt',
-      title: 'Excerpt',
-      type: 'text',
-    }),
     defineField({
       name: 'coverImage',
       title: 'Cover Image',

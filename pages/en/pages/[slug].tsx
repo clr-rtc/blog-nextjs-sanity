@@ -1,23 +1,23 @@
-import PostPage from 'components/PostPage'
-import PreviewPostPage from 'components/PreviewPostPage'
+import PagePage from 'components/PagePage'
+import PreviewPagePage from 'components/PreviewPagePage'
 import { readToken } from 'lib/sanity.api'
 import {
-  getAllPostsSlugs,
+  getAllPagesSlugs,
   getClient,
-  getPostAndMoreStories,
+  getPageAndPosts,
+  getAllPosts,
   getAllParts,
   getSettings,
   getMenuItems,
-  getFullPost,
-  getRelatedPosts
+  getFullPage,
 } from 'lib/sanity.client'
-import { Post, Part, Settings, MenuItem } from 'lib/sanity.queries'
+import { Post, Part, Page, Settings, MenuItem } from 'lib/sanity.queries'
 import { GetStaticProps } from 'next'
 import type { SharedPageProps } from 'pages/_app'
 
 interface PageProps extends SharedPageProps {
-  post: Post
   parts: Part[]
+  page: Page
   menuItems: MenuItem[]
   settings?: Settings
 }
@@ -27,40 +27,38 @@ interface Query {
 }
 
 export default function ProjectSlugRoute(props: PageProps) {
-  const { settings, post, parts, draftMode } = props
+  const { settings, parts, page, draftMode } = props
+
+ 
+  if (!props.page?.slug){
+    return <></>
+  }
 
   if (draftMode) {
     return (
-      <PreviewPostPage menuItems={props.menuItems} post={post} parts={parts}  settings={settings} />
+      <PreviewPagePage menuItems={props.menuItems} page={page}  parts={parts}  settings={settings} />
     )
   }
 
-  return <PostPage menuItems={props.menuItems} post={post} parts={props.parts} settings={settings} />
+  return <PagePage menuItems={props.menuItems} page={page} parts={parts}  settings={settings} />
 }
 
 export const getStaticProps: GetStaticProps<PageProps, Query> = async (ctx) => {
   const { draftMode = false, params = {} } = ctx
   const client = getClient(draftMode ? { token: readToken } : undefined)
 
-  const [settings, post, parts, menuItems ] = await Promise.all([
+  const [settings, page, parts, menuItems ] = await Promise.all([
     getSettings(client),
-    getFullPost(client, params.slug),
-    getAllParts(client),
-    getMenuItems(client)
+    getFullPage(client, params.slug, 'en'),
+    getAllParts(client, 'en'),
+    getMenuItems(client, 'en')
+
   ])
 
-  if (!post) {
-    return {
-      notFound: true,
-    }
-  }
-
-  const related = await getRelatedPosts(client, post._id)
-  post.relatedPosts = related
-
+  console.log(`slug:${params.slug} oage:${page?.title}`)
   return {
     props: {
-      post,
+      page,
       parts,
       menuItems,
       settings,
@@ -71,10 +69,10 @@ export const getStaticProps: GetStaticProps<PageProps, Query> = async (ctx) => {
 }
 
 export const getStaticPaths = async () => {
-  const slugs = await getAllPostsSlugs()
-
+  const slugs = await getAllPagesSlugs()
+  
   return {
-    paths: slugs?.map(({ slug }) => `/posts/${slug}`) || [],
+    paths: slugs?.map(({ slug }) => '/en' + (slug[0] === '/'? slug : `/pages/${slug}`)) || [],
     fallback: 'blocking',
   }
 }

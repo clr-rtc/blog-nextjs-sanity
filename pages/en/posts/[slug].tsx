@@ -44,9 +44,9 @@ export const getStaticProps: GetStaticProps<PageProps, Query> = async (ctx) => {
 
   const [settings, post, parts, menuItems ] = await Promise.all([
     getSettings(client),
-    getFullPost(client, params.slug),
-    getAllParts(client),
-    getMenuItems(client)
+    getFullPost(client, params.slug, 'en'),
+    getAllParts(client, 'en'),
+    getMenuItems(client,'en')
   ])
 
   if (!post) {
@@ -55,7 +55,8 @@ export const getStaticProps: GetStaticProps<PageProps, Query> = async (ctx) => {
     }
   }
 
-  const related = await getRelatedPosts(client, post._id)
+
+  const related = await getRelatedPosts(client, post._id, 'en')
   post.relatedPosts = related
 
   return {
@@ -74,7 +75,7 @@ export const getStaticPaths = async () => {
   const slugs = await getAllPostsSlugs()
 
   return {
-    paths: slugs?.map(({ slug }) => `/posts/${slug}`) || [],
+    paths: slugs?.map(({ slug }) => `/en/posts/${slug}`) || [],
     fallback: 'blocking',
   }
 }

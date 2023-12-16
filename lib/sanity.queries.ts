@@ -4,32 +4,43 @@ import { groq } from 'next-sanity'
 const postFields = groq`
   _id,
   title,
-  tags,
+  title_en,
   whereToShow,
   postType,
   originalProblem,
   severity,
   status,
   problem,
+  problem_en,
   impact,
+  impact_en,
   risks,
+  risks_en,
   next_steps,
+  next_steps_en,
   date,
   _updatedAt,
   content,
+  content_en,
   excerpt,
+  excerpt_en,
   coverImage,
   "slug": slug.current,
   "originalProblemSlug": originalProblem -> {slug {current}},
-  "author": author->{name, picture}
+  "author": author->{name, picture},
+  "keywords": keywords[]->{_id, title, title_en}
 `
 
 const pageFields = groq`
   _id,
   title,
+  title_en,
   date,
   _updatedAt,
+  content,
+  content_en,
   excerpt,
+  exceprt_en,
   coverImage,
   "slug": slug.current,
   "author": author->{name, picture},
@@ -38,7 +49,9 @@ const pageFields = groq`
 const menuItemFields = groq`
   _id,
   title,
+  title_en,
   menu,
+  menu_en,
   menuSequenceNo,
   "slug": slug.current,
 `
@@ -47,11 +60,14 @@ const menuItemFields = groq`
 const partFields = groq`
   _id,
   title,
+  title_en,
   appearance,
   date,
   _updatedAt,
   excerpt,
+  excerpt_en,
   content,
+  content_en,
   coverImage,
   "slug": slug.current,
   "author": author->{name, picture}
@@ -78,15 +94,26 @@ export const pagesQuery = groq`
 }`
 
 export const menuItemsQuery = groq`
-*[_type == "page"] | order(date desc, _updatedAt desc) {
+*[_type == "page"] {
   ${menuItemFields}
 }`
 
 
 export const partsQuery = groq`
-*[_type == "part"] | order(date desc, _updatedAt desc) {
+*[_type == "part"]  {
   ${partFields}
 }`
+
+export const fullPostQuery = groq`
+  *[_type == "post" && slug.current == $slug] | order(_updatedAt desc) [0]  {
+    ${postFields}
+  }`
+
+  export const relatedPostsQuery = groq`
+  *[_type == "post" && originalProblem._ref == $id] | order(date desc)  {
+    ${postFields}
+  }`
+
 
 export const postAndMoreStoriesQuery = groq`
 {
@@ -99,6 +126,13 @@ export const postAndMoreStoriesQuery = groq`
     ${postFields}
   }
 }`
+export const fullPageQuery = groq`
+
+  *[_type == "page" && slug.current == $slug] | order(_updatedAt desc) [0] {
+    ${pageFields}
+  }
+`
+
 
 export const pageAndPostsQuery = groq`
 {
@@ -141,10 +175,20 @@ export const findReferencePostSlug = groq`
  }
 `
 
+export const allKeywordsQuery = groq`
+*[_type == "keyword" ]
+`
+
 
 export interface Author {
   name?: string
   picture?: any
+}
+
+export interface Keyword {
+  _id: string
+  title: string
+  title_en: string
 }
 
 export interface Post {
@@ -171,6 +215,8 @@ export interface Post {
     _ref: string
     _type: string
   }
+  keywords: Keyword[]
+  relatedPosts: Post[]
 }
 
 export interface Page {

@@ -25,6 +25,7 @@ import postType from 'schemas/post'
 import partType from 'schemas/part'
 import pageType from 'schemas/page'
 import blockType from 'schemas/block'
+import keywordType from 'schemas/keyword'
 import settingsType from 'schemas/settings'
 import block from 'schemas/block'
 import {CustomizedPublish} from 'schemas/customizedPublish'
@@ -39,7 +40,7 @@ export default defineConfig({
   title,
   schema: {
     // If you want more content types, you can add them to this array
-    types: [authorType, postType, partType, pageType, settingsType, blockType],
+    types: [authorType, postType, partType, pageType, settingsType, blockType, keywordType],
   },
   document: {
     actions: (prev) =>{

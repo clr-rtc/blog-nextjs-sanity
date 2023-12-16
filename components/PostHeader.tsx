@@ -24,7 +24,7 @@ export default function PostHeader(
         
         <div className="mb-2 text-lg">
           <Date dateString={date} />
-          <TagButtonList tags={props['tags']} className='mx-2'/>
+          <TagButtonList keywords={props['keywords']} className='mx-2'/>
         </div>
       </div>
     </>

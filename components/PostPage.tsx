@@ -22,7 +22,7 @@ export interface PostPageProps {
   loading?: boolean
   post: Post
   parts: Part[]
-  morePosts: Post[]
+  morePosts?: Post[]
   menuItems: MenuItem[]
   settings: Settings
 }
@@ -39,12 +39,7 @@ export default function PostPage(props: PostPageProps) {
     notFound()
   }
 
-  let followUps: Post[] = undefined
-  if (post.postType === 'problem'){
-    followUps = morePosts.filter((p) => p.postType === 'follow-up' && 
-    p.originalProblem?._ref === post._id
-    )
-  }
+  const relatedPosts: Post[] =post.relatedPosts
 
   return (
     <>
@@ -67,9 +62,9 @@ export default function PostPage(props: PostPageProps) {
                   <PostBody content={post.content} /> : <></>}
                 {post.postType === 'problem' ?
                   <ProblemPostBody post={post} /> : <></>}
-                {followUps?.length > 0 && <div className="pt-2">
+                {relatedPosts?.length > 0 && <div className="pt-2">
                   <ListBanner highlight={true}>{'Suivis'}</ListBanner> 
-                  {followUps.map((f, index) => {
+                  {relatedPosts.map((f, index) => {
                   return <FollowUpBody key={index} post={f} />
                 })}</div>}
               </article>

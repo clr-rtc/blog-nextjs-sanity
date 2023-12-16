@@ -10,6 +10,7 @@ import type { Part, MenuItem } from 'lib/sanity.queries'
 import { useRouter } from 'next/router'
 
 import posthog from 'posthog-js'
+import { localizePath, useLabel, useLang, useLangUri } from 'lib/lang'
 posthog.init('phc_4OvszK6fA4xvRYyWFv5ZCKj6FvfN2ntiUUgMkojjYGP', { api_host: 'https://app.posthog.com' })
 
 function menuItemMatches(item: MenuItem, route: string){
@@ -28,12 +29,31 @@ type MenuProps = {
 const Menu = (props: MenuProps) => {
   const router = useRouter()
   posthog.capture('load', { property: "Testing Path " +router.asPath  })
-  const slug = router.query['slug']
-  const route =slug? `/pages/${slug}` : router.route
+  const slug = router.query['slug'] as string
+
+  const langPart = useLangUri()
+  const parts = router.route?.split('/')
+
+  if (slug){
+    parts.pop()
+    parts.push(slug)
+  }
+
+  
+  if (parts.length > 0 && !parts[0]){
+    parts.shift()
+  }
+
+  const route = '/' + parts.join('/')
 
   const pageNo = props.menuItems.find((item) => menuItemMatches(item, route))?.menuSequenceNo || 1
   
   const menuItems = props.menuItems.filter((item) => item.label && item.menuSequenceNo).sort((item1, item2) => item1.menuSequenceNo - item2.menuSequenceNo)
+
+  const otherLang = useLabel('en', 'fr')
+  const otherRoute = localizePath(route, otherLang)
+  const otherLabel = useLabel('English', 'Français')
+  menuItems.push({uri: otherRoute, label: otherLabel})
 
   return <div className="flex flex-row flex-wrap gap-1 sm:gap-6 justify-start pb-2 sm:pb-4 text-xs sm:text-lg text-[#8b6b36]/50  ">
     {menuItems.map((item, index) => 

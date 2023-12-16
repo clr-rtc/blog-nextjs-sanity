@@ -5,6 +5,7 @@ import type { Post } from 'lib/sanity.queries'
 import Link from 'next/link'
 import { COLOR_LINK } from './colors'
 import PostBody from './PostBody'
+import { useLabel, useLangUri } from 'lib/lang'
 
 export default function HeroPost(
   props: Pick<
@@ -15,10 +16,12 @@ export default function HeroPost(
   const { title, coverImage, date, excerpt, author, slug, originalProblemSlug, content, problem } = props
   const effectiveSlug = originalProblemSlug?.['slug']?.['current'] || slug
   const textContent = content || problem
+  const langUri= useLangUri()
+  const SEE_MORE = useLabel('En savoir plus...', 'Read More...')
   return (
     <section >
           <h3 className="py-4 text-2xl font-semibold lg:text-3xl  text-blue-900 text-center  ">
-            <Link href={`/posts/${effectiveSlug}`} className="hover:underline">
+            <Link href={`${langUri}/posts/${effectiveSlug}`} className="hover:underline">
               {title || 'Untitled'}
             </Link>
           </h3>
@@ -35,7 +38,7 @@ export default function HeroPost(
           {(excerpt ) && (<><p className="mb-4 text-lg leading-relaxed">{excerpt}</p>
       
           <Link href={`/posts/${slug}`} className={"hover:underline font-bold italic " + COLOR_LINK} >
-              En savoir plus...
+              {SEE_MORE}
             </Link></>)}
           {author && (
             <AuthorAvatar name={author.name} picture={author.picture} />

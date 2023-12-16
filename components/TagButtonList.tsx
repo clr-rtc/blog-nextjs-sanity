@@ -1,25 +1,28 @@
+import { useLabel, useLangUri } from 'lib/lang'
 import Link from 'next/link'
+import {Keyword} from 'lib/sanity.queries'
 
 type TagButtonProps = {
-    value: string
-    label: string
-    
+    keyword: Keyword 
   }
 
 const TagButton = (props: TagButtonProps) => {
-    return <span className={"text-xs  bg-gray-300 text-indigo-900 p-1 "}>
-    <Link href={"/postlist/1/" + encodeURIComponent(props.value)}>{props.label}</Link>
+    const prefix = useLangUri()
+    const label = useLabel(props.keyword.title, props.keyword.title_en)
+    return <span key={props.keyword._id} className={"text-xs  bg-gray-300 text-indigo-900 p-1 "}>
+    <Link href={prefix + "/postlist/1/" + encodeURIComponent(props.keyword._id)}>{label}</Link>
     </span>
 }
 
 type TagButtonListProps = {
-    tags: TagButtonProps[]
+    keywords: Keyword[]
     className?: string
 }
 
 const TagButtonList = (props: TagButtonListProps) => {
-  
-    return <span className={"space-x-1 flex flex-row gap-y-1 flex-wrap " + props.className||''}>{props.tags?.map((t, index) => <TagButton key={index} value={t.value} label={t.label}/>)}</span>
+    
+    return <span className={"space-x-1 flex flex-row gap-y-1 flex-wrap " + props.className||''}>
+        {props.keywords?.map((keyword, index) => <TagButton key={keyword._id} keyword={keyword}/>)}</span>
   
 }
 

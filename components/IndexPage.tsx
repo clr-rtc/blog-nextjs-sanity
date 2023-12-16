@@ -13,6 +13,7 @@ import BlogPart from 'components/BlogPart'
 import StandardPageLayout from 'components/StandardPageLayout'
 import ListBanner  from './ListBanner'
 import Link from 'next/link'
+import { useLabel, useLangUri } from 'lib/lang'
 
 export interface IndexPageProps {
   preview?: boolean
@@ -26,11 +27,17 @@ export interface IndexPageProps {
 
 export default function IndexPage(props: IndexPageProps) {
   const { preview, loading, posts, parts, settings } = props
+  const prefix = useLangUri()
 
   const heroPosts = posts?.filter((p)=> p.whereToShow === 'hero')
   const linkedPosts = posts?.filter((p)=> p.whereToShow === 'list')
 
   const { title , description } = settings || {}
+
+  const LATEST_NEWS = useLabel('Actualités', `What's New`)
+  const OTHER_ARTICLES = useLabel('Autres Articles', 'Other Articles')
+  const SEE_PRIORITIES = useLabel(`Voir toutes les priorités`,`See All of the Priorities`)
+  const SEE_ALL = useLabel('Voir tous les articles', 'See All Articles')
 
   return (
     <>
@@ -42,7 +49,7 @@ export default function IndexPage(props: IndexPageProps) {
           
           <StandardPageLayout parts={parts}>
           <ListBanner highlight={true}>
-            Actualités
+            {LATEST_NEWS}
             </ListBanner>
 
             {heroPosts?.length > 0 && heroPosts.map((heroPost, index) =>
@@ -53,20 +60,20 @@ export default function IndexPage(props: IndexPageProps) {
                 </div>
               ))}  
             <div className="py-1 my-4  text-center  text-xl    md:text-xl">
-            <Link href={`/pages/problems`} className={"text-white bg-gray-900/75 hover:bg-gray-900 rounded-lg py-2 px-4 "}>
-             Voir toutes les priorités du comité&nbsp;&#8674;</Link>
+            <Link href={`${prefix}/pages/problems`} className={"text-white bg-gray-900/75 hover:bg-gray-900 rounded-lg py-2 px-4 "}>
+            {SEE_PRIORITIES}&nbsp;&#8674;</Link>
             </div>          
 
              
             {linkedPosts.length > 0 && 
             <>
                 <ListBanner>  
-            Autres Articles
+                {OTHER_ARTICLES}
             </ListBanner>   
             <div className="w-full pt-4"><StoriesList posts={linkedPosts} maxStories={5}/></div>
             <div className="py-1 mt-4  text-center  text-xl    md:text-xl">
-            <Link href={`/postlist/1`} className={"text-white bg-gray-900/75 hover:bg-gray-900 rounded-lg py-2 px-4 "}>
-             Voir tous les articles&nbsp;&#8674;</Link>
+            <Link href={`${prefix}/postlist/1`} className={"text-white bg-gray-900/75 hover:bg-gray-900 rounded-lg py-2 px-4 "}>
+             {SEE_ALL}&nbsp;&#8674;</Link>
       </div>   
             </>
             }

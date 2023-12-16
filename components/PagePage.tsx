@@ -18,7 +18,6 @@ export interface PagePageProps {
   loading?: boolean
   page: Page
   parts: Part[]
-  posts: Post[]
   menuItems: MenuItem[]
   settings: Settings
 }
@@ -26,7 +25,7 @@ export interface PagePageProps {
 const NO_POSTS: Post[] = []
 
 export default function PagePage(props: PagePageProps) {
-  const { preview, loading, posts = NO_POSTS, page, settings } = props
+  const { preview, loading, page, settings } = props
   const { title = demo.title } = settings || {}
 
   const slug = page?.slug

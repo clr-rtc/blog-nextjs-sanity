@@ -1,8 +1,9 @@
 import { BookIcon } from '@sanity/icons'
 import { format, parseISO } from 'date-fns'
 import { defineField, defineType } from 'sanity'
-import {defineAuthor, defineTags, defineCoverImage, defineExcerpt, defineFormattedTextField, definePublicationDate, defineSlugField} from './fields'
+import {defineAuthor, defineTags, defineCoverImage, defineExcerpt, defineFormattedTextField, definePublicationDate, defineSlugField, defineBilingualFormattedTextField} from './fields'
 import authorType from './author'
+import ReferenceSelect from 'components/ReferenceSelect'
 
 /**
  * This file is the schema definition for a post.
@@ -28,6 +29,12 @@ export default defineType({
       type: 'string',
       validation: (rule) => rule.required(),
     }),
+    defineField({
+      name: 'title_en',
+      title: "Nom de l'article en anglais",
+      type: 'string',
+      
+    }),
     definePublicationDate(),
     defineField({
       title: "Type d'article",
@@ -47,6 +54,23 @@ export default defineType({
     }),
 
     defineTags(),
+    defineTags('en'),
+    defineField({
+      name: 'keywords',
+      title: 'Mots clé',
+      description: "Les mots clés catégorisant cet article",
+      type: 'array',
+      of: [
+        {
+         type: 'reference',
+         to: { type: 'keyword'}
+        }
+      ],
+      components:{
+        input: ReferenceSelect
+      }
+    }),
+    
 
     defineField({
       title: "Problème original",
@@ -101,13 +125,13 @@ export default defineType({
       initialValue: 'new',
       hidden: ({document}) => document.postType !== 'problem'
     }),
-    defineFormattedTextField('content', 'Contenu', "Contenu principal de l'article", ({document}) => document.postType === 'problem'),
-    defineFormattedTextField('problem', 'Description', "Explication générale du problème", ({document}) => document.postType !== 'problem'),
-    defineFormattedTextField('impact', 'Impact Courant', "Quels sont les dommages qui ont été causés", ({document}) => document.postType !== 'problem'),
-    defineFormattedTextField('risks', 'Risques', "Quels sont les rispques potentiels", ({document}) => document.postType !== 'problem'),
-    defineFormattedTextField('next_steps', 'Prochaines Démarches', "Quels seront les prochaines démarches pour réglé le prolbème", ({document}) => document.postType !== 'problem'),
+    ...(defineBilingualFormattedTextField('content', 'Contenu', "Contenu principal de l'article", ({document}) => document.postType === 'problem')),
+    ...defineBilingualFormattedTextField('problem', 'Description', "Explication générale du problème", ({document}) => document.postType !== 'problem'),
+    ...defineBilingualFormattedTextField('impact', 'Impact Courant', "Quels sont les dommages qui ont été causés", ({document}) => document.postType !== 'problem'),
+    ...defineBilingualFormattedTextField('risks', 'Risques', "Quels sont les rispques potentiels", ({document}) => document.postType !== 'problem'),
+    ...defineBilingualFormattedTextField('next_steps', 'Prochaines Démarches', "Quels seront les prochaines démarches pour réglé le prolbème", ({document}) => document.postType !== 'problem'),
 
-    defineExcerpt(),
+    ...defineExcerpt(),
     defineCoverImage(),
     defineField({
       title: "Affichage",

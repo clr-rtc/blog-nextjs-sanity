@@ -27,6 +27,12 @@ export function defineSlugField() {
       })
 }
 
+export function defineBilingualFormattedTextField(name, title, description, hidden){
+  const french = defineFormattedTextField(name, title, description, hidden)
+  const english = defineFormattedTextField(name + "_en", title + " (anglais)", description + " en anglais", hidden)
+  return [french, english]
+}
+
 export function defineFormattedTextField(name, title, description, hidden){
    return defineField({
         name,
@@ -91,9 +97,25 @@ export function defineFormattedTextField(name, title, description, hidden){
     })
 }
 
+export function defineTextField(name, title, description, hidden){
+  return defineField({
+      name,
+      title,
+      description,
+      hidden,
+      type: 'text',
+  })
+}
+
+export function defineBilingualTextField({name, title, description, hidden}){
+  const french = defineTextField(name, title, description, hidden)
+  const english = defineTextField(name + "_en", title + " (anglais)", description + " en anglais", hidden)
+  return [french, english]
+}
+
 
 export function defineExcerpt(){
-  return defineField({
+  return defineBilingualTextField({
       name: 'excerpt',
       title: 'Sommaire',
       description: "Texte court résumant la page pour les références d'autres pages",
@@ -101,14 +123,16 @@ export function defineExcerpt(){
   })
 }
 
-export function defineTags(){
+export function defineTags(lang){
+
+  const name = lang === 'en'? 'tags_en' : 'tags'
     return defineField({
-        name: 'tags',
-        title: 'Étiquettes',
-        description: "Mots-clé permettant de catégoriser l'article",
+        name,
+        title: lang === 'en'? 'Tags' : 'Étiquettes',
+        description: lang === 'en'? "Keywords used to categorize the article" : "Mots-clé permettant de catégoriser l'article",
         type: 'tags',
         options: {
-            includeFromRelated: 'tags'
+            includeFromRelated: name
         }
     })
 }

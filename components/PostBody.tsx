@@ -18,6 +18,7 @@ import type { Post  } from 'lib/sanity.queries'
 import styles from './PostBody.module.css'
 import { SanityImage } from './SanityImage'
 import PostDate from './PostDate'
+import { useLabel, useLangSuffix } from 'lib/lang'
 
 const customPortableTextComponents: Partial<PortableTextReactComponents> = {
   types: {
@@ -103,7 +104,12 @@ export const severityShortDescription = {
   "important": "Important",
   "service": "Important",
   "prevention" : "Prévention",
-  "nuisance" : "Nuisance"
+  "nuisance" : "Nuisance",
+  "critical_en": "Critical",
+  "important_en": "Important",
+  "service_en": "Important",
+  "prevention_en" : "Prevention",
+  "nuisance_em" : "Nuisance"
 }
 
 const severityDescription = {
@@ -111,24 +117,36 @@ const severityDescription = {
   "important": "Important - réduit grandement la qualité de vie",
   "service": "Important - réduit grandement la qualité du service",
   "prevention" : "Prévention - agir avant que le problème ne se produise ou s'aggrave",
-  "nuisance" : "Nuisance - nuisance à régler dans le courant de l'année"
+  "nuisance" : "Nuisance - nuisance à régler dans le courant de l'année",
+  "critical_en": "Critical - resolve urgently",
+  "important_en": "Important - greatly affects quality of life",
+  "service_en": "Important - greatly affects quality of service",
+  "prevention_en" : "Prevention - act before the problem occurrs or gets worse",
+  "nuisance_en" : "Nuisance - resolve in the coming year"
 }
 
 function Severity(props: {post: Post}){
-  return <div><span className="font-bold">Sévérité:</span><span className='px-2'>
-    {severityDescription[props.post.severity||"important"]}
+  return <div><span className="font-bold">{useLabel('Sévérité', 'Severity')}:</span><span className='px-2'>
+    {severityDescription[(props.post.severity||"important") + useLangSuffix()]}
     </span></div>
 }
 
 
 export const shortStatusDescription = {
   "new": "Nouveau",
-  "accepted" : "À l'étude",
+  "under review" : "À l'étude",
   "in progress" : "À suivre",
   "rejected" : "Rejeté",
   "resolved" : "Résolu",
   "verify" : "À vérifier",
-  "closed" : "Fermé"
+  "closed" : "Fermé",
+  "new_en": "New",
+  "under review_en" : "Under review",
+  "in progress_en" : "In progress",
+  "rejected_en" : "Rejected",
+  "resolved_en" : "Resolved",
+  "verify_en" : "To verify",
+  "closed_en" : "Closed"
 }
 
 const statusDescription = {
@@ -138,16 +156,24 @@ const statusDescription = {
   "rejected" : "Rejeté - l'administration ne veut pas reconnaitre le problème",
   "resolved" : "Résolu - le problème est réglé",
   "verify" : "À vérifier - l'administration dit que le problème est réglé",
-  "closed" : "Fermé - le problème n'est plus prioritaire"
+  "closed" : "Fermé - le problème n'est plus prioritaire",
+  "new_en": "New - for discussion with the administration",
+  "under review_en": "Under review - the administration must study the problem to find a resolution",
+  "in progress_en" : "In progress - the administration acknowledges the issue and is working on it",
+  "rejected_en" : "Rejected - the administration does not acknowledge this as a problem",
+  "resolved_en" : "Resolved - the problem was solved",
+  "verify_en" : "To verify - the administration says the problem was solved",
+  "closed_en" : "Closed - no longer an issue"
 }
 
 function Status(props: {post: Post}){
-  return <div><span className="font-bold">Statut:</span><span className='px-2'>
-    {statusDescription[props.post.status||"new"]}
+  return <div><span className="font-bold">{useLabel('Statut','Status')}::</span><span className='px-2'>
+    {statusDescription[(props.post.status||"new")+ useLangSuffix()]}
     </span></div>
 }
 
 function ProblemSection(props: {content: any, children: any}){
+  
   if (!props.content){
     return <></>
   }
@@ -164,21 +190,21 @@ function ProblemSection(props: {content: any, children: any}){
 }
 
 function ProblemDescription(props: {post: Post}){
-  return <ProblemSection content={props.post.problem} >
-    Description du problème:</ProblemSection>
+  return <ProblemSection content={props.post['problem']} >
+    {useLabel('Description du problème','Problem Description')}:</ProblemSection>
 }
 
 function ProblemImpact(props: {post: Post}){
-  return <ProblemSection content={props.post.impact} >
-    Impact du problème:</ProblemSection>
+  return <ProblemSection content={props.post['impact']} >
+    {useLabel('Impact du problème','Problem impact')}:</ProblemSection>
 }
 
 function ProblemRisks(props: {post: Post}){
-  return <ProblemSection content={props.post.risks} >
-    Risques:</ProblemSection>
+  return <ProblemSection content={props.post['risks']} >
+    {useLabel('Risques','Risks')}:</ProblemSection>
 }
 
 function NextSteps(props: {post: Post}){
-  return <ProblemSection content={props.post.next_steps} >
-  Prochaines démarches:</ProblemSection>
+  return <ProblemSection content={props.post['next_steps']} >
+  {useLabel('Prochaines démarches','Next steps')}:</ProblemSection>
 }
