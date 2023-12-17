@@ -1,4 +1,4 @@
-import { getAllPosts, getClient } from 'lib/sanity.client'
+import { getAllPages, getAllPagesSlugs, getAllPosts, getClient } from 'lib/sanity.client'
 
 type SitemapLocation = {
   url: string
@@ -14,17 +14,6 @@ type SitemapLocation = {
   lastmod?: Date
 }
 
-// Use this to manually add routes to the sitemap
-const defaultUrls: SitemapLocation[] = [
-  {
-    url: '/',
-    changefreq: 'daily',
-    priority: 1,
-    lastmod: new Date(), // or custom date: '2023-06-12T00:00:00.000Z',
-  },
-  //   { url: '/about', priority: 0.5 },
-  //   { url: '/blog', changefreq: 'weekly', priority: 0.7 },
-]
 
 const createSitemap = (locations: SitemapLocation[]) => {
   const baseUrl = process.env.NEXT_PUBLIC_URL // Make sure to configure this
@@ -67,9 +56,29 @@ export async function getServerSideProps({ res }) {
     })
 
   // ... get more routes here
+  const englishPosts = postUrls.map((postUrl) => {
+    return {...postUrl, url: '/en' + postUrl.url  }
+  })
+
+  // Get the pages
+  const [pages = []] = await Promise.all([getAllPages(client)])
+  const pageUrls: SitemapLocation[] = pages
+  .filter(({ slug = '' }) => slug)
+  .map((post) => {
+    return {
+      url: post.slug[0] === '/'? post.slug : `/pages/${post.slug}`,
+      priority: 0.5,
+      lastmod: new Date(post._updatedAt),
+    }
+  })
+
+  const englishPages = pageUrls.map((pageUrl) => {
+    return {...pageUrl, url: '/en' + pageUrl.url  }
+  })
+
 
   // Return the default urls, combined with dynamic urls above
-  const locations = [...defaultUrls, ...postUrls]
+  const locations = [ ...postUrls, ...englishPosts, ...pageUrls, ...englishPages]
 
   // Set response to XML
   res.setHeader('Content-Type', 'text/xml')

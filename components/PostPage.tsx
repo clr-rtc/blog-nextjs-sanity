@@ -14,6 +14,7 @@ import { notFound } from 'next/navigation'
 
 import StandardPageLayout from 'components/StandardPageLayout'
 import ListBanner  from './ListBanner'
+import { useLabel } from 'lib/lang'
 
 
 
@@ -32,6 +33,7 @@ const NO_POSTS: Post[] = []
 export default function PostPage(props: PostPageProps) {
   const { preview, loading, morePosts = NO_POSTS, post, settings } = props
   const { title = demo.title } = settings || {}
+  const SUIVIS = useLabel('Suivis', 'Follow-ups')
 
   const slug = post?.slug
 
@@ -63,7 +65,7 @@ export default function PostPage(props: PostPageProps) {
                 {post.postType === 'problem' ?
                   <ProblemPostBody post={post} /> : <></>}
                 {relatedPosts?.length > 0 && <div className="pt-2">
-                  <ListBanner highlight={true}>{'Suivis'}</ListBanner> 
+                  <ListBanner highlight={true}>{SUIVIS}</ListBanner> 
                   {relatedPosts.map((f, index) => {
                   return <FollowUpBody key={index} post={f} />
                 })}</div>}

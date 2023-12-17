@@ -53,8 +53,7 @@ export default defineType({
       
     }),
 
-    defineTags(),
-    defineTags('en'),
+
     defineField({
       name: 'keywords',
       title: 'Mots clé',
@@ -124,6 +123,13 @@ export default defineType({
       },
       initialValue: 'new',
       hidden: ({document}) => document.postType !== 'problem'
+    }),
+    defineField({
+      name: 'priorityNo',
+      title: 'Priorité',
+      description: "Une value plus élevée place l'item plus haut dans la liste; la date est utilisée pour des priorités identiques",
+      type: 'number',
+      initialValue: 0
     }),
     ...(defineBilingualFormattedTextField('content', 'Contenu', "Contenu principal de l'article", ({document}) => document.postType === 'problem')),
     ...defineBilingualFormattedTextField('problem', 'Description', "Explication générale du problème", ({document}) => document.postType !== 'problem'),

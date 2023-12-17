@@ -15,24 +15,7 @@ import StandardPageLayout from 'components/StandardPageLayout'
 import ListBanner  from './ListBanner'
 import { useLabel, useLangUri } from 'lib/lang'
 
-type NavButtonProps = {
-  url: string
-  children: any
-  disabled?: boolean
-  className?: string
-}
-
-const NavButton = (props: NavButtonProps) => {
-  
-  return <div className={"  text-sm text-center  font-semibold  " + (props.className||'')}>
-
-            <a href={props.disabled? undefined : props.url} 
-            className={
-              props.disabled? "text-gray-400 w-30 block bg-gray-300   py-2 px-4 rounded-lg"
-            : "text-white w-32 bg-gray-900/75 block hover:bg-gray-900  py-2 px-4 rounded-lg"}>
-             {props.children}</a>
-      </div>
-}
+import NavButton from './NavButton'
 
 export interface PostListPageProps {
   preview?: boolean
@@ -95,7 +78,7 @@ export default function PostListPage(props: PostListPageProps) {
     const pages = []
     if (lastPageNo > 1){
       for (let i = 1; i <= lastPageNo; i++){
-        pages.push(<a key={i} href={pageNo === i? undefined : pageUrl(i)} className={"w-4 h-4 text-center " + (pageNo === i? 'bg-indigo-300' : 'bg-grey-300')} >{i}</a>)
+        pages.push(<a key={i} href={pageNo === i? undefined : prefix + pageUrl(i)} className={"w-4 h-4 text-center " + (pageNo === i? 'bg-indigo-300' : 'bg-grey-300')} >{i}</a>)
       }
     }
 

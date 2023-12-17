@@ -18,14 +18,15 @@ export default function PostPreview({
   originalProblemSlug,
 }: Omit<Post, '_id'>) {
 
-  const effectiveSlug = originalProblemSlug?.['slug']?.['current'] || slug
+  const mainArticleSlug =  originalProblemSlug?.['slug']?.['current']
+  const effectiveSlug = mainArticleSlug? mainArticleSlug + "#" + slug : slug
   const link = useLangUri() + '/posts/' + effectiveSlug
 
     return (
     <div className="w-full flex flex-row">
       <div className="flex flex-col  w-full">
         <div className="py-2  text-left  ">
-        {coverImage && <div className="flex flex-row justify-center float-right p-4 w-72">
+        {coverImage && <div className="flex flex-row justify-center float-right p-4 w-64">
        
             <CoverImage
               slug={effectiveSlug}
@@ -41,7 +42,7 @@ export default function PostPreview({
             <Link href={link} className="hover:underline">
               {title}
             </Link>
-            {keywords && <TagButtonList keywords={keywords} className="mx-2"/>}        
+            {keywords && <TagButtonList keywords={keywords} className=""/>}        
             </p>
           <p className="mb-4 text-lg">
             <Date dateString={date} />

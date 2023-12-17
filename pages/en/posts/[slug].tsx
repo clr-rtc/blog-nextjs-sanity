@@ -9,7 +9,8 @@ import {
   getSettings,
   getMenuItems,
   getFullPost,
-  getRelatedPosts
+  getRelatedPosts,
+  getAllPrioritizedPostSlugs
 } from 'lib/sanity.client'
 import { Post, Part, Settings, MenuItem } from 'lib/sanity.queries'
 import { GetStaticProps } from 'next'
@@ -55,6 +56,20 @@ export const getStaticProps: GetStaticProps<PageProps, Query> = async (ctx) => {
     }
   }
 
+  if (post.postType === 'problem'){
+    const postSlugs = await getAllPrioritizedPostSlugs(client)
+
+    const index = postSlugs.findIndex((postSlug) => postSlug.slug === post.slug)
+    if (index > -1){
+      if (index > 0){
+        post.previousSlug = postSlugs[index - 1].slug
+      } 
+
+      if (index + 1 < postSlugs.length){
+        post.nextSlug = postSlugs[index + 1].slug
+      }
+    }
+  }
 
   const related = await getRelatedPosts(client, post._id, 'en')
   post.relatedPosts = related

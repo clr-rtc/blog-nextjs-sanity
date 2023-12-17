@@ -67,7 +67,7 @@ export function FollowUpBody(props: FollowUpBodyProps) {
   const post = props.post
 
   return (
-    <div className={`w-full ${styles.portableText} flex flex-col`}>
+    <div id={post.slug} className={`w-full ${styles.portableText} flex flex-col`}>
       <div className="text-lg flex flex-col"><div className="font-bold ">{post.title}</div><PostDate dateString={post.date}/>  </div>
       <div className="flex flex-wrap justify-around">    
       <PortableText value={post.content} components={customPortableTextComponents}  />
@@ -126,9 +126,9 @@ const severityDescription = {
 }
 
 function Severity(props: {post: Post}){
-  return <div><span className="font-bold">{useLabel('Sévérité', 'Severity')}:</span><span className='px-2'>
+  return <div className="flex" ><div className="font-bold w-20" >{useLabel('Sévérité', 'Severity')}:</div><div className={'px-2'+ getSeverityClass(props.post)}>
     {severityDescription[(props.post.severity||"important") + useLangSuffix()]}
-    </span></div>
+    </div></div>
 }
 
 
@@ -166,10 +166,39 @@ const statusDescription = {
   "closed_en" : "Closed - no longer an issue"
 }
 
+export function getStatusClass(post: Post){
+  switch(post.status){
+    case 'new':
+      return " text-blue-500 font-semibold"
+  case 'rejected':
+      return " text-orange-500 font-semibold"
+  case 'verify':
+      return " text-purple-500 font-semibold"
+  case 'in progress':
+      return " text-green-700"
+
+  }
+
+  return ' '
+}
+
+export function getSeverityClass(post: Post){
+  
+  switch(post.severity){
+    case 'critical':
+      return " text-red-500 font-semibold"
+    case 'important':
+      case 'service':
+      return " text-amber-700"
+  }
+
+  return ' text-blue-700'
+}
+
 function Status(props: {post: Post}){
-  return <div><span className="font-bold">{useLabel('Statut','Status')}::</span><span className='px-2'>
+  return <div className="flex"><div className="font-bold w-20">{useLabel('Statut','Status')}:</div><div className={'px-2' + getStatusClass(props.post)}>
     {statusDescription[(props.post.status||"new")+ useLangSuffix()]}
-    </span></div>
+    </div></div>
 }
 
 function ProblemSection(props: {content: any, children: any}){

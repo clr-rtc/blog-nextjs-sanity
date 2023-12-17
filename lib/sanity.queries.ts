@@ -86,6 +86,40 @@ export const postListQuery = groq`
   ${postFields}
 }
 `
+export const postPrioritizedListQuery = groq`
+*[_type == "post" && postType == "problem"] | 
+{
+  "priorityNo": 0,
+   "isNew" : status == "new",
+   "isResolved" : status == "resolved",    
+   ...
+ }| 
+   order(
+     isNew desc,
+     isResolved asc,
+     priorityNo desc, date desc, _updatedAt desc) 
+{
+  ${postFields}
+}
+`
+
+export const postPrioritizedListSlugsQuery = groq`
+*[_type == "post" && postType == "problem" && defined(slug.current)] | 
+{
+  "priorityNo": 0,
+   "isNew" : status == "new",
+   "isResolved" : status == "resolved",    
+   ...
+ }| 
+   order(
+     isNew desc,
+     isResolved asc,
+     priorityNo desc, date desc, _updatedAt desc) 
+{
+  _id,
+  "slug": slug.current
+}
+`
 
 
 export const pagesQuery = groq`
@@ -216,7 +250,10 @@ export interface Post {
     _type: string
   }
   keywords: Keyword[]
-  relatedPosts: Post[]
+  relatedPosts?: Post[]
+  previousSlug?: string
+  nextSlug?: string
+
 }
 
 export interface Page {

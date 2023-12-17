@@ -28,6 +28,8 @@ import {
   allKeywordsQuery,
   fullPageQuery,
   relatedPostsQuery,
+  postPrioritizedListQuery,
+  postPrioritizedListSlugsQuery,
 } from 'lib/sanity.queries'
 import { createClient, type SanityClient } from 'next-sanity'
 import { format, parseISO } from 'date-fns'
@@ -90,6 +92,29 @@ export async function getAllPosts(client: SanityClient, lang?: string): Promise<
   })
 
   return posts || []
+}
+
+export async function getAllPrioritizedPosts(client: SanityClient, lang?: string): Promise<Post[]> {
+
+  let posts = (await client.fetch(postPrioritizedListQuery)) 
+  posts = posts.map((post) => {
+    post.date = formatDate(post.date, lang)
+    
+    if (lang === 'en'){
+      mapToLang(post, 'en')
+    }
+    return post
+  })
+
+  return posts || []
+}
+
+export async function getAllPrioritizedPostSlugs(client: SanityClient): Promise<{_id: string, slug: string}[]> {
+
+  const slugs = (await client.fetch(postPrioritizedListSlugsQuery)) 
+  
+
+  return slugs || []
 }
 
 export async function getAllParts(client: SanityClient, lang?: string): Promise<Part[]> {

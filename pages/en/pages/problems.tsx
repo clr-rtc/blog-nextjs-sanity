@@ -1,7 +1,7 @@
 import ProblemReportPage from 'components/ProblemReportPage'
 import PreviewProblemReportPage from 'components/PreviewProblemReportPage'
 import { readToken } from 'lib/sanity.api'
-import { getAllPosts, getAllParts, getClient, getSettings, getMenuItems } from 'lib/sanity.client'
+import { getAllPosts, getAllParts, getClient, getSettings, getMenuItems, getAllPrioritizedPosts } from 'lib/sanity.client'
 import { Post, Part, Settings, MenuItem } from 'lib/sanity.queries'
 import { GetStaticProps } from 'next'
 import type { SharedPageProps } from 'pages/_app'
@@ -36,7 +36,7 @@ export const getStaticProps: GetStaticProps<PageProps, Query> = async (ctx) => {
 
   const [settings, posts, parts = [], menuItems=[]] = await Promise.all([
     getSettings(client),
-    getAllPosts(client, 'en'),
+    getAllPrioritizedPosts(client, 'en'),
     getAllParts(client, 'en'),
     getMenuItems(client, 'en')
   ])

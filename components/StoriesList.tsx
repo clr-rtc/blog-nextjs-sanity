@@ -3,7 +3,7 @@ import type { Post } from 'lib/sanity.queries'
 import Link from 'next/link'
 import { COLOR_LINK } from './colors'
 import PostDate from './PostDate'
-import { shortStatusDescription, severityShortDescription } from './PostBody'
+import { shortStatusDescription, severityShortDescription, getStatusClass, getSeverityClass} from './PostBody'
 import TagButtonList from './TagButtonList'
 import { localizePath, useLang, useLangSuffix } from 'lib/lang'
 
@@ -14,40 +14,14 @@ type StoriesListProps = {
   compact?: boolean
 }
 
+
+
 export default function StoriesList({ posts, maxStories=3, noNavigation, compact }:StoriesListProps) {
   const lang = useLang()
   const suffix = useLangSuffix()
   const stories = maxStories? posts?.slice(0, maxStories) : posts
 
-  function getStatusClass(post: Post){
-    switch(post.status){
-      case 'new':
-        return " text-blue-500 font-semibold"
-    case 'rejected':
-        return " text-orange-500 font-semibold"
-    case 'verify':
-        return " text-purple-500 font-semibold"
-    case 'in progress':
-        return " text-green-700"
-
-    }
-
-    return ' '
-  }
-
-  function getSeverityClass(post: Post){
-    
-    switch(post.severity){
-      case 'critical':
-        return " text-red-500 font-semibold"
-      case 'important':
-        case 'service':
-        return " text-amber-700"
-    }
-
-    return ' text-blue-700'
-  }
-
+  
   return (
 
     <section>

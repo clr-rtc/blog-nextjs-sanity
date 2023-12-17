@@ -21,7 +21,7 @@ type TagButtonListProps = {
 
 const TagButtonList = (props: TagButtonListProps) => {
     
-    return <span className={"space-x-1 flex flex-row gap-y-1 flex-wrap " + props.className||''}>
+    return <span className={"space-x-1  flex flex-row  flex-wrap " + props.className||''}>
         {props.keywords?.map((keyword, index) => <TagButton key={keyword._id} keyword={keyword}/>)}</span>
   
 }
