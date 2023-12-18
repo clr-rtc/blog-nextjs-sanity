@@ -17,6 +17,7 @@ export default function HeroPost(
   const effectiveSlug = originalProblemSlug?.['slug']?.['current'] || slug
   const textContent = content || problem
   const langUri= useLangUri()
+  
   const SEE_MORE = useLabel('En savoir plus...', 'Read More...')
   return (
     <section >
@@ -37,7 +38,7 @@ export default function HeroPost(
 
           {(excerpt ) && (<><p className="mb-4 text-lg leading-relaxed">{excerpt}</p>
       
-          <Link href={`/posts/${slug}`} className={"hover:underline font-bold italic " + COLOR_LINK} >
+          <Link href={`${langUri}/posts/${slug}`} className={"hover:underline font-bold italic " + COLOR_LINK} >
               {SEE_MORE}
             </Link></>)}
           {author && (
