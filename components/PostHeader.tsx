@@ -8,7 +8,7 @@ import { useLabel, useLangUri } from 'lib/lang'
 import NavButton from './NavButton'
 
 export default function PostHeader(
-  props: Pick<Post, 'title' |  'date' | 'author' | 'slug' | 'previousSlug' | 'nextSlug'>,
+  props: Pick<Post, 'title' |  'date' | 'coverImage' | 'author' | 'slug' | 'previousSlug' | 'nextSlug'>,
 ) {
   const { title, coverImage, date, author, slug, previousSlug, nextSlug } = props
 
