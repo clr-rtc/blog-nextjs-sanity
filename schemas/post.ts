@@ -117,6 +117,8 @@ export default defineType({
           {title: "À suivre - l'administation admet le problème et travaille dessus", value: 'in progress'},
           {title: "Rejeté - l'administration ne veut pas reconnaitre le problème", value: 'rejected'},
           {title: "À vérifier - l'administration dit que le problème est réglé", value: 'verify'},
+          {title: "Non résolu - après vérification, le problème persiste", value: 'verify failed'},
+          
           {title: "Résolu - le problème est réglé", value: 'resolved'},
           {title: "Fermé - le problème n'est plus prioritaire", value: 'closed'}
         ], 

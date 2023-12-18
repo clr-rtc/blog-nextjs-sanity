@@ -139,6 +139,7 @@ export const shortStatusDescription = {
   "rejected" : "Rejeté",
   "resolved" : "Résolu",
   "verify" : "À vérifier",
+  "verify failed" : "Non résolu",
   "closed" : "Fermé",
   "new_en": "New",
   "under review_en" : "Under review",
@@ -146,7 +147,8 @@ export const shortStatusDescription = {
   "rejected_en" : "Rejected",
   "resolved_en" : "Resolved",
   "verify_en" : "To verify",
-  "closed_en" : "Closed"
+  "closed_en" : "Closed",
+  "verify failed_en" : "Unresolved",
 }
 
 const statusDescription = {
@@ -156,6 +158,7 @@ const statusDescription = {
   "rejected" : "Rejeté - l'administration ne veut pas reconnaitre le problème",
   "resolved" : "Résolu - le problème est réglé",
   "verify" : "À vérifier - l'administration dit que le problème est réglé",
+  "verify failed" : "Non résolu - après vérification, le problème persiste",
   "closed" : "Fermé - le problème n'est plus prioritaire",
   "new_en": "New - for discussion with the administration",
   "under review_en": "Under review - the administration must study the problem to find a resolution",
@@ -163,6 +166,7 @@ const statusDescription = {
   "rejected_en" : "Rejected - the administration does not acknowledge this as a problem",
   "resolved_en" : "Resolved - the problem was solved",
   "verify_en" : "To verify - the administration says the problem was solved",
+  "verify failed_en" : "Unresolved - the problem remains ongoing",
   "closed_en" : "Closed - no longer an issue"
 }
 
@@ -170,6 +174,7 @@ export function getStatusClass(post: Post){
   switch(post.status){
     case 'new':
       return " text-blue-500 font-semibold"
+  case 'verify failed':
   case 'rejected':
       return " text-orange-500 font-semibold"
   case 'verify':

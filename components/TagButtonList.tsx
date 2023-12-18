@@ -9,9 +9,9 @@ type TagButtonProps = {
 const TagButton = (props: TagButtonProps) => {
     const prefix = useLangUri()
     const label = useLabel(props.keyword.title, props.keyword.title_en)
-    return <span key={props.keyword._id} className={"text-xs  bg-gray-300 text-indigo-900 p-1 "}>
+    return <div key={props.keyword._id} className={"text-xs  bg-gray-300 text-indigo-900 p-1 my-1 mr-1"}>
     <Link href={prefix + "/postlist/1/" + encodeURIComponent(props.keyword._id)}>{label}</Link>
-    </span>
+    </div>
 }
 
 type TagButtonListProps = {
@@ -21,8 +21,8 @@ type TagButtonListProps = {
 
 const TagButtonList = (props: TagButtonListProps) => {
     
-    return <span className={"space-x-1  flex flex-row  flex-wrap " + props.className||''}>
-        {props.keywords?.map((keyword, index) => <TagButton key={keyword._id} keyword={keyword}/>)}</span>
+    return <div className={"  flex flex-row  flex-wrap " + props.className||''}>
+        {props.keywords?.map((keyword, index) => <TagButton key={keyword._id} keyword={keyword}/>)}</div>
   
 }
 
