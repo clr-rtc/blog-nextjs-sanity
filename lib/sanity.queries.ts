@@ -214,6 +214,10 @@ export const allKeywordsQuery = groq`
 `
 
 
+export const allThemeKeywordsQuery = groq`
+*[_type == "keyword" && keywordType == "theme" ]
+`
+
 export interface Author {
   name?: string
   picture?: any
@@ -223,6 +227,11 @@ export interface Keyword {
   _id: string
   title: string
   title_en: string
+  keywordType?: 'category'| 'theme'
+  themeSummary?: string
+  themeSummary_en?: string
+  themeDescription?: any
+  themeDescription_en?: any
 }
 
 export interface Post {

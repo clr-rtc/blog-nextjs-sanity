@@ -23,6 +23,7 @@ export default function PreviewProblemReportPage(props: IndexPageProps) {
       parts={props.parts || []}
       menuItems={props.menuItems || []}
       settings={settings || {}}
+      themes={props.themes}
     />
   )
 }

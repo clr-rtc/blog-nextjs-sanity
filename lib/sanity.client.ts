@@ -30,6 +30,7 @@ import {
   relatedPostsQuery,
   postPrioritizedListQuery,
   postPrioritizedListSlugsQuery,
+  allThemeKeywordsQuery,
 } from 'lib/sanity.queries'
 import { createClient, type SanityClient } from 'next-sanity'
 import { format, parseISO } from 'date-fns'
@@ -130,6 +131,11 @@ export async function getAllParts(client: SanityClient, lang?: string): Promise<
 export async function getAllPages(client: SanityClient): Promise<Page[]> {
   return (await client.fetch(pagesQuery)) || []
 }
+
+export async function getThemes(client: SanityClient): Promise<Keyword[]> {
+  return (await client.fetch(allThemeKeywordsQuery)) || []
+}
+
 
 export async function getMenuItems(client: SanityClient, lang?: string): Promise<MenuItem[]> {
   

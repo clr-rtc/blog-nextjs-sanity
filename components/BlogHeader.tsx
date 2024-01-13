@@ -30,15 +30,23 @@ const Menu = (props: MenuProps) => {
   const router = useRouter()
   posthog.capture('load', { property: "Testing Path " +router.asPath  })
   const slug = router.query['slug'] as string
+  const  pageNoMatch = router.query['pageNo']
+  const pageNoParam = Number(pageNoMatch?.[0] || 1)
+  const filterId = pageNoMatch?.[1] as string
 
-  const langPart = useLangUri()
   const parts = router.route?.split('/')
 
   if (slug){
     parts.pop()
     parts.push(slug)
   }
-
+  if (pageNoMatch){
+    parts.pop()
+    parts.push(pageNoParam.toString())
+    if (filterId){
+      parts.push(filterId)
+    }
+  }
   
   if (parts.length > 0 && !parts[0]){
     parts.shift()

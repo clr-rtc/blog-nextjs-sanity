@@ -7,7 +7,7 @@ import IndexPageHead from 'components/IndexPageHead'
 import StoriesList from 'components/StoriesList'
 import IntroTemplate from 'intro-template'
 import * as demo from 'lib/demo.data'
-import type { Post, Part, Settings, MenuItem } from 'lib/sanity.queries'
+import type { Post, Part, Settings, MenuItem, Keyword } from 'lib/sanity.queries'
 import Link from 'next/link'
 
 import BlogPart from 'components/BlogPart'
@@ -16,6 +16,7 @@ import ListBanner  from './ListBanner'
 import { useLabel, useLangUri } from 'lib/lang'
 
 import NavButton from './NavButton'
+import PostBody from './PostBody'
 
 export interface PostListPageProps {
   preview?: boolean
@@ -25,24 +26,30 @@ export interface PostListPageProps {
   menuItems: MenuItem[]
   settings: Settings
   pageNo?: number
-  filter?: string
-  filterName?: string
+  filter?: Keyword
 }
 
 const PAGE_SIZE = 10
 
 export default function PostListPage(props: PostListPageProps) {
-  const { preview, loading, posts, parts, settings, pageNo = 1, filter, filterName } = props
-  const filteredPosts =  posts.filter((p) =>  (!filter || p.keywords?.find((kw) => kw._id === filter)))
+  const { preview, loading, posts, parts, settings, pageNo = 1, filter } = props
+
+  const filterId = filter?._id
+  const filterName = useLabel(filter?.title, filter?.title_en)
+  const filterSummary = useLabel(filter?.themeSummary, filter?.themeSummary_en)
+  const filterDescription = useLabel(filter?.themeDescription, filter?.themeDescription_en)
+
+  const filteredPosts =  posts.filter((p) =>  (!filterId || p.keywords?.find((kw) => kw._id === filterId)))
 
   const pagePosts = filteredPosts.slice((pageNo-1)*PAGE_SIZE, pageNo*PAGE_SIZE)
 
   const { title = demo.title, description = demo.description } = settings || {}
 
-  const filterSuffix = filter? `/${encodeURIComponent(filter)}` : ''
+  const filterSuffix = filter? `/${encodeURIComponent(filter._id)}` : ''
 
   const ALL_ARTICLES = useLabel('Tous les articles','All Articles')
-  const SEARCH = useLabel('Recherche','Search for')
+  const THEME = useLabel('Enjeu Majeur','Key Issue')
+  const SEARCH = useLabel('Catégorie','Category')
   return (
     <>
       <IndexPageHead settings={settings} />
@@ -52,7 +59,9 @@ export default function PostListPage(props: PostListPageProps) {
           <BlogHeader title={title} description={description} parts={parts} menuItems={props.menuItems} />
          
           <StandardPageLayout parts={parts}>
-          <ListBanner highlight={true}>{filterName? (SEARCH + ": " + filterName) : ALL_ARTICLES}</ListBanner>
+          <ListBanner highlight={true}>{filterName? ((filter.keywordType === 'theme'? THEME : SEARCH) + ": " + filterName) : ALL_ARTICLES}</ListBanner>
+          {filterDescription && <PostBody content={filterDescription}/>}
+          {!filterDescription && filterSummary? <>{filterSummary}</> : <></>}
           <NavBar />
             {pagePosts.length > 0 && <div className="w-full pt-0 sm:pt-4">
               <StoriesList posts={pagePosts} maxStories={PAGE_SIZE} noNavigation={true}/></div>}

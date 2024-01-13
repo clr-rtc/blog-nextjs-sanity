@@ -38,6 +38,29 @@ export default defineType({
       type: 'string',
       validation: (rule) => rule.required(),
     }),
+    defineField({
+      title: "Type de mot-clé",
+      description: "Choisir l'usage du mot-clé",
+      name: 'keywordType',
+      type: 'string',
+      options: {
+        list: [
+          {title: "Catégorie", value: 'category'},
+          {title: "Thème majeur", value: 'theme'},
+        ], 
+      },
+      initialValue: 'problem'
+      
+    }),
+    ...defineBilingualTextField({
+      name: 'themeSummary',
+      title: 'Sommaire du thème',
+      description: "Apparaît dans la liste des enjeux",
+      type: 'string',
+      validation: (rule) => rule.required(),
+    }),
+    ...(defineBilingualFormattedTextField('themeDescription', 'Description du thème', "Apparaît dans l'entête de la liste des articles de ce thème", ({document}) => document.keywordType != 'theme')),
+  
     
   ],
   preview: {

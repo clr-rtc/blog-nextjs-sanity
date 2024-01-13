@@ -20,7 +20,6 @@ export default function StoriesList({ posts, maxStories=3, noNavigation, compact
   const lang = useLang()
   const suffix = useLangSuffix()
   const stories = maxStories? posts?.slice(0, maxStories) : posts
-
   
   return (
 
@@ -34,10 +33,10 @@ export default function StoriesList({ posts, maxStories=3, noNavigation, compact
           const path = localizePath(`/posts/${effectiveSlug}`,lang)
 
           if (compact){
-           
+            const borderClass =  index + 1 < stories.length? ' border-b border-gray-400 ' : ''
             return (
-            <div key={index} className="flex flex-row border-b border-gray-400 pb-1">
-              <div className="w-36 text-[10px] pr-2 sm:text-sm font-mono"><PostDate dateString={post.date} plain={true}/></div>
+            <div key={index} className={"flex flex-row pb-1" + borderClass}>
+              <div className=" w-40 min-w-0 pr-2 sm:text-sm font-mono"><PostDate dateString={post.date} plain={true}/></div>
               <div className="border-l border-gray-300"/>
               <div className="flex flex-col justify-start    sm:flex-row" >
               <div className={"w-18 p-1 pl-2 sm:w-24 text-xs font-mono" + getStatusClass(post)} >{shortStatusDescription[(post.status||'new') + suffix]}</div>

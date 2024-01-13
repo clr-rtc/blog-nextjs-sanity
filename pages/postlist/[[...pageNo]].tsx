@@ -28,16 +28,16 @@ export default function Page(props: PageProps) {
   const  pageNoMatch = router.query['pageNo']
   
   const pageNo = Number(pageNoMatch?.[0] || 1)
-  const filter = pageNoMatch?.[1] as string
-  const filterName = !filter ? undefined : keywords?.find((item) => item._id === filter)?.title
+  const filterId = pageNoMatch?.[1] as string
+  const keyword = !filterId ? undefined : keywords?.find((item) => item._id === filterId)
 
   console.log( `pageNo: ${JSON.stringify(pageNo)}`)
 
   if (draftMode) {
-    return <PreviewPostListPage menuItems={menuItems} posts={posts} parts={parts} settings={settings} pageNo={pageNo} filter={filter} filterName={filterName}/>
+    return <PreviewPostListPage menuItems={menuItems} posts={posts} parts={parts} settings={settings} pageNo={pageNo} filter={keyword}/>
   }
 
-  return <PostListPage menuItems={menuItems} posts={posts} parts={parts} settings={settings}  pageNo={pageNo} filter={filter} filterName={filterName} />
+  return <PostListPage menuItems={menuItems} posts={posts} parts={parts} settings={settings}  pageNo={pageNo} filter={keyword} />
 }
 
 export const getServerSideProps: GetStaticProps<PageProps, Query> = async (ctx) => {

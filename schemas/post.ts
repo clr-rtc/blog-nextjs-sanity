@@ -129,7 +129,7 @@ export default defineType({
     defineField({
       name: 'priorityNo',
       title: 'Priorité',
-      description: "Une value plus élevée place l'item plus haut dans la liste; la date est utilisée pour des priorités identiques",
+      description: "Une valeur plus élevée place l'item plus haut dans la liste; la date est utilisée pour des priorités identiques",
       type: 'number',
       initialValue: 0
     }),

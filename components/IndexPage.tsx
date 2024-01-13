@@ -7,7 +7,7 @@ import IndexPageHead from 'components/IndexPageHead'
 import StoriesList from 'components/StoriesList'
 import IntroTemplate from 'intro-template'
 import * as demo from 'lib/demo.data'
-import type { Post, Part, Settings, MenuItem } from 'lib/sanity.queries'
+import type { Post, Part, Settings, MenuItem, Keyword } from 'lib/sanity.queries'
 
 import BlogPart from 'components/BlogPart'
 import StandardPageLayout from 'components/StandardPageLayout'
@@ -22,6 +22,7 @@ export interface IndexPageProps {
   parts: Part[]
   menuItems: MenuItem[]
   settings: Settings
+  themes?: Keyword[]
 }
 
 
