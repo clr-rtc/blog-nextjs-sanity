@@ -12,7 +12,7 @@ interface Props {
 
 export const SanityImage = (props: Props) => {
   const { asset, alt, caption } = props
-  const imageProps = useNextSanityImage(getSanityImageConfig(), asset)
+  let imageProps = useNextSanityImage(getSanityImageConfig(), asset)
 
   if (!imageProps) return null
 
@@ -20,6 +20,7 @@ export const SanityImage = (props: Props) => {
   let alignment= ""
   let wrapper = undefined
   const position = props['position']
+
   switch(position){
     case 'inline':
       width="w-full sm:w-[200px] "
@@ -33,9 +34,10 @@ export const SanityImage = (props: Props) => {
       width="w-full sm:w-1/2 px-3"
       alignment = "float-right"
       break;
-    case 'center':
+    default:
     width="w-full sm:w-5/6"
-    wrapper = (component) => <div className='w-full  flex flex-row justify-center'>{component}</div>
+    wrapper = (component) => <div className='w-full  grid grid-flow-row justify-center'>{component}</div>
+    imageProps = {...imageProps, width: imageProps.width * 2, height: imageProps.height * 2}
     break;
   }
 

@@ -51,7 +51,7 @@ type PostBodyProps = {
 export default function PostBody(props: PostBodyProps) {
 
   return (
-    <div className={`w-full ${styles.portableText}`}>
+    <div className={`w-full ${styles.portableText} flex flex-wrap justify-around`}>
       <PortableText value={props.content} components={customPortableTextComponents} />
     </div>
   )
