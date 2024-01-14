@@ -23,7 +23,7 @@ export const SanityImage = (props: Props) => {
 
   switch(position){
     case 'inline':
-      width="w-full sm:w-[200px] "
+      width="w-full sm:w-[240px] "
       alignment = ""
       break;
     case 'left':
@@ -36,7 +36,7 @@ export const SanityImage = (props: Props) => {
       break;
     default:
     width="w-full sm:w-5/6"
-    wrapper = (component) => <div className='w-full  grid grid-flow-row justify-center'>{component}</div>
+    wrapper = (component) => <div className='w-full  grid grid-flow-row justify-around'>{component}</div>
     imageProps = {...imageProps, width: imageProps.width * 2, height: imageProps.height * 2}
     break;
   }

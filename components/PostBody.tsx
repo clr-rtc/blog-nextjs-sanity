@@ -51,7 +51,7 @@ type PostBodyProps = {
 export default function PostBody(props: PostBodyProps) {
 
   return (
-    <div className={`w-full ${styles.portableText} flex flex-wrap justify-around`}>
+    <div className={`w-full ${styles.portableText} flex flex-wrap `}>
       <PortableText value={props.content} components={customPortableTextComponents} />
     </div>
   )
@@ -69,7 +69,7 @@ export function FollowUpBody(props: FollowUpBodyProps) {
   return (
     <div id={post.slug} className={`w-full ${styles.portableText} flex flex-col`}>
       <div className="text-lg flex flex-col"><div className="font-bold ">{post.title}</div><PostDate dateString={post.date}/>  </div>
-      <div className="flex flex-wrap justify-around">    
+      <div className="flex flex-wrap">    
       <PortableText value={post.content} components={customPortableTextComponents}  />
       </div>
     </div>
