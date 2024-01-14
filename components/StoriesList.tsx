@@ -39,9 +39,9 @@ export default function StoriesList({ posts, maxStories=3, noNavigation, compact
               <div className=" w-40 min-w-0 pr-2 sm:text-sm font-mono"><PostDate dateString={post.date} plain={true}/></div>
               <div className="border-l border-gray-300"/>
               <div className="flex flex-col justify-start    sm:flex-row" >
-              <div className={"w-18 p-1 pl-2 sm:w-24 text-xs font-mono" + getStatusClass(post)} >{shortStatusDescription[(post.status||'new') + suffix]}</div>
+              <div className={"w-18 p-1 pl-2 sm:w-24 text-xs font-mono" + getStatusClass(post.status)} >{shortStatusDescription[(post.status||'new') + suffix]}</div>
               <div className="border-l border-gray-300"/>
-              <div className={"w-24 p-1 pl-2 sm:w-24 text-xs font-mono " + getSeverityClass(post)}>{severityShortDescription[(post.severity||'important') + suffix]}</div>
+              <div className={"w-24 p-1 pl-2 sm:w-24 text-xs font-mono " + getSeverityClass(post.severity)}>{severityShortDescription[(post.severity||'important') + suffix]}</div>
               </div>
               <div className="border-l border-gray-300 pr-2"/>
               <div className="w-48 sm:w-96 flex flex-col flex-wrap">

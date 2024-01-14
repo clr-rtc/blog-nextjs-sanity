@@ -5,7 +5,8 @@ import type { Post } from 'lib/sanity.queries'
 import Link from 'next/link'
 
 import TagButtonList from './TagButtonList'
-import { useLangUri } from 'lib/lang'
+import { useLangSuffix, useLangUri } from 'lib/lang'
+import { getStatusClass, useShortStatus } from './PostBody'
 
 export default function PostPreview({
   title,
@@ -16,8 +17,11 @@ export default function PostPreview({
   slug,
   keywords,
   originalProblemSlug,
+  originalProblemStatus,
+  postType,
+  status
 }: Omit<Post, '_id'>) {
-
+  const shortStatus = useShortStatus(postType === 'follow-up'? originalProblemStatus: status)
   const mainArticleSlug =  originalProblemSlug?.['slug']?.['current']
   const effectiveSlug = mainArticleSlug? mainArticleSlug + "#" + slug : slug
   const link = useLangUri() + '/posts/' + effectiveSlug
@@ -40,7 +44,7 @@ export default function PostPreview({
         
           <p className="text-xl font-bold  md:text-xl">
             <Link href={link} className="hover:underline">
-              {title}
+              {title} {postType === 'problem' || postType === 'follow-up'? <span className={"text-xs " + getStatusClass(status)}>{shortStatus}</span>: <></>}
             </Link>
             {keywords && <TagButtonList keywords={keywords} className=""/>}        
             </p>

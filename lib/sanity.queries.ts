@@ -27,6 +27,7 @@ const postFields = groq`
   coverImage,
   "slug": slug.current,
   "originalProblemSlug": originalProblem -> {slug {current}},
+  "originalProblemStatus": originalProblem -> status,
   "author": author->{name, picture},
   "keywords": keywords[]->{_id, title, title_en}
 `
@@ -247,6 +248,7 @@ export interface Post {
   author?: Author
   slug?: string
   originalProblemSlug: string
+  originalProblemStatus: string
   content?: any
   severity?: string
   status: string

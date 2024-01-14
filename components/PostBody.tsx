@@ -87,13 +87,15 @@ export function ProblemPostBody(props: ProblemPostBodyProps){
     <Severity post={props.post}/>
     <Status post={props.post}/>
     <div className="w-full border-b border-gray-500 mt-2" />
+    <ProblemDescription post={props.post}/>
+
     <ProblemImpact post={props.post}/>
     
     <ProblemRisks post={props.post}/>
     
     <NextSteps post={props.post}/>
     
-    <ProblemDescription post={props.post}/>
+
 
 
   </div>
@@ -151,6 +153,11 @@ export const shortStatusDescription = {
   "verify failed_en" : "Unresolved",
 }
 
+export function useShortStatus(status){
+  const suffix = useLangSuffix()
+ return shortStatusDescription[(status||'new') + suffix]
+}
+
 const statusDescription = {
   "new": "Nouveau - à discuter avec l'administration",
   "under review": "À l'étude - l'administation doit étudier la situation pour confirmer une solution",
@@ -170,8 +177,13 @@ const statusDescription = {
   "closed_en" : "Closed - no longer an issue"
 }
 
-export function getStatusClass(post: Post){
-  switch(post.status){
+export function useStatusDescription(post){
+  const suffix = useLangSuffix()
+ return statusDescription[(post.status||'new') + suffix]
+}
+
+export function getStatusClass(status){
+  switch(status){
     case 'new':
       return " text-blue-500 font-semibold"
   case 'verify failed':
@@ -187,9 +199,9 @@ export function getStatusClass(post: Post){
   return ' '
 }
 
-export function getSeverityClass(post: Post){
+export function getSeverityClass(severity){
   
-  switch(post.severity){
+  switch(severity){
     case 'critical':
       return " text-red-500 font-semibold"
     case 'important':
@@ -201,7 +213,7 @@ export function getSeverityClass(post: Post){
 }
 
 function Status(props: {post: Post}){
-  return <div className="flex"><div className="font-bold w-20">{useLabel('Statut','Status')}:</div><div className={'px-2' + getStatusClass(props.post)}>
+  return <div className="flex"><div className="font-bold w-20">{useLabel('Statut','Status')}:</div><div className={'px-2' + getStatusClass(props.post.status)}>
     {statusDescription[(props.post.status||"new")+ useLangSuffix()]}
     </div></div>
 }
