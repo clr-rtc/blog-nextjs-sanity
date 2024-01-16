@@ -18,11 +18,11 @@ type StandardPageLayoutProps = {
       </div>
       <div className="gap-2 flex flex-col sm:w-1/4 h-full">
         <div className="border border-gray-800 mt-4 sm:m-0 mb-2 sm:border-0 "></div>
-        <BlogPart name="prochaine-rencontre" parts={parts} align="center" titleAlign="center" className="px-4"/>
+        <BlogPart name="prochaine-rencontre" parts={parts} align="center" titleAlign="center" className="px-4" textClassName="justify-around"/>
         <div className="border border-gray-800 my-2 "></div>
-        <BlogPart name="contact" parts={parts} align="center" titleAlign="center" className="px-4"/>
+        <BlogPart name="contact" parts={parts} align="center" titleAlign="center" className="px-4" textClassName="justify-around"/>
         <div className="border border-gray-800 my-2 "></div>
-        <BlogPart name="ressources" parts={parts} align="center" titleAlign="center" className="px-4"/>
+        <BlogPart name="ressources" parts={parts} align="center" titleAlign="center" className="px-4" textClassName="justify-around"/>
         <div className="border border-gray-800 my-2 "></div>
         <BlogPart name="le-collectif" parts={parts}  align="left" titleAlign="center" className="px-4 h-full"/>
       </div>

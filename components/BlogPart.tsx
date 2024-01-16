@@ -7,6 +7,7 @@ type PartsProps = {
     parts: Part[]
     align?: 'left' | 'center' | 'right' | 'none'
     className?: string
+    textClassName?: string
    titleAlign?: 'left' | 'center' | 'right' | 'none'
   }
   
@@ -31,6 +32,6 @@ export default function BlogPart(props: PartsProps) {
 
     return <><div className="flex flex-col w-full">
       {part.appearance !== 'no-title'  ? <div className={"uppercase tracking-widest text-lg font-serif " + titleAlignmentClass}>{part.title}</div> : <></>}
-      {part.appearance !== 'title-only'  ? <div className={"text-[#8b6b36] " + alignmentClass + " " + (props.className || '')}><PostBody content={part.content} /></div> : <></>}</div></>
+      {part.appearance !== 'title-only'  ? <div className={"text-[#8b6b36] " + alignmentClass + " " + (props.className || '')}><PostBody content={part.content} className={props.textClassName} /></div> : <></>}</div></>
   }
   

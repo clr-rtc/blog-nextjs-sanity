@@ -46,12 +46,13 @@ const customPortableTextComponents: Partial<PortableTextReactComponents> = {
 
 type PostBodyProps = {
   content: any
+  className?: string
 }
 
 export default function PostBody(props: PostBodyProps) {
 
   return (
-    <div className={`w-full ${styles.portableText} flex flex-wrap justify-around`}>
+    <div className={`w-full ${styles.portableText} flex flex-wrap ${props.className}`}>
       <PortableText value={props.content} components={customPortableTextComponents} />
     </div>
   )
