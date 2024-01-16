@@ -10,7 +10,7 @@ type PartsProps = {
    titleAlign?: 'left' | 'center' | 'right' | 'none'
   }
   
-const alignments = [{value: 'left', class:'text-start'}, {value:'right', class:'text-end'}, {value: 'center', class: 'text-center'}]
+const alignments = [{value: 'left', class:'text-start'}, {value:'right', class:'text-end'}, {value: 'center', class: 'text-center justify-around'}]
 
 export default function BlogPart(props: PartsProps) {
     const searchName = props.name?.toLowerCase()
