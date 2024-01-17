@@ -137,8 +137,10 @@ export default defineType({
     ...defineBilingualFormattedTextField('problem', 'Description', "Explication générale du problème", ({document}) => document.postType !== 'problem'),
     ...defineBilingualFormattedTextField('impact', 'Impact Courant', "Quels sont les dommages qui ont été causés", ({document}) => document.postType !== 'problem'),
     ...defineBilingualFormattedTextField('risks', 'Risques', "Quels sont les rispques potentiels", ({document}) => document.postType !== 'problem'),
+    ...defineBilingualFormattedTextField('questions', 'Questions', "Questions à soulever avec l'administration", ({document}) => document.postType !== 'problem' && document.postType !== 'follow-up'),
+    ...defineBilingualFormattedTextField('proposals', 'Propositions', "Solutions potentielles à soulever avec l'administration", ({document}) => document.postType !== 'problem' && document.postType !== 'follow-up'),
+    ...defineBilingualFormattedTextField('resolution_criteria', 'Critères de résolution', "Points à vérifier pour fermer l'item", ({document}) => document.postType !== 'problem' && document.postType !== 'follow-up'),
     ...defineBilingualFormattedTextField('next_steps', 'Prochaines Démarches', "Quels seront les prochaines démarches pour réglé le prolbème", ({document}) => document.postType !== 'problem'),
-
     ...defineExcerpt(),
     defineCoverImage(),
     defineField({

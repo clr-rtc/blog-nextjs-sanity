@@ -93,7 +93,12 @@ export function ProblemPostBody(props: ProblemPostBodyProps){
     <ProblemImpact post={props.post}/>
     
     <ProblemRisks post={props.post}/>
-    
+    <ResolutionCriteria post={props.post}/>
+
+    <Questions post={props.post}/>
+    <Proposals post={props.post}/>
+
+
     <NextSteps post={props.post}/>
     
 
@@ -254,4 +259,21 @@ function ProblemRisks(props: {post: Post}){
 function NextSteps(props: {post: Post}){
   return <ProblemSection content={props.post['next_steps']} >
   {useLabel('Prochaines démarches','Next steps')}:</ProblemSection>
+}
+
+function Questions(props: {post: Post}){
+  return <ProblemSection content={props.post['questions']} >
+  {useLabel('Questions','Open Questions')}:</ProblemSection>
+}
+
+
+function ResolutionCriteria(props: {post: Post}){
+  return <ProblemSection content={props.post['resolution_criteria']} >
+  {useLabel('Critères de résolution','Resolution Criteria')}:</ProblemSection>
+}
+
+
+function Proposals(props: {post: Post}){
+  return <ProblemSection content={props.post['proposals']} >
+  {useLabel('Propositions','Proposals')}:</ProblemSection>
 }

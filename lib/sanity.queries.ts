@@ -18,6 +18,12 @@ const postFields = groq`
   risks_en,
   next_steps,
   next_steps_en,
+  questions,
+  questions_en,
+  resolution_criteria,
+  resolution_criteria_en,
+  proposals,
+  proposals_en,
   date,
   _updatedAt,
   content,
@@ -256,6 +262,9 @@ export interface Post {
   impact?: any
   risks?: any
   next_steps?: any
+  questions?: any
+  resolution_criteria?: any
+  proposals?: any
   originalProblem?: {
     _ref: string
     _type: string
