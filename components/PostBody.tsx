@@ -73,6 +73,7 @@ export function FollowUpBody(props: FollowUpBodyProps) {
       <div className="flex flex-wrap justify-around">    
       <PortableText value={post.content} components={customPortableTextComponents}  />
       </div>
+      <div className="w-full border-b border-gray-500 mt-2" />
     </div>
   )
 
