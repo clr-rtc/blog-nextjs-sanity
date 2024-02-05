@@ -13,12 +13,12 @@ import {
 } from '@portabletext/react'
 
 import type { Post  } from 'lib/sanity.queries'
-
+import Link from 'next/link'
 
 import styles from './PostBody.module.css'
 import { SanityImage } from './SanityImage'
 import PostDate from './PostDate'
-import { useLabel, useLangSuffix } from 'lib/lang'
+import { localizePath, useLabel, useLang, useLangSuffix } from 'lib/lang'
 
 const customPortableTextComponents: Partial<PortableTextReactComponents> = {
   types: {
@@ -66,12 +66,13 @@ type FollowUpBodyProps = {
 
 export function FollowUpBody(props: FollowUpBodyProps) {
   const post = props.post
-
+  const lang = useLang()
+  const path = localizePath(`/posts/${post.slug}`,lang)
   return (
     <div id={post.slug} className={`w-full ${styles.portableText} flex flex-col`}>
-      <div className="text-lg flex flex-col"><div className="font-bold ">{post.title}</div><PostDate dateString={post.date}/>  </div>
+      <div className="text-lg flex flex-col"><div className="font-bold "><Link href={path} >{post.title}</Link></div><PostDate dateString={post.date}/>  </div>
       <div className="flex flex-wrap justify-around">    
-      <PortableText value={post.content} components={customPortableTextComponents}  />
+      <PortableText value={post.problem||post.content||post.excerpt} components={customPortableTextComponents}  />
       </div>
       <div className="w-full border-b border-gray-500 mt-2" />
     </div>
