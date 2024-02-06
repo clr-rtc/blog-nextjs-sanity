@@ -2,8 +2,8 @@ import Container from 'components/BlogContainer'
 import BlogHeader from 'components/BlogHeader'
 import Layout from 'components/BlogLayout'
 import StoriesList from 'components/StoriesList'
-import PostBody, { FollowUpBody } from 'components/PostBody'
-import {ProblemPostBody} from 'components/PostBody'
+import PostText, { FollowUpBody } from 'components/PostText'
+import {ProblemPostBody} from 'components/PostText'
 import PostHeader from 'components/PostHeader'
 import PostPageHead from 'components/PostPageHead'
 import PostTitle from 'components/PostTitle'
@@ -61,7 +61,7 @@ export default function PostPage(props: PostPageProps) {
                   {...post}
                 />
                 {post.postType !== 'problem' ?
-                  <PostBody content={post.content} /> : <></>}
+                  <PostText content={post.content} /> : <></>}
                 {post.postType === 'problem' ?
                   <ProblemPostBody post={post} /> : <></>}
                 {relatedPosts?.length > 0 && <div className="pt-2">

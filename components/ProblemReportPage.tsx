@@ -14,7 +14,7 @@ import BlogPart from 'components/BlogPart'
 import StandardPageLayout from 'components/StandardPageLayout'
 import ListBanner  from './ListBanner'
 import { useLabel } from 'lib/lang'
-import PostBody from './PostBody'
+import PostText from './PostText'
 import { BigTagButton, KeywordLink } from './TagButtonList'
 
 type NavButtonProps = {

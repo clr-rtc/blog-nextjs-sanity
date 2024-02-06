@@ -4,7 +4,7 @@ import Date from 'components/PostDate'
 import type { Post } from 'lib/sanity.queries'
 import Link from 'next/link'
 import { COLOR_LINK } from './colors'
-import PostBody from './PostBody'
+import PostText from './PostText'
 import { useLabel, useLangUri } from 'lib/lang'
 
 export default function HeroPost(
@@ -34,7 +34,7 @@ export default function HeroPost(
               <CoverImage key={slug} slug={effectiveSlug} title={title} image={coverImage} priority />
             </div>}
 
-            {(!excerpt && textContent) &&  <PostBody content={textContent} />}
+            {(!excerpt && textContent) &&  <PostText content={textContent} />}
 
           {(excerpt ) && (<><p className="mb-4 text-lg leading-relaxed">{excerpt}</p>
       

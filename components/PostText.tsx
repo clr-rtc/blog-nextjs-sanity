@@ -49,7 +49,7 @@ type PostBodyProps = {
   className?: string
 }
 
-export default function PostBody(props: PostBodyProps) {
+export default function PostText(props: PostBodyProps) {
 
   return (
     <div className={`w-full ${styles.portableText} flex flex-wrap ${props.className}`}>
@@ -238,7 +238,7 @@ function ProblemSection(props: {content: any, children: any}){
         {props.children}
       </div>
       <div className='px-0 border-b border-gray-500 mt-2'>
-        <PostBody content={props.content}  />
+        <PostText content={props.content}  />
       </div>
     </div>)
 }

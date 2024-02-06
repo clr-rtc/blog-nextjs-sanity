@@ -16,7 +16,7 @@ import ListBanner  from './ListBanner'
 import { useLabel, useLangUri } from 'lib/lang'
 
 import NavButton from './NavButton'
-import PostBody from './PostBody'
+import PostText from './PostText'
 
 export interface PostListPageProps {
   preview?: boolean
@@ -60,7 +60,7 @@ export default function PostListPage(props: PostListPageProps) {
          
           <StandardPageLayout parts={parts}>
           <ListBanner highlight={true}>{filterName? ((filter.keywordType === 'theme'? THEME : SEARCH) + ": " + filterName) : ALL_ARTICLES}</ListBanner>
-          {filterDescription && <PostBody content={filterDescription}/>}
+          {filterDescription && <PostText content={filterDescription}/>}
           {!filterDescription && filterSummary? <>{filterSummary}</> : <></>}
           <NavBar />
             {pagePosts.length > 0 && <div className="w-full pt-0 sm:pt-4">

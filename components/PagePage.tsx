@@ -2,7 +2,7 @@ import Container from 'components/BlogContainer'
 import BlogHeader from 'components/BlogHeader'
 import Layout from 'components/BlogLayout'
 import StoriesList from 'components/StoriesList'
-import PostBody from 'components/PostBody'
+import PostText from 'components/PostText'
 
 import PostHeader from 'components/PostHeader'
 import PostPageHead from 'components/PostPageHead'
@@ -53,7 +53,7 @@ export default function PagePage(props: PagePageProps) {
                   date={page.date}
                   author={page.author}
                 />
-                <PostBody content={page.content} />
+                <PostText content={page.content} />
               </article>
             </>
           )}

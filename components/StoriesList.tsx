@@ -3,7 +3,7 @@ import type { Post } from 'lib/sanity.queries'
 import Link from 'next/link'
 import { COLOR_LINK } from './colors'
 import PostDate from './PostDate'
-import { shortStatusDescription, severityShortDescription, getStatusClass, getSeverityClass} from './PostBody'
+import { shortStatusDescription, severityShortDescription, getStatusClass, getSeverityClass} from './PostText'
 import TagButtonList from './TagButtonList'
 import { localizePath, useLang, useLangSuffix } from 'lib/lang'
 

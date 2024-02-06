@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { COLOR_LINK } from './colors'
 import TagButtonList from './TagButtonList'
 import { useLabel, useLangSuffix, useLangUri } from 'lib/lang'
-import { getStatusClass, useShortStatus } from './PostBody'
+import PostText, { getStatusClass, useShortStatus } from './PostText'
 import { PortableText } from '@portabletext/react'
 
 export default function PostPreview({
@@ -29,8 +29,9 @@ export default function PostPreview({
   const mainArticleSlug =  originalProblemSlug?.['slug']?.['current']
   const effectiveSlug = mainArticleSlug? mainArticleSlug + "#" + slug : slug
   const link = useLangUri() + '/posts/' + effectiveSlug
-  const text = excerpt || problem && <PortableText value={problem}/> || content && <PortableText value={content}/> 
-    return (
+  const text = excerpt || problem && <PostText content={problem}/> || content && <PostText content={content}/> 
+  try{
+      return (
     <div className="w-full flex flex-row">
       <div className="flex flex-col  w-full">
         <div className="py-2  text-left  ">
@@ -67,7 +68,10 @@ export default function PostPreview({
     </div>
       
     
-  )
+  )} catch (e){
+    console.log('PostPreview: slug:',slug, e.message)
+    throw new Error(`PostPreview: slug:${slug}` + e.message)
+  }
    
 }
 
