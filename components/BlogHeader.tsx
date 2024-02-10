@@ -1,17 +1,22 @@
 
-import HeaderImage from './header_image.jpg'
-import Link from 'next/link'
+import BlogPart from 'components/BlogPart'
+import { DEV_MODE as devMode } from 'lib/devmode'
+import { localizePath, useLabel, useLang, useLangUri } from 'lib/lang'
+import type { MenuItem,Part } from 'lib/sanity.queries'
 import Image from 'next/image'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import posthog from 'posthog-js'
 
 import styles from './BlogHeader.module.css'
+import HeaderImage from './header_image.jpg'
 
-import BlogPart from 'components/BlogPart'
-import type { Part, MenuItem } from 'lib/sanity.queries'
-import { useRouter } from 'next/router'
-
-import posthog from 'posthog-js'
-import { localizePath, useLabel, useLang, useLangUri } from 'lib/lang'
-posthog.init('phc_4OvszK6fA4xvRYyWFv5ZCKj6FvfN2ntiUUgMkojjYGP', { api_host: 'https://app.posthog.com' })
+if (devMode()){
+  console.log('DEV MODE - Posthog not used')
+} else {
+  console.log('Posthog init')
+  posthog.init('phc_4OvszK6fA4xvRYyWFv5ZCKj6FvfN2ntiUUgMkojjYGP', { api_host: 'https://app.posthog.com' })
+}
 
 function menuItemMatches(item: MenuItem, route: string){
   const isWildCard = item.slug?.endsWith('*')
@@ -27,8 +32,12 @@ type MenuProps = {
 }
 
 const Menu = (props: MenuProps) => {
-  const router = useRouter()
-  posthog.capture('load', { property: "Testing Path " +router.asPath  })
+    const router = useRouter()
+
+  if (devMode()){
+    posthog.capture('load', { property: "Testing Path " +router.asPath  })
+  }
+
   const slug = router.query['slug'] as string
   const  pageNoMatch = router.query['pageNo']
   const pageNoParam = Number(pageNoMatch?.[0] || 1)
@@ -47,7 +56,7 @@ const Menu = (props: MenuProps) => {
       parts.push(filterId)
     }
   }
-  
+
   if (parts.length > 0 && !parts[0]){
     parts.shift()
   }
@@ -55,7 +64,7 @@ const Menu = (props: MenuProps) => {
   const route = '/' + parts.join('/')
 
   const pageNo = props.menuItems.find((item) => menuItemMatches(item, route))?.menuSequenceNo || 1
-  
+
   const menuItems = props.menuItems.filter((item) => item.label && item.menuSequenceNo).sort((item1, item2) => item1.menuSequenceNo - item2.menuSequenceNo)
 
   const otherLang = useLabel('en', 'fr')
@@ -64,7 +73,7 @@ const Menu = (props: MenuProps) => {
   menuItems.push({uri: otherRoute, label: otherLabel})
 
   return <div className="flex flex-row flex-wrap gap-1 sm:gap-6 justify-start pb-2 sm:pb-4 text-xs sm:text-lg text-[#8b6b36]/50  ">
-    {menuItems.map((item, index) => 
+    {menuItems.map((item, index) =>
   (
   <Link key={index} href={item.uri} className={" hover:underline hover:text-gray-700 px-2 active:bg-[#8b6b36]/50 " + (pageNo === item.menuSequenceNo? ' text-[#8b6b36]' : '')}>
              {item.label || 'Untitled'}
@@ -91,8 +100,8 @@ export default function BlogHeader({
               alt="Le Rockhill"
               src={HeaderImage}
             />
-          </div>          
-         
+          </div>
+
           <div className="flex flex-col items-start sm:w-5/6">
             <Menu menuItems={menuItems} />
             <div className="flex flex-col w-full" >

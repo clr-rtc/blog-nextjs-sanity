@@ -15,6 +15,7 @@ export default function VisualEditing() {
     if (!isInsideIframe || process.env.NEXT_PUBLIC_VERCEL_ENV === 'preview') {
       return
     }
+    console.log(`Enabling visual editing for ${location.origin}`)
     const disable = enableOverlays({
       allowStudioOrigin: location.origin,
       history: {
