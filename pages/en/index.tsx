@@ -20,7 +20,7 @@ interface Query {
 
 export default function Page(props: PageProps) {
   const { posts, parts, menuItems, settings, draftMode } = props
-  
+
 
   if (draftMode) {
     return <PreviewIndexPage menuItems={menuItems} posts={posts} parts={parts} settings={settings} />

@@ -4,8 +4,6 @@ import { readToken } from 'lib/sanity.api'
 import {
   getAllPagesSlugs,
   getClient,
-  getPageAndPosts,
-  getAllPosts,
   getAllParts,
   getSettings,
   getMenuItems,
@@ -29,7 +27,7 @@ interface Query {
 export default function ProjectSlugRoute(props: PageProps) {
   const { settings, parts, page, draftMode } = props
 
- 
+
   if (!props.page?.slug){
     return <></>
   }
@@ -70,7 +68,7 @@ export const getStaticProps: GetStaticProps<PageProps, Query> = async (ctx) => {
 
 export const getStaticPaths = async () => {
   const slugs = await getAllPagesSlugs()
-  
+
   return {
     paths: slugs?.map(({ slug }) => '/en' + (slug[0] === '/'? slug : `/pages/${slug}`)) || [],
     fallback: 'blocking',

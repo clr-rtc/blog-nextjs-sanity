@@ -1,10 +1,8 @@
 import speakingurl from 'speakingurl'
 import {useDocumentOperation} from 'sanity'
-import { getClient, getReferencePostSlug } from 'lib/sanity.client'
-import { readToken } from 'lib/sanity.api'
 
 export function CustomizedPublish(originalPublishAction) {
-   
+
 
   const BetterAction = (props) => {
     // use the hook to get access to the patch function with the current document
@@ -20,7 +18,7 @@ export function CustomizedPublish(originalPublishAction) {
       ...originalResult,
       label: 'Publier',
       onHandle: async () => {
-        
+
         if ((props.type === 'post' || props.type === 'page') && props.draft.title && !props.draft.slug) {
           // use the generator package used in sanity core with default values
           const generatedSlug = props.draft.title ? defaultSlugify(props.draft.title) : null
@@ -40,7 +38,7 @@ export function CustomizedPublish(originalPublishAction) {
             case 'information':
               patchWhereToShow('hero')
             break;
-          }  
+          }
         }
 
         // check if there's no default whereToShow

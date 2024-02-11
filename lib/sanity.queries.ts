@@ -93,35 +93,35 @@ export const postListQuery = groq`
   ${postFields}
 }
 `
-export const postPrioritizedListQuery = groq`
-*[_type == "post" && postType == "problem"] | 
+export const prioritizedProblemsQuery = groq`
+*[_type == "post" && postType == "problem"] |
 {
   "priorityNo": 0,
    "isNew" : status == "new",
-   "isResolved" : status == "resolved",    
+   "isResolved" : status == "resolved",
    ...
- }| 
+ }|
    order(
      isNew desc,
      isResolved asc,
-     priorityNo desc, date desc, _updatedAt desc) 
+     priorityNo desc, date desc, _updatedAt desc)
 {
   ${postFields}
 }
 `
 
-export const postPrioritizedListSlugsQuery = groq`
-*[_type == "post" && postType == "problem" && defined(slug.current)] | 
+export const prioritizedProblemSlugsQuery = groq`
+*[_type == "post" && postType == "problem" && defined(slug.current)] |
 {
   "priorityNo": 0,
    "isNew" : status == "new",
-   "isResolved" : status == "resolved",    
+   "isResolved" : status == "resolved",
    ...
- }| 
+ }|
    order(
      isNew desc,
      isResolved asc,
-     priorityNo desc, date desc, _updatedAt desc) 
+     priorityNo desc, date desc, _updatedAt desc)
 {
   _id,
   "slug": slug.current
@@ -194,7 +194,7 @@ export const partQuery = groq`
     content,
     ${partFields}
   }
- 
+
 }`
 export const postSlugsQuery = groq`
 *[_type == "post" && defined(slug.current)][].slug.current
