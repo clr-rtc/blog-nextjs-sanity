@@ -1,8 +1,10 @@
 
 
 
-// Convert the DEV_MODE environment variable to a boolean
-// If the environment variable is not set, default to false
-// DEV_MODE is used to enable development features
+// Convert the NODE_ENV environment variable to a boolean
+// This is useful for conditional logic in the code that should only
+// be active when the application is running in development mode
 
-export const DEV_MODE = () => process.env.NODE_ENV === 'development' || false
+export function devMode(){
+  return process.env.NODE_ENV === 'development' || false
+}

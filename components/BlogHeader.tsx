@@ -1,6 +1,6 @@
 
 import BlogPart from 'components/BlogPart'
-import { DEV_MODE as devMode } from 'lib/devmode'
+import { devMode as devMode } from 'lib/devmode'
 import { localizePath, useLabel, useLang, useLangUri } from 'lib/lang'
 import type { MenuItem,Part } from 'lib/sanity.queries'
 import Image from 'next/image'
