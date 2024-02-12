@@ -307,7 +307,7 @@ export async function getRelatedPosts(
   id: string,
   lang?: string
 ): Promise<Post[]> {
-  return (await fetchLocalizedList(relatedPostsQuery, client, lang)) as Post[]
+  return (await fetchLocalizedList(relatedPostsQuery, client, lang, {id})) as Post[]
 }
 
 /**
@@ -355,9 +355,9 @@ export async function getAllKeywords(
  * @returns an array of objects in the requested language
  */
 
-async function fetchLocalizedList(query: string, client: SanityClient, lang?: string){
+async function fetchLocalizedList(query: string, client: SanityClient, lang?: string, params?: object){
 
-  const items = cleanupResponseArray(await client.fetch(query))
+  const items = cleanupResponseArray(await client.fetch(query, params))
 
   const mapped = items.map((item) => {
 
