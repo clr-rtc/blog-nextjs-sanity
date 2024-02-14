@@ -3,6 +3,7 @@
  * This file contains a single function to determine if the application is running in development mode.
  */
 
+let firstCheckDone = false
 /**
  * @summary Determines if the application is running in development mode.
  * @returns {boolean} true if the application is running in development mode, false otherwise
@@ -12,6 +13,12 @@
  * Use a function instead of a constant to avoid timing problems with
  * when dotenv loads the environment variables
  */
-export function devMode(){
+export function devMode() {
+  if (!firstCheckDone) {
+    firstCheckDone = true
+    if (process.env.NODE_ENV === 'development') {
+      console.log('*** DEVELOPMENT BUILD ***')
+    }
+  }
   return process.env.NODE_ENV === 'development' || false
 }

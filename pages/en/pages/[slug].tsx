@@ -27,33 +27,42 @@ interface Query {
 export default function ProjectSlugRoute(props: PageProps) {
   const { settings, parts, page, draftMode } = props
 
-
-  if (!props.page?.slug){
+  if (!props.page?.slug) {
     return <></>
   }
 
   if (draftMode) {
     return (
-      <PreviewPagePage menuItems={props.menuItems} page={page}  parts={parts}  settings={settings} />
+      <PreviewPagePage
+        menuItems={props.menuItems}
+        page={page}
+        parts={parts}
+        settings={settings}
+      />
     )
   }
 
-  return <PagePage menuItems={props.menuItems} page={page} parts={parts}  settings={settings} />
+  return (
+    <PagePage
+      menuItems={props.menuItems}
+      page={page}
+      parts={parts}
+      settings={settings}
+    />
+  )
 }
 
 export const getStaticProps: GetStaticProps<PageProps, Query> = async (ctx) => {
   const { draftMode = false, params = {} } = ctx
   const client = getClient(draftMode ? { token: readToken } : undefined)
 
-  const [settings, page, parts, menuItems ] = await Promise.all([
+  const [settings, page, parts, menuItems] = await Promise.all([
     getSettings(client),
     getFullPage(client, params.slug, 'en'),
     getAllParts(client, 'en'),
-    getMenuItems(client, 'en')
-
+    getMenuItems(client, 'en'),
   ])
 
-  console.log(`slug:${params.slug} oage:${page?.title}`)
   return {
     props: {
       page,
@@ -70,7 +79,10 @@ export const getStaticPaths = async () => {
   const slugs = await getAllPagesSlugs()
 
   return {
-    paths: slugs?.map(({ slug }) => '/en' + (slug[0] === '/'? slug : `/pages/${slug}`)) || [],
+    paths:
+      slugs?.map(
+        ({ slug }) => '/en' + (slug[0] === '/' ? slug : `/pages/${slug}`),
+      ) || [],
     fallback: 'blocking',
   }
 }

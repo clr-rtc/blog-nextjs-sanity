@@ -1,6 +1,5 @@
 import { groq } from 'next-sanity'
 
-
 const postFields = groq`
   _id,
   title,
@@ -51,6 +50,7 @@ const pageFields = groq`
   coverImage,
   "slug": slug.current,
   "author": author->{name, picture},
+
 `
 
 const menuItemFields = groq`
@@ -62,7 +62,6 @@ const menuItemFields = groq`
   menuSequenceNo,
   "slug": slug.current,
 `
-
 
 const partFields = groq`
   _id,
@@ -128,17 +127,18 @@ export const prioritizedProblemSlugsQuery = groq`
 }
 `
 
+const filterBySandboxing =
+  '($devMode || (!defined(sandboxStatus) || sandboxStatus == "ready"))'
 
 export const pagesQuery = groq`
-*[_type == "page" && slug.current != "/"] | order(date desc, _updatedAt desc) {
+*[_type == "page" && slug.current != "/" && ${filterBySandboxing}] | order(date desc, _updatedAt desc) {
   ${pageFields}
 }`
 
 export const menuItemsQuery = groq`
-*[_type == "page"] {
+*[_type == "page"  && ${filterBySandboxing}] {
   ${menuItemFields}
 }`
-
 
 export const partsQuery = groq`
 *[_type == "part"]  {
@@ -150,11 +150,10 @@ export const fullPostQuery = groq`
     ${postFields}
   }`
 
-  export const relatedPostsQuery = groq`
+export const relatedPostsQuery = groq`
   *[_type == "post" && originalProblem._ref == $id] | order(date desc)  {
     ${postFields}
   }`
-
 
 export const postAndMoreStoriesQuery = groq`
 {
@@ -174,7 +173,6 @@ export const fullPageQuery = groq`
   }
 `
 
-
 export const pageAndPostsQuery = groq`
 {
   "page": *[_type == "page" && slug.current == $slug] | order(_updatedAt desc) [0] {
@@ -186,7 +184,6 @@ export const pageAndPostsQuery = groq`
     ${postFields}
   }
 }`
-
 
 export const partQuery = groq`
 {
@@ -220,7 +217,6 @@ export const allKeywordsQuery = groq`
 *[_type == "keyword" ]
 `
 
-
 export const allThemeKeywordsQuery = groq`
 *[_type == "keyword" && keywordType == "theme" ]
 `
@@ -234,7 +230,7 @@ export interface Keyword {
   _id: string
   title: string
   title_en: string
-  keywordType?: 'category'| 'theme'
+  keywordType?: 'category' | 'theme'
   themeSummary?: string
   themeSummary_en?: string
   themeDescription?: any
@@ -244,9 +240,9 @@ export interface Keyword {
 export interface Post {
   _id: string
   title?: string
-  tags:{label: string, value: string}[]
+  tags: { label: string; value: string }[]
   whereToShow: 'hero' | 'list' | 'problems' | 'none'
-  postType:'problem' | 'follow-up' | 'announcement' |'general'
+  postType: 'problem' | 'follow-up' | 'announcement' | 'general'
   coverImage?: any
   date?: string
   _updatedAt?: string
@@ -273,7 +269,6 @@ export interface Post {
   relatedPosts?: Post[]
   previousSlug?: string
   nextSlug?: string
-
 }
 
 export interface Page {
@@ -308,7 +303,6 @@ export interface Part {
   slug?: string
   content?: any
 }
-
 
 export interface Settings {
   title?: string

@@ -36,6 +36,7 @@ import { createClient, type SanityClient } from 'next-sanity'
 import { format, parseISO } from 'date-fns'
 import { enCA, frCA } from 'date-fns/locale'
 import { localizePath, useLang } from './lang'
+import { devMode } from './devmode'
 
 /** Generate debugging messages */
 const DEBUG = false
@@ -75,7 +76,7 @@ export function getClient(preview?: { token: string }): SanityClient {
 /**
  * @returns a function to retrieve a client to access the Sanity backend uploaded images
  */
-export function getSanityImageConfig(){
+export function getSanityImageConfig() {
   return getClient()
 }
 
@@ -95,10 +96,12 @@ export async function getSettings(client: SanityClient): Promise<Settings> {
  * @returns a collection of posts to display on the index page
  * @description Not used right now, but could be used to optimize which posts need to be retrieved on the index page
  */
-export async function getIndexPosts(client: SanityClient, lang?: string): Promise<Post[]> {
+export async function getIndexPosts(
+  client: SanityClient,
+  lang?: string,
+): Promise<Post[]> {
   return fetchLocalizedList(indexQuery, client, lang)
 }
-
 
 /**
  * @summary Retrieve all the posts in the desired language
@@ -106,7 +109,10 @@ export async function getIndexPosts(client: SanityClient, lang?: string): Promis
  * @param lang What language to use in the response
  * @returns a collection of all the posts
  */
-export async function getAllPosts(client: SanityClient, lang?: string): Promise<Post[]> {
+export async function getAllPosts(
+  client: SanityClient,
+  lang?: string,
+): Promise<Post[]> {
   return fetchLocalizedList(postListQuery, client, lang)
 }
 
@@ -117,7 +123,10 @@ export async function getAllPosts(client: SanityClient, lang?: string): Promise<
  * @returns a collection of all the prioritized posts
  * @description the posts are sorted by a combination of the priority, the status, the post data, and the updated date
  */
-export async function getAllPrioritizedPosts(client: SanityClient, lang?: string): Promise<Post[]> {
+export async function getAllPrioritizedPosts(
+  client: SanityClient,
+  lang?: string,
+): Promise<Post[]> {
   return fetchLocalizedList(prioritizedProblemsQuery, client, lang)
 }
 
@@ -127,8 +136,10 @@ export async function getAllPrioritizedPosts(client: SanityClient, lang?: string
  * @returns all the slug objects of the posts in order of the priorities
  * @description the posts are sorted by a combination of the priority, the status, the post data, and the updated date
  */
-export async function getAllPrioritizedPostSlugs(client: SanityClient): Promise<{_id: string, slug: string}[]> {
- // The slugs are the same no matter what language is used
+export async function getAllPrioritizedPostSlugs(
+  client: SanityClient,
+): Promise<{ _id: string; slug: string }[]> {
+  // The slugs are the same no matter what language is used
   return fetchList(prioritizedProblemSlugsQuery, client)
 }
 
@@ -138,7 +149,10 @@ export async function getAllPrioritizedPostSlugs(client: SanityClient): Promise<
  * @param lang What language to use in the response
  * @returns a collection of all the special-purpose parts that appear on all of the pages
  */
-export async function getAllParts(client: SanityClient, lang?: string): Promise<Part[]> {
+export async function getAllParts(
+  client: SanityClient,
+  lang?: string,
+): Promise<Part[]> {
   return fetchLocalizedList(partsQuery, client, lang)
 }
 
@@ -179,21 +193,27 @@ export async function getThemes(client: SanityClient): Promise<Keyword[]> {
  * meaning it is a wildcard that matches all the pages that start with the same path.
  * The slug with the * is preserved in the slug field.
  */
-export async function getMenuItems(client: SanityClient, lang?: string): Promise<MenuItem[]> {
+export async function getMenuItems(
+  client: SanityClient,
+  lang?: string,
+): Promise<MenuItem[]> {
+  const menuItems =
+    (await fetchLocalizedList(menuItemsQuery, client, lang))?.map((item) => {
+      const isWildCard = item.slug?.endsWith('*')
+      const slug = isWildCard
+        ? item.slug.slice(0, item.slug.length - 1)
+        : item.slug
+      const path = slug && slug[0] !== '/' ? `/pages/${slug}` : slug
 
-  const menuItems = (await fetchLocalizedList(menuItemsQuery, client, lang))?.map((item) => {
-    const isWildCard = item.slug?.endsWith('*')
-    const slug = isWildCard? item.slug.slice(0, item.slug.length - 1) : item.slug
-    const path = slug && slug[0] !== '/' ? `/pages/${slug}` : slug
+      DEBUG && console.log(`getMenuItems: lang=${lang} path=${path}`)
 
-    DEBUG && console.log(`getMenuItems: lang=${lang} path=${path}`)
-
-    return {
-      label: item.menu||item.title||'', // Use an empty string so it can be serialized to JSON
-      uri: localizePath(path, lang),
-      slug: item.slug, // Use the unmodified slug so we carry the * if present
-      menuSequenceNo: (item.menuSequenceNo||0) } // 0 is an invalid menu position
-  }) || []
+      return {
+        label: item.menu || item.title || '', // Use an empty string so it can be serialized to JSON
+        uri: localizePath(path, lang),
+        slug: item.slug, // Use the unmodified slug so we carry the * if present
+        menuSequenceNo: item.menuSequenceNo || 0,
+      } // 0 is an invalid menu position
+    }) || []
 
   return menuItems
 }
@@ -204,7 +224,7 @@ export async function getMenuItems(client: SanityClient, lang?: string): Promise
  */
 export async function getAllPostsSlugs(): Promise<Pick<Post, 'slug'>[]> {
   const client = getClient()
-  const slugs = await fetchStringList(postSlugsQuery, client) || []
+  const slugs = (await fetchStringList(postSlugsQuery, client)) || []
   return slugs.map((slug) => ({ slug }))
 }
 
@@ -214,7 +234,7 @@ export async function getAllPostsSlugs(): Promise<Pick<Post, 'slug'>[]> {
  */
 export async function getAllPagesSlugs(): Promise<Pick<Page, 'slug'>[]> {
   const client = getClient()
-  const slugs = await fetchStringList(pageSlugsQuery, client) || []
+  const slugs = (await fetchStringList(pageSlugsQuery, client)) || []
 
   return slugs.map((slug) => ({ slug }))
 }
@@ -251,7 +271,6 @@ export async function getPostAndMoreStories(
   return {
     post: results?.post || ({} as any),
     morePosts: cleanupResponseArray(results?.morePosts) || [],
-
   }
 }
 
@@ -261,14 +280,16 @@ export async function getPostAndMoreStories(
  * @param lang What language to use in the response
  * @returns The date in the format "dd LLLL yyyy" in the desired language, or in the original format if there is an error
  */
-function formatSanityDate(dateString, lang: string){
+function formatSanityDate(dateString, lang: string) {
   if (!dateString) return null
 
   try {
     const date = parseISO(dateString)
-    const formatted = format(date, 'dd LLLL yyyy', {locale: lang === 'en'? enCA : frCA })
+    const formatted = format(date, 'dd LLLL yyyy', {
+      locale: lang === 'en' ? enCA : frCA,
+    })
     return formatted
-  } catch(e){
+  } catch (e) {
     return dateString
   }
 }
@@ -283,12 +304,14 @@ function formatSanityDate(dateString, lang: string){
 export async function getFullPost(
   client: SanityClient,
   slug: string,
-  lang?: string
-): Promise< Post > {
-  const post = cleanupResponseObject( await client.fetch(fullPostQuery, { slug })) as Post
+  lang?: string,
+): Promise<Post> {
+  const post = cleanupResponseObject(
+    await client.fetch(fullPostQuery, { slug }),
+  ) as Post
   post['date'] = formatSanityDate(post['date'], lang)
 
-  if (lang == 'en'){
+  if (lang == 'en') {
     return mapToLang(post, lang)
   }
 
@@ -305,9 +328,11 @@ export async function getFullPost(
 export async function getRelatedPosts(
   client: SanityClient,
   id: string,
-  lang?: string
+  lang?: string,
 ): Promise<Post[]> {
-  return (await fetchLocalizedList(relatedPostsQuery, client, lang, {id})) as Post[]
+  return (await fetchLocalizedList(relatedPostsQuery, client, lang, {
+    id,
+  })) as Post[]
 }
 
 /**
@@ -320,16 +345,16 @@ export async function getRelatedPosts(
 export async function getFullPage(
   client: SanityClient,
   slug: string,
-  lang?: string
+  lang?: string,
 ): Promise<Post> {
   const page = await client.fetch(fullPageQuery, { slug })
 
-  if (!page){
+  if (!page) {
     throw new Error(`page not found: slug="${slug}" lang="${lang}"`)
   }
   page.date = formatSanityDate(page.date, lang)
 
-  if (lang == 'en'){
+  if (lang == 'en') {
     return mapToLang(page, lang)
   }
 
@@ -341,9 +366,7 @@ export async function getFullPage(
  * @param client Access to the Sanity backend
  * @returns A collection of all the keywords
  */
-export async function getAllKeywords(
-  client: SanityClient
-): Promise<Keyword[]> {
+export async function getAllKeywords(client: SanityClient): Promise<Keyword[]> {
   return await client.fetch(allKeywordsQuery)
 }
 
@@ -355,19 +378,24 @@ export async function getAllKeywords(
  * @returns an array of objects in the requested language
  */
 
-async function fetchLocalizedList(query: string, client: SanityClient, lang?: string, params?: object){
-
-  const items = cleanupResponseArray(await client.fetch(query, params))
+async function fetchLocalizedList(
+  query: string,
+  client: SanityClient,
+  lang?: string,
+  params?: object,
+) {
+  const items = cleanupResponseArray(
+    await client.fetch(query, { ...params, devMode: devMode() }),
+  )
 
   const mapped = items.map((item) => {
-
-    if (item['date']){
+    if (item['date']) {
       // Display the ISO date coming back from Sanity, in the desired language
       item['date'] = formatSanityDate(item.date, lang)
     }
 
     // If the language is English, then overwrite the French fields with the English fields
-    if (lang === 'en'){
+    if (lang === 'en') {
       return mapToLang(item, 'en')
     }
 
@@ -383,13 +411,13 @@ async function fetchLocalizedList(query: string, client: SanityClient, lang?: st
  * @param client Access to the Sanity backend
  * @returns an array of strings
  */
-async function fetchStringList(query: string, client: SanityClient){
+async function fetchStringList(query: string, client: SanityClient) {
   let items = cleanupResponseStringArray(await client.fetch<string[]>(query))
 
   return items || []
 }
 
-async function fetchList(query: string, client: SanityClient){
+async function fetchList(query: string, client: SanityClient) {
   return cleanupResponseArray(await client.fetch(query)) || []
 }
 
@@ -399,27 +427,29 @@ async function fetchList(query: string, client: SanityClient){
  * @example asAsciiCode('abc') => '97 98 99'
  * @returns
  */
-function asAsciiCode(s: string, maxLen?: number){
-
-  if (!s){
+function asAsciiCode(s: string, maxLen?: number) {
+  if (!s) {
     return ''
   }
 
-  if (maxLen){
+  if (maxLen) {
     s = s.substring(0, maxLen)
   }
 
-  return s.split('').map((c) => c.charCodeAt(0).toString(16)).join(' ')
+  return s
+    .split('')
+    .map((c) => c.charCodeAt(0).toString(16))
+    .join(' ')
 }
 
 /** Eliminate unicode control characters > 0x8000 */
-function stripOutUnicodeSpaceControlChars(s: string){
-  if (!s){
+function stripOutUnicodeSpaceControlChars(s: string) {
+  if (!s) {
     return ''
   }
 
   return s.replace(/[\u2000\uffff]/g, '')
- }
+}
 
 /**
  * @summary Map the fields of an object to the desired language
@@ -433,13 +463,13 @@ function stripOutUnicodeSpaceControlChars(s: string){
  * If english is requested, the english member will be gone from the result but its value will replace the default member.
  * I.e. title_en will be assigned to title and no longer exist in the result object.
  */
- function mapToLang(container, lang){
-  if (!container){
+function mapToLang(container, lang) {
+  if (!container) {
     return {}
   }
 
   // We only need to map if the language is English
-  if (lang === undefined || lang === 'fr'){
+  if (lang === undefined || lang === 'fr') {
     console.log('**** mapToLang: no mapping')
     return container
   }
@@ -447,27 +477,33 @@ function stripOutUnicodeSpaceControlChars(s: string){
   const suffix = '_' + lang
 
   // Create a list of all the fields that end with the language suffix
-  const toMap = Object.keys(container).filter((name) => name.endsWith(suffix) && !!container[name])
+  const toMap = Object.keys(container).filter(
+    (name) => name.endsWith(suffix) && !!container[name],
+  )
 
   // Create a list of all the fields that will get overwritten by the suffixed members
-  const toOverwrite = toMap.map((name) => name.substring(0, name.length - suffix.length))
+  const toOverwrite = toMap.map((name) =>
+    name.substring(0, name.length - suffix.length),
+  )
 
   // The fields to copy as is are not in the two other lists
-  const toKeep = Object.keys(container).filter((name) => !toMap.includes(name) && !toOverwrite.includes(name))
+  const toKeep = Object.keys(container).filter(
+    (name) => !toMap.includes(name) && !toOverwrite.includes(name),
+  )
 
   // Create a new object that will be returned
   const result = {}
 
   // Add the fields that are to be kept
-  for (const name of toKeep){
+  for (const name of toKeep) {
     result[name] = container[name]
   }
 
   // Add the fields that are to be overwritten with the values from the overwriting fields
-  for (const name of toMap){
+  for (const name of toMap) {
     const baseName = name.substring(0, name.length - suffix.length)
     const value = container[name]
-    if (value){
+    if (value) {
       result[baseName] = value
     }
   }
@@ -480,42 +516,41 @@ function stripOutUnicodeSpaceControlChars(s: string){
  * @param inputs array of objects retrieved by a sanity query
  * @returns a similar array of objects but with all string values sanitized
  */
- function cleanupResponseArray(inputs: object[]){
-  if (!inputs){
+function cleanupResponseArray(inputs: object[]) {
+  if (!inputs) {
     return []
   }
 
-  if (!CLEANUP_RESPONSES){
+  if (!CLEANUP_RESPONSES) {
     return inputs
   }
 
   const responses = []
 
-  for (const input of inputs){
+  for (const input of inputs) {
     const response = cleanupResponseObject(input)
     responses.push(response)
   }
 
   return responses
- }
+}
 
 /**
  * @summary Sanitize all string values in an object when there is a bug in the data being returned by Sanity's backend
  * @param input object retrieved by a sanity query
  * @returns a similar object but with all string values sanitized
  */
-function cleanupResponseObject(input: object){
-
-  if (!input){
+function cleanupResponseObject(input: object) {
+  if (!input) {
     return {}
   }
 
   const response = {}
 
-  for (const name of Object.keys(input)){
+  for (const name of Object.keys(input)) {
     const value = input[name]
 
-    if (typeof value === 'string'){
+    if (typeof value === 'string') {
       response[name] = stripOutUnicodeSpaceControlChars(value)
     } else {
       response[name] = value
@@ -530,18 +565,18 @@ function cleanupResponseObject(input: object){
  * @param inputs an array of strings retrieved by a sanity query
  * @returns a similar array of strings but with all string values sanitized
  */
-function cleanupResponseStringArray(inputs: string[]){
-  if (!inputs){
+function cleanupResponseStringArray(inputs: string[]) {
+  if (!inputs) {
     return [] as string[]
   }
 
-  if (!CLEANUP_RESPONSES){
+  if (!CLEANUP_RESPONSES) {
     return inputs
   }
 
   const responses: string[] = []
 
-  for (const input of inputs){
+  for (const input of inputs) {
     const response = stripOutUnicodeSpaceControlChars(input)
     responses.push(response)
   }
