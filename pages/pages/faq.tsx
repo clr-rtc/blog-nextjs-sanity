@@ -86,7 +86,7 @@ export const getStaticProps: GetStaticProps<PageProps, Query> = async (ctx) => {
   ])
 
   const faqs: FaqItem[] = [
-    { text: "This is a test - don't panic!" },
+    { text: "This is a test - don't panic! Well, don't panic too much." },
     { text: 'There are 1004 apartments at the Rockhill' },
     { text: 'There is stuff to do on the mountain' },
   ] //await getFaqs(client)
