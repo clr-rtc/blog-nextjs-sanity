@@ -86,6 +86,7 @@ export const getStaticProps: GetStaticProps<PageProps, Query> = async (ctx) => {
   ])
 
   const faqs: FaqItem[] = [
+
     {
       question: "Puis-je donner mes articles à une œuvre de bienfaisance ou à d'autres locataires ?",
       answer: [`Oui à tous les deux. Chaque bâtiment a ses propres moyens de faire un don. Si vous souhaitez donner de vieux vêtements à une œuvre de bienfaisance,
@@ -128,6 +129,7 @@ export const getStaticProps: GetStaticProps<PageProps, Query> = async (ctx) => {
 
 
 
+
   return {
     props: {
       faqs,
@@ -143,3 +145,4 @@ export const getStaticProps: GetStaticProps<PageProps, Query> = async (ctx) => {
     },
   }
 }
+
