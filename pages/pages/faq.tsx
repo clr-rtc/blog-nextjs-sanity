@@ -119,8 +119,10 @@ export const getStaticProps: GetStaticProps<PageProps, Query> = async (ctx) => {
       carte rechargeable qui doit être demandée à la réception du bâtiment C.`
     },
     {
-      question: "Les visiteurs peuvent-ils utiliser les commodités ?",
-      answer: "Tant que les visiteurs sont accompagnés par un résident, ils peuvent utiliser les commodités. Le résident est responsable du comportement de leurs visiteurs."
+      question: "Est-ce que Rockhill a une app mobile ?",
+      answer: `Oui, c'est exact. C'est l'application Rentcafe. Elle est disponible sur l'App Store et Google Play.
+      Elle offre tout ce que vous pouvez faire sur le site web: Vous pouvez payer votre loyer, soumettre une demande de maintenance,
+      et plus encore, mais vous pouvez aussi voir des événements et des notifications.`
     },
   ] //await getFaqs(client)
 

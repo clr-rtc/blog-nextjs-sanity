@@ -120,8 +120,10 @@ export const getStaticProps: GetStaticProps<PageProps, Query> = async (ctx) => {
       card that must be requestionsted at the Receptionist in Building C.`
     },
     {
-      question: "Can visitors use the emmenities?",
-      answer: "So long as the visitors are accompagnied by a resident, they can use the emmenities. The resident is responsible for the behaviour of their visitors."
+      question: "Does Rockhill have an app?",
+      answer: `Yes. That's right. It's the rentcafe app. It's available on the app store and google play.
+      It provides everything that you can do on the website. You can pay your rent, submit a request for maintenance,
+      and more, but you can also see events and notifications."`
     },
   ] //await getFaqs(client)
 

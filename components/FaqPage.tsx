@@ -212,7 +212,7 @@ export default function FaqPage(props: FaqPageProps) {
                         {index + 1}&nbsp;&nbsp;-&nbsp;
                       </span> {/* Added closing tag for the span element */}
                       <span style={{ fontWeight: '800', fontStyle: 'italic', fontSize: '1.3em'}}></span>
-                      &nbsp;<span className="text-2xl mb-20 text-amber-200">{item.question}</span><br></br><span className="text-lg">{Array.isArray(item.answer)
+                        &nbsp;<span className="text-2xl mb-20 text-black font-bold">{item.question}</span><br></br><span className="text-lg">{Array.isArray(item.answer)
                         ? item.answer.map((str, index) => <p className="my-5" key={index}>{str}</p>)
                         : <p className="my-5">{item.answer}</p>
                       }</span>
