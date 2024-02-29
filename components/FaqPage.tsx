@@ -234,7 +234,7 @@ export default function FaqPage(props: FaqPageProps) {
                         }}
                       ></span>
                       &nbsp;
-                      <span className="text-2xl mb-20 text-black font-bold">
+                      <span className="text-2xl mb-20 text-amber-200">
                         {item.question}
                       </span>
                       <br></br>
