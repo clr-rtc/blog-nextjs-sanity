@@ -49,6 +49,7 @@ import IndexPageHead from 'components/IndexPageHead'
 import StoriesList from 'components/StoriesList'
 import StandardPageLayout from 'components/StandardPageLayout'
 import ListBanner from './ListBanner'
+import React from 'react'
 
 /** data types retrieved from the database */
 import type {
@@ -76,8 +77,10 @@ import * as demo from 'lib/demo.data'
  * everything to do with the menu, headers etc. into that component.
  */
 export type FaqItem = {
-  text: string // This is just dummy text for now - put your own stuff in here
-}
+
+  question: string; // This is just dummy text for now - put your own stuff in here
+  answer: string | string[]; // This is just dummy text for now - put your own stuff in here
+};
 
 /**
  * @summary FaqPageProps properties for the FaqPage React Component
@@ -205,11 +208,17 @@ export default function FaqPage(props: FaqPageProps) {
                         className is the preferred way but sometimes this is necessary.
                         Note how the style attribute is camelCase not the usual regular-case-with-dashes  */}
                       <span
-                        style={{ fontWeight: 'lighter', fontStyle: 'italic' }}
+
+                        style={{ fontWeight: '800', fontStyle: 'italic', fontSize: '1.3em'}}
                       >
-                        {index + 1}.
-                      </span>
-                      &nbsp;<span className="text-lg">{item.text}</span>
+                        {index + 1}&nbsp;&nbsp;-&nbsp;
+                      </span> {/* Added closing tag for the span element */}
+                      <span style={{ fontWeight: '800', fontStyle: 'italic', fontSize: '1.3em'}}></span>
+                      &nbsp;<span className="text-2xl mb-20 text-amber-200">{item.question}</span><br></br><span className="text-lg">{Array.isArray(item.answer)
+                        ? item.answer.map((str, index) => <p className="my-5" key={index}>{str}</p>)
+                        : <p className="my-5">{item.answer}</p>
+                      }</span>
+
                     </div>
                   ))
                 }
