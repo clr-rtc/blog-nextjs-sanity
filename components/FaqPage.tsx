@@ -78,11 +78,9 @@ import PostHeader from './PostHeader'
  * everything to do with the menu, headers etc. into that component.
  */
 export type FaqItem = {
-
-  question: string; // This is just dummy text for now - put your own stuff in here
-  answer: string | string[]; // This is just dummy text for now - put your own stuff in here
-};
-
+  question: string // This is just dummy text for now - put your own stuff in here
+  answer: string | string[] // This is just dummy text for now - put your own stuff in here
+}
 
 /**
  * @summary FaqPageProps properties for the FaqPage React Component
@@ -219,7 +217,6 @@ export default function FaqPage(props: FaqPageProps) {
                         className is the preferred way but sometimes this is necessary.
                         Note how the style attribute is camelCase not the usual regular-case-with-dashes  */}
                       <span
-
                         style={{
                           fontWeight: '800',
                           fontStyle: 'italic',
@@ -237,7 +234,7 @@ export default function FaqPage(props: FaqPageProps) {
                         }}
                       ></span>
                       &nbsp;
-                      <span className="text-2xl mb-20 text-amber-200">
+                      <span className="text-2xl mb-20 text-black font-bold">
                         {item.question}
                       </span>
                       <br></br>
@@ -252,7 +249,6 @@ export default function FaqPage(props: FaqPageProps) {
                           <p className="my-5">{item.answer}</p>
                         )}
                       </span>
-
                     </div>
                   ))
                 }
