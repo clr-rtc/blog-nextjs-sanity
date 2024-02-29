@@ -1,4 +1,4 @@
-/**type
+/**
  * @summary FaqPage React Component
  * @description This file contains the FaqPage React Component. This component is a page that displays a list of FAQ items.
  * A React Component can either be a class (old style) or just a function that follows certain conventions.
@@ -77,6 +77,7 @@ import * as demo from 'lib/demo.data'
  * everything to do with the menu, headers etc. into that component.
  */
 export type FaqItem = {
+
   question: string; // This is just dummy text for now - put your own stuff in here
   answer: string | string[]; // This is just dummy text for now - put your own stuff in here
 };
@@ -207,6 +208,7 @@ export default function FaqPage(props: FaqPageProps) {
                         className is the preferred way but sometimes this is necessary.
                         Note how the style attribute is camelCase not the usual regular-case-with-dashes  */}
                       <span
+
                         style={{ fontWeight: '800', fontStyle: 'italic', fontSize: '1.3em'}}
                       >
                         {index + 1}&nbsp;&nbsp;-&nbsp;
@@ -216,6 +218,7 @@ export default function FaqPage(props: FaqPageProps) {
                         ? item.answer.map((str, index) => <p className="my-5" key={index}>{str}</p>)
                         : <p className="my-5">{item.answer}</p>
                       }</span>
+
                     </div>
                   ))
                 }
