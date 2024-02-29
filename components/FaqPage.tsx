@@ -1,4 +1,4 @@
-/**
+/**type
  * @summary FaqPage React Component
  * @description This file contains the FaqPage React Component. This component is a page that displays a list of FAQ items.
  * A React Component can either be a class (old style) or just a function that follows certain conventions.
@@ -65,6 +65,7 @@ import { useLabel } from 'lib/lang'
 
 /** This is stuff that was part of the original project and is not really used - to be cleaned up one day. */
 import * as demo from 'lib/demo.data'
+import PostHeader from './PostHeader'
 
 /**
  * @summary FaqItem Frequently Asked Question
@@ -81,6 +82,7 @@ export type FaqItem = {
   question: string; // This is just dummy text for now - put your own stuff in here
   answer: string | string[]; // This is just dummy text for now - put your own stuff in here
 };
+
 
 /**
  * @summary FaqPageProps properties for the FaqPage React Component
@@ -125,7 +127,14 @@ export default function FaqPage(props: FaqPageProps) {
    * Notice how the DID_YOU_KNOW constant is all caps - by convention this is used for constant strings and constant numbers,
    * not constant objects / types / functions etc.
    */
+
   const DID_YOU_KNOW = useLabel('Le saviez-vous...', 'Did you know that...')
+
+  // Hardcode this for now - get from the database later
+  const FAQ_PAGE_TITLE = useLabel(
+    'Foire aux questions',
+    'Frequently Asked Questions',
+  )
 
   /**
    * This is the actual JSX that will be rendered by the component
@@ -181,6 +190,8 @@ export default function FaqPage(props: FaqPageProps) {
           />
           {/* This is a component that renders the main content of the page with two columns, one thin one to the right for small sections, and the main content within to the left*/}
           <StandardPageLayout parts={parts}>
+            <PostHeader title={FAQ_PAGE_TITLE} />
+
             {/* Display some sort of title */}
             <ListBanner highlight={true}>{DID_YOU_KNOW}</ListBanner>
 
@@ -209,15 +220,38 @@ export default function FaqPage(props: FaqPageProps) {
                         Note how the style attribute is camelCase not the usual regular-case-with-dashes  */}
                       <span
 
-                        style={{ fontWeight: '800', fontStyle: 'italic', fontSize: '1.3em'}}
+                        style={{
+                          fontWeight: '800',
+                          fontStyle: 'italic',
+                          fontSize: '1.3em',
+                        }}
                       >
                         {index + 1}&nbsp;&nbsp;-&nbsp;
-                      </span> {/* Added closing tag for the span element */}
-                      <span style={{ fontWeight: '800', fontStyle: 'italic', fontSize: '1.3em'}}></span>
-                      &nbsp;<span className="text-2xl mb-20 text-amber-200">{item.question}</span><br></br><span className="text-lg">{Array.isArray(item.answer)
-                        ? item.answer.map((str, index) => <p className="my-5" key={index}>{str}</p>)
-                        : <p className="my-5">{item.answer}</p>
-                      }</span>
+                      </span>{' '}
+                      {/* Added closing tag for the span element */}
+                      <span
+                        style={{
+                          fontWeight: '800',
+                          fontStyle: 'italic',
+                          fontSize: '1.3em',
+                        }}
+                      ></span>
+                      &nbsp;
+                      <span className="text-2xl mb-20 text-amber-200">
+                        {item.question}
+                      </span>
+                      <br></br>
+                      <span className="text-lg">
+                        {Array.isArray(item.answer) ? (
+                          item.answer.map((str, index) => (
+                            <p className="my-5" key={index}>
+                              {str}
+                            </p>
+                          ))
+                        ) : (
+                          <p className="my-5">{item.answer}</p>
+                        )}
+                      </span>
 
                     </div>
                   ))

@@ -88,40 +88,49 @@ export const getStaticProps: GetStaticProps<PageProps, Query> = async (ctx) => {
   const faqs: FaqItem[] = [
 
     {
-      question: "Puis-je donner mes articles à une œuvre de bienfaisance ou à d'autres locataires ?",
-      answer: [`Oui à tous les deux. Chaque bâtiment a ses propres moyens de faire un don. Si vous souhaitez donner de vieux vêtements à une œuvre de bienfaisance,
+      question:
+        "Puis-je donner mes articles à une œuvre de bienfaisance ou à d'autres locataires ?",
+      answer: [
+        `Oui à tous les deux. Chaque bâtiment a ses propres moyens de faire un don. Si vous souhaitez donner de vieux vêtements à une œuvre de bienfaisance,
       vous trouverez un grand bac noir dans le hall de votre bâtiment. Ouvrez le bac avec la poignée en haut et déposez vos vêtements à l'intérieur. Tout vêtement trouvé à l'extérieur du bac sera supposé être à la disposition de tous les locataires. Vous pouvez également
       trouver divers objets non vestimentaires autour du bac qui sont destinés à être pris par n'importe quel locataire. Vous pouvez laisser n'importe lequel de
       vos propres objets que vous ne voulez plus dans cette zone - dans la limite du raisonnable.`,
 
-      `Certains locataires laisseront des objets dans d'autres zones pour être pris par n'importe quel locataire qui le voit. Nous ne recommandons pas de laisser des objets de donation
-      ou de la nourriture dans d'autres zones (comme la buanderie) car ils peuvent être jetés après quelques heures par l'entretien de Rockhill.`]
+        `Certains locataires laisseront des objets dans d'autres zones pour être pris par n'importe quel locataire qui le voit. Nous ne recommandons pas de laisser des objets de donation
+      ou de la nourriture dans d'autres zones (comme la buanderie) car ils peuvent être jetés après quelques heures par l'entretien de Rockhill.`,
+      ],
     },
     {
-      question: "Comment puis-je me débarrasser de gros objets tels que des lits ou des bureaux ?",
-      answer: [`Tout objet jugé trop grand pour être mis dans les poubelles dans les sous-sols doit être amené à l'un des deux endroits autour du bâtiment :`,
+      question:
+        'Comment puis-je me débarrasser de gros objets tels que des lits ou des bureaux ?',
+      answer: [
+        `Tout objet jugé trop grand pour être mis dans les poubelles dans les sous-sols doit être amené à l'un des deux endroits autour du bâtiment :`,
 
-      `À l'est du bâtiment A, près de la route Cote des neiges, il devrait y avoir une machine compacte. Veuillez laisser l'objet aussi près du mur que possible
+        `À l'est du bâtiment A, près de la route Cote des neiges, il devrait y avoir une machine compacte. Veuillez laisser l'objet aussi près du mur que possible
       pour ne pas bloquer la voie de stationnement de Rockhill.`,
 
-      `À l'ouest du bâtiment C, à la sortie du parking souterrain près de la route Cote des Neiges, vous pouvez laisser vos objets aussi près du mur
+        `À l'ouest du bâtiment C, à la sortie du parking souterrain près de la route Cote des Neiges, vous pouvez laisser vos objets aussi près du mur
       que possible la veille de la collecte des ordures.
-      `]
+      `,
+      ],
     },
     {
-      question: "Les visiteurs peuvent-ils utiliser les commodités ?",
+      question: 'Les visiteurs peuvent-ils utiliser les commodités ?',
       answer: `Oui. Tant que les visiteurs sont accompagnés par le résident, ils peuvent utiliser les commodités. Gardez à l'esprit que le résident est entièrement
       responsable du comportement et des actions de leurs visiteurs. Assurez-vous d'informer le visiteur des règles du bâtiment en se référant au bail,
-      qui peut être consulté sur Rentcafe, ainsi qu'indiqué dans les installations.`
+      qui peut être consulté sur Rentcafe, ainsi qu'indiqué dans les installations.`,
     },
     {
-      question: "Comment puis-je faire ma lessive ?",
+      question: 'Comment puis-je faire ma lessive ?',
       answer: `Chaque bâtiment a une buanderie. Vous pouvez trouver le calendrier sur la porte de la buanderie. Les machines nécessitent une
-      carte rechargeable qui doit être demandée à la réception du bâtiment C.`
+      carte rechargeable qui doit être demandée à la réception du bâtiment C.`,
     },
     {
-      question: "Les visiteurs peuvent-ils utiliser les commodités ?",
-      answer: "Tant que les visiteurs sont accompagnés par un résident, ils peuvent utiliser les commodités. Le résident est responsable du comportement de leurs visiteurs."
+      question: 'Est-ce que Rockhill a une app mobile ?',
+      answer: `Oui, c'est exact. C'est l'application Rentcafe. Elle est disponible sur l'App Store et Google Play.
+      Elle offre tout ce que vous pouvez faire sur le site web: Vous pouvez payer votre loyer, soumettre une demande de maintenance,
+      et plus encore, mais vous pouvez aussi voir des événements et des notifications.`,
+
     },
   ] //await getFaqs(client)
 
