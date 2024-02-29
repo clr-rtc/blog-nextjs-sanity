@@ -83,10 +83,12 @@ export const getStaticProps: GetStaticProps<PageProps, Query> = async (ctx) => {
     getSettings(client),
     getAllParts(client, 'en'),
     getMenuItems(client, 'en'),
+
   ])
 
   const faqs: FaqItem[] = [
     {
+
       question: 'Can I donate my items to charity or other tenants?',
       answer: [
         `Yes to both. Each building has their own means to donate. If you wish to donate old clothes to charity,
@@ -132,6 +134,7 @@ export const getStaticProps: GetStaticProps<PageProps, Query> = async (ctx) => {
     },
   ] //await getFaqs(client)
 
+
   return {
     props: {
       faqs,
@@ -147,3 +150,4 @@ export const getStaticProps: GetStaticProps<PageProps, Query> = async (ctx) => {
     },
   }
 }
+

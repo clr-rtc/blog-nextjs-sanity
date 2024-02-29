@@ -86,6 +86,7 @@ export const getStaticProps: GetStaticProps<PageProps, Query> = async (ctx) => {
   ])
 
   const faqs: FaqItem[] = [
+
     {
       question:
         "Puis-je donner mes articles à une œuvre de bienfaisance ou à d'autres locataires ?",
@@ -129,8 +130,14 @@ export const getStaticProps: GetStaticProps<PageProps, Query> = async (ctx) => {
       answer: `Oui, c'est exact. C'est l'application Rentcafe. Elle est disponible sur l'App Store et Google Play.
       Elle offre tout ce que vous pouvez faire sur le site web: Vous pouvez payer votre loyer, soumettre une demande de maintenance,
       et plus encore, mais vous pouvez aussi voir des événements et des notifications.`,
+
     },
   ] //await getFaqs(client)
+
+
+
+
+
 
   return {
     props: {
@@ -147,3 +154,4 @@ export const getStaticProps: GetStaticProps<PageProps, Query> = async (ctx) => {
     },
   }
 }
+
