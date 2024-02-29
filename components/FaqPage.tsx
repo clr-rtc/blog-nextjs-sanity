@@ -1,4 +1,4 @@
-/**
+/**type
  * @summary FaqPage React Component
  * @description This file contains the FaqPage React Component. This component is a page that displays a list of FAQ items.
  * A React Component can either be a class (old style) or just a function that follows certain conventions.
