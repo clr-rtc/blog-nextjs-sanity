@@ -96,8 +96,7 @@ const faqs: FaqItem[] = [
       semble être due à la quantité d'objets collectés sur et autour de la boîte, ce qui est probablement inesthétique. Plus d’informations à ce sujet suivront.`,
         ` `,
 
-
-        `VIEILLE RÉPONSE: Oui à tous les deux. Chaque bâtiment a ses propres moyens de faire un don. Si vous souhaitez donner de vieux vêtements à une œuvre de bienfaisance,
+        `RÉPONSE DISCONTINUÉ: Oui à tous les deux. Chaque bâtiment a ses propres moyens de faire un don. Si vous souhaitez donner de vieux vêtements à une œuvre de bienfaisance,
       vous trouverez un grand bac noir dans le hall de votre bâtiment. Ouvrez le bac avec la poignée en haut et déposez vos vêtements à l'intérieur. Tout vêtement trouvé à l'extérieur du bac sera supposé être à la disposition de tous les locataires. Vous pouvez également
       trouver divers objets non vestimentaires autour du bac qui sont destinés à être pris par n'importe quel locataire. Vous pouvez laisser n'importe lequel de
       vos propres objets que vous ne voulez plus dans cette zone - dans la limite du raisonnable.`,
@@ -166,11 +165,11 @@ const faqs: FaqItem[] = [
 
 
 question: 'Can I donate my items to charity or other tenants?',
-      answer: [`6th of March 2024 Edit: Since the 4th of March 2024, all 6 of the black donation boxes have been removed from each building. 
-      This means for the moment that donations are not to be made. It was furthermore confirmed by 2 Rockhill employees that the reason seems 
+      answer: [`6th of March 2024 Edit: Since the 4th of March 2024, all 6 of the black donation boxes have been removed from each building.
+      This means for the moment that donations are not to be made. It was furthermore confirmed by 2 Rockhill employees that the reason seems
       to be due to the amount of items that were collecting on and around the box which likely unsightly. More about this to follow.`,
         ` `,
-        
+
         `Yes to both. Each building has their own means to donate. If you wish to donate old clothes to charity,
       you will find a large black bin in the lobby of your building. Open the bin with the handle at the top and drop off
       your clothes inside. Any clothes found outside the bin will be assumed to be up for grabs by any tenants. You may also
