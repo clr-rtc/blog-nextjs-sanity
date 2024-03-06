@@ -85,13 +85,18 @@ export const getStaticProps: GetStaticProps<PageProps, Query> = async (ctx) => {
     getMenuItems(client),
   ])
 
-  const faqs: FaqItem[] = [
+const faqs: FaqItem[] = [
 
     {
       question:
         "Puis-je donner mes articles à une œuvre de bienfaisance ou à d'autres locataires ?",
       answer: [
-        `Oui à tous les deux. Chaque bâtiment a ses propres moyens de faire un don. Si vous souhaitez donner de vieux vêtements à une œuvre de bienfaisance,
+        `6 mars 2024 Edit : Depuis le 4 mars 2024, les 6 boîtes de dons noires ont été retirées de chaque bâtiment.
+      Cela signifie pour le moment qu'aucun don ne doit être fait. Il a en outre été confirmé par deux employés de Rockhill que la raison
+      semble être due à la quantité d'objets collectés sur et autour de la boîte, ce qui est probablement inesthétique. Plus d’informations à ce sujet suivront.`,
+        ` `,
+
+        `RÉPONSE DISCONTINUÉE: Oui à tous les deux. Chaque bâtiment a ses propres moyens de faire un don. Si vous souhaitez donner de vieux vêtements à une œuvre de bienfaisance,
       vous trouverez un grand bac noir dans le hall de votre bâtiment. Ouvrez le bac avec la poignée en haut et déposez vos vêtements à l'intérieur. Tout vêtement trouvé à l'extérieur du bac sera supposé être à la disposition de tous les locataires. Vous pouvez également
       trouver divers objets non vestimentaires autour du bac qui sont destinés à être pris par n'importe quel locataire. Vous pouvez laisser n'importe lequel de
       vos propres objets que vous ne voulez plus dans cette zone - dans la limite du raisonnable.`,
@@ -154,4 +159,3 @@ export const getStaticProps: GetStaticProps<PageProps, Query> = async (ctx) => {
     },
   }
 }
-
