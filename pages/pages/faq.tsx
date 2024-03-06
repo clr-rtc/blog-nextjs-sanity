@@ -96,7 +96,7 @@ const faqs: FaqItem[] = [
       semble être due à la quantité d'objets collectés sur et autour de la boîte, ce qui est probablement inesthétique. Plus d’informations à ce sujet suivront.`,
         ` `,
 
-        `RÉPONSE DISCONTINUÉ: Oui à tous les deux. Chaque bâtiment a ses propres moyens de faire un don. Si vous souhaitez donner de vieux vêtements à une œuvre de bienfaisance,
+        `RÉPONSE DISCONTINUÉE: Oui à tous les deux. Chaque bâtiment a ses propres moyens de faire un don. Si vous souhaitez donner de vieux vêtements à une œuvre de bienfaisance,
       vous trouverez un grand bac noir dans le hall de votre bâtiment. Ouvrez le bac avec la poignée en haut et déposez vos vêtements à l'intérieur. Tout vêtement trouvé à l'extérieur du bac sera supposé être à la disposition de tous les locataires. Vous pouvez également
       trouver divers objets non vestimentaires autour du bac qui sont destinés à être pris par n'importe quel locataire. Vous pouvez laisser n'importe lequel de
       vos propres objets que vous ne voulez plus dans cette zone - dans la limite du raisonnable.`,
