@@ -159,24 +159,3 @@ const faqs: FaqItem[] = [
     },
   }
 }
-
-
-
-
-
-question: 'Can I donate my items to charity or other tenants?',
-      answer: [`6th of March 2024 Edit: Since the 4th of March 2024, all 6 of the black donation boxes have been removed from each building.
-      This means for the moment that donations are not to be made. It was furthermore confirmed by 2 Rockhill employees that the reason seems
-      to be due to the amount of items that were collecting on and around the box which likely unsightly. More about this to follow.`,
-        ` `,
-
-        `Yes to both. Each building has their own means to donate. If you wish to donate old clothes to charity,
-      you will find a large black bin in the lobby of your building. Open the bin with the handle at the top and drop off
-      your clothes inside. Any clothes found outside the bin will be assumed to be up for grabs by any tenants. You may also
-      find various non-clothes items around the bin that are meant for any tenant to take for themselves. You can leave any of
-      your own items that you no longer want in this area–within reason.`,
-        ` `,
-
-        `Some tenants will leave items in other areas to be taken by any tenant that sees it. We do not recommend leaving donation
-      items or food in other areas (such as the laundry room) as it may be trashed after a few hours by Rockhill maintenance.`,
-      ],
