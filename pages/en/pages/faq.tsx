@@ -91,7 +91,7 @@ export const getStaticProps: GetStaticProps<PageProps, Query> = async (ctx) => {
       question: "Can I donate my items to charity or other tenants?",
       answer: [`6th of March 2024 Edit: Since the 4th of March 2024, all 6 of the black donation boxes have been removed from each building.
       This means for the moment that donations are not to be made. It was furthermore confirmed by 2 Rockhill employees that the reason seems
-      to be due to the amount of items that were collecting on and around the box which likely unsightly. More about this to follow.`,
+      to be due to the amount of items that were collecting on and around the box which was likely unsightly. More about this to follow.`,
         ` `,
 
         `DISCONTINUED ANSWER: Yes to both. Each building has their own means to donate. If you wish to donate old clothes to charity,
