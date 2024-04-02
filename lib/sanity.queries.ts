@@ -217,6 +217,10 @@ export const allKeywordsQuery = groq`
 *[_type == "keyword" ]
 `
 
+export const allFaq = groq`
+*[_type == "faq" ]
+`
+
 export const allThemeKeywordsQuery = groq`
 *[_type == "keyword" && keywordType == "theme" ]
 `
@@ -224,6 +228,20 @@ export const allThemeKeywordsQuery = groq`
 export interface Author {
   name?: string
   picture?: any
+}
+
+export interface FAQ {
+  title: string
+  title_en: string
+  question: string
+  question_en: string
+  answer: string
+  answer_en: string
+  _createdAt: string
+  _updatedAt: string
+  _id: string
+  _type: string
+  _rev: string
 }
 
 export interface Keyword {

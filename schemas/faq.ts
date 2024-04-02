@@ -19,7 +19,7 @@ import { defineBilingualFormattedTextField, defineBilingualTextField, defineExce
  */
 
 export default defineType({
-  name: 'faqContent',
+  name: 'faq',
   title: 'FAQ',
   description: "Contenu du FAQ",
   icon: BookIcon,

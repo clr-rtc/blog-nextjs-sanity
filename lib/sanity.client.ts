@@ -26,6 +26,8 @@ import {
   fullPostQuery,
   Keyword,
   allKeywordsQuery,
+  allFaq,
+  FAQ,
   fullPageQuery,
   relatedPostsQuery,
   prioritizedProblemsQuery,
@@ -115,6 +117,14 @@ export async function getAllPosts(
 ): Promise<Post[]> {
   return fetchLocalizedList(postListQuery, client, lang)
 }
+
+export async function getAllFaq(
+  client: SanityClient,
+  lang?: string,
+): Promise<FAQ[]> {
+  return fetchLocalizedList(postListQuery, client, lang)
+}
+
 
 /**
  * @summary Retrieve all the sorted problems in the desired language

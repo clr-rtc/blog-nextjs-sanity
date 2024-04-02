@@ -23,6 +23,7 @@ import {
   getAllPosts,
   getAllParts,
   getClient,
+  getAllFaq,
   getSettings,
   getMenuItems,
   getAllPrioritizedPosts,
@@ -83,59 +84,10 @@ export const getStaticProps: GetStaticProps<PageProps, Query> = async (ctx) => {
     getSettings(client),
     getAllParts(client, 'en'),
     getMenuItems(client, 'en'),
-
+    getAllFaq(client, 'en'),
   ])
 
-  const faqs: FaqItem[] = [
-    {
-      question: "Can I donate my items to charity or other tenants?",
-      answer: [`6th of March 2024 Edit: Since the 4th of March 2024, all 6 of the black donation boxes have been removed from each building.
-      This means for the moment that donations are not to be made. It was furthermore confirmed by 2 Rockhill employees that the reason seems
-      to be due to the amount of items that were collecting on and around the box which was likely unsightly. More about this to follow.`,
-        ` `,
-
-        `DISCONTINUED ANSWER: Yes to both. Each building has their own means to donate. If you wish to donate old clothes to charity,
-      you will find a large black bin in the lobby of your building. Open the bin with the handle at the top and drop off
-      your clothes inside. Any clothes found outside the bin will be assumed to be up for grabs by any tenants. You may also
-      find various non-clothes items around the bin that are meant for any tenant to take for themselves. You can leave any of
-      your own items that you no longer want in this area–within reason.`,
-        ` `,
-
-        `Some tenants will leave items in other areas to be taken by any tenant that sees it. We do not recommend leaving donation
-      items or food in other areas (such as the laundry room) as it may be trashed after a few hours by Rockhill maintenance.`,
-      ],
-    },
-    {
-      question: 'How can I dispose of large objects such as beds or desks?',
-      answer: [
-        `Any item deemed too big to put in the garbage bins in the basements are to be brought to either of two areas around the building:`,
-
-        `On the east of Building A, near the Cote des neiges road, there should be a compactor machine. Please leave the item as close to the wall as possible
-      as to not block the Rockhill parking lane.`,
-
-        `On the west of Building C, at the exit of the underground parking lot near the Cote des Neiges road, you can leave your items as close to the wall
-      as possible the night before garbage is picked up.
-      `,
-      ],
-    },
-    {
-      question: 'Can visitors use amenities?',
-      answer: `Yes. So long as the visitors are accompanied by the resident, they can use the amenities. Keep in mind that the resident is fully
-      responsible for the behaviour and actions of their visitors. Make sure to let the visitor know of the building’s rules by referring to the lease,
-      which can be accessed on Rentcafe, as well as indicated in the facilities.`,
-    },
-    {
-      question: 'How can I do my laundry?',
-      answer: `Each building has a laundry room. You can find the schedule on the door of the laundry room. The machines require a rechargeable
-      card that must be requestionsted at the Receptionist in Building C.`,
-    },
-    {
-      question: 'Does Rockhill have an app?',
-      answer: `Yes. That's right. It's the rentcafe app. It's available on the app store and google play.
-      It provides everything that you can do on the website. You can pay your rent, submit a request for maintenance,
-      and more, but you can also see events and notifications."`,
-    },
-  ] //await getFaqs(client)
+  const faqs: FaqItem[] = [] //await getFaqs(client)
 
 
   return {
