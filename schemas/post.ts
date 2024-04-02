@@ -192,7 +192,7 @@ export default defineType({
     ...defineBilingualFormattedTextField(
       'risks',
       'Risques',
-      'Quels sont les rispques potentiels',
+      'Quels sont les risques potentiels',
       ({ document }) => document.postType !== 'problem',
     ),
     ...defineBilingualFormattedTextField(
@@ -219,7 +219,7 @@ export default defineType({
     ...defineBilingualFormattedTextField(
       'next_steps',
       'Prochaines Démarches',
-      'Quels seront les prochaines démarches pour réglé le prolbème',
+      'Quels seront les prochaines démarches pour réglé le problème',
       ({ document }) => document.postType !== 'problem',
     ),
     ...defineExcerpt(),

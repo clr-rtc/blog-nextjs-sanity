@@ -27,12 +27,13 @@ import pageType from 'schemas/page'
 import blockType from 'schemas/block'
 import keywordType from 'schemas/keyword'
 import settingsType from 'schemas/settings'
+import faqType from 'schemas/faq'
 import block from 'schemas/block'
 import {CustomizedPublish} from 'schemas/customizedPublish'
 
-const title = process.env.NEXT_PUBLIC_SANITY_PROJECT_TITLE || "Blog" 
+const title = process.env.NEXT_PUBLIC_SANITY_PROJECT_TITLE || "Blog"
 
-  
+
 export default defineConfig({
   basePath: '/studio',
   projectId,
@@ -40,7 +41,7 @@ export default defineConfig({
   title,
   schema: {
     // If you want more content types, you can add them to this array
-    types: [authorType, postType, partType, pageType, settingsType, blockType, keywordType],
+    types: [authorType, postType, partType, pageType, settingsType, blockType, keywordType, faqType],
   },
   document: {
     actions: (prev) =>{
