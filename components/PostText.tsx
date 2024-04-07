@@ -51,6 +51,44 @@ const customPortableTextComponents: Partial<PortableTextReactComponents> = {
   },
 }
 
+function StringComponent(content, className) {
+  if (!content?.includes) return undefined
+
+  if (content.includes('\n\n')) {
+    return (
+      <>
+        {content.split('\n\n').map((p, i) => (
+          <p key={i} className={className}>
+            {p}
+          </p>
+        ))}
+      </>
+    )
+  } else if (className) {
+    return <p className={className}>{content}</p>
+  } else {
+    return <>{content}</>
+  }
+}
+
+type PostPortableTextProps = {
+  content: any
+  className?: string
+}
+
+export function PostPortableText(props: PostPortableTextProps) {
+  if (typeof props.content === 'string') {
+    return StringComponent(props.content, props.className)
+  } else {
+    return (
+      <PortableText
+        value={props.content}
+        components={customPortableTextComponents}
+      />
+    )
+  }
+}
+
 type PostTextProps = {
   content: any
   className?: string
@@ -61,10 +99,7 @@ export default function PostText(props: PostTextProps) {
     <div
       className={`w-full ${styles.portableText} flex flex-wrap ${props.className}`}
     >
-      <PortableText
-        value={props.content}
-        components={customPortableTextComponents}
-      />
+      <PostPortableText content={props.content} />
     </div>
   )
 }
@@ -89,9 +124,8 @@ export function FollowUpBody(props: FollowUpBodyProps) {
         <PostDate dateString={post.date} />{' '}
       </div>
       <div className="flex flex-wrap justify-around">
-        <PortableText
-          value={post.problem || post.content || post.excerpt}
-          components={customPortableTextComponents}
+        <PostPortableText
+          content={post.problem || post.content || post.excerpt}
         />
       </div>
       <div className="w-full border-b border-gray-500 mt-2" />

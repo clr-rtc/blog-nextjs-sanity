@@ -60,22 +60,6 @@ export default defineType({
     }),
 
     defineField({
-      name: 'keywords',
-      title: 'Mots clé',
-      description: 'Les mots clés catégorisant cet article',
-      type: 'array',
-      of: [
-        {
-          type: 'reference',
-          to: { type: 'keyword' },
-        },
-      ],
-      components: {
-        input: ReferenceSelect,
-      },
-    }),
-
-    defineField({
       title: 'Problème original',
       description: "Le suivi s'applique à quel problème",
       name: 'originalProblem',
@@ -88,6 +72,22 @@ export default defineType({
         disableNew: true,
         filter: 'postType == "problem"',
         //filterParams: {role: 'director'}
+      },
+    }),
+
+    defineField({
+      name: 'keywords',
+      title: 'Mots clé',
+      description: 'Les mots clés catégorisant cet article',
+      type: 'array',
+      of: [
+        {
+          type: 'reference',
+          to: { type: 'keyword' },
+        },
+      ],
+      components: {
+        input: ReferenceSelect,
       },
     }),
 
