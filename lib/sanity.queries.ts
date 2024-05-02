@@ -34,7 +34,8 @@ const postFields = groq`
   "originalProblemSlug": originalProblem -> {slug {current}},
   "originalProblemStatus": originalProblem -> status,
   "author": author->{name, picture},
-  "keywords": keywords[]->{_id, title, title_en}
+  "keywords": keywords[]->{_id, title, title_en},
+  priorityNo
 `
 
 const pageFields = groq`
@@ -269,6 +270,7 @@ export interface Post {
   relatedPosts?: Post[]
   previousSlug?: string
   nextSlug?: string
+  priorityNo?: number
 }
 
 export interface Page {
