@@ -7,10 +7,13 @@ import { COLOR_LINK } from './colors'
 import PostText, { PostPortableText } from './PostText'
 import { useLabel, useLangUri } from 'lib/lang'
 
+const DEBUG = false
+
 export default function HeroPost(
   props: Pick<
     Post,
     | 'title'
+    | 'postType'
     | 'coverImage'
     | 'date'
     | 'excerpt'
@@ -23,6 +26,7 @@ export default function HeroPost(
 ) {
   const {
     title,
+    postType,
     coverImage,
     date,
     excerpt,
@@ -35,6 +39,19 @@ export default function HeroPost(
   const effectiveSlug = originalProblemSlug?.['slug']?.['current'] || slug
   const textContent = content || problem
   const langUri = useLangUri()
+  DEBUG &&
+    console.log(
+      'postType',
+      postType,
+      'title',
+      title,
+      'excerpt',
+      excerpt,
+      'content',
+      content ? 'yes' : 'no',
+      'problem',
+      problem ? 'yes' : 'no',
+    )
 
   const SEE_MORE = useLabel('En savoir plus...', 'Read More...')
   return (
@@ -51,9 +68,10 @@ export default function HeroPost(
         <Date dateString={date} />
       </div>
       {coverImage && (
-        <div className="py-2">
+        <div className="py-2 max-w-full">
           <CoverImage
             key={slug}
+            hero={true}
             slug={effectiveSlug}
             title={title}
             image={coverImage}
@@ -63,21 +81,21 @@ export default function HeroPost(
       )}
 
       {!excerpt && textContent && <PostText content={textContent} />}
-
       {excerpt && (
-        <>
-          <PostPortableText
-            content={excerpt}
-            className="mb-4 text-lg leading-relaxed"
-          />
-
-          <Link
-            href={`${langUri}/posts/${slug}`}
-            className={'hover:underline font-bold italic ' + COLOR_LINK}
-          >
-            {SEE_MORE}
-          </Link>
-        </>
+        <PostPortableText
+          content={excerpt}
+          className="mb-4 text-lg leading-relaxed"
+        />
+      )}
+      {excerpt || postType == 'follow-up' || postType == 'problem' ? (
+        <Link
+          href={`${langUri}/posts/${slug}`}
+          className={'hover:underline font-bold italic ' + COLOR_LINK}
+        >
+          {SEE_MORE}
+        </Link>
+      ) : (
+        <></>
       )}
       {author && <AuthorAvatar name={author.name} picture={author.picture} />}
     </section>
