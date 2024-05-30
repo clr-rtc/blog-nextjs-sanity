@@ -96,9 +96,7 @@ type PostTextProps = {
 
 export default function PostText(props: PostTextProps) {
   return (
-    <div
-      className={`w-full ${styles.portableText} flex flex-wrap ${props.className}`}
-    >
+    <div className={`w-full ${styles.portableText}  ${props.className}`}>
       <PostPortableText content={props.content} />
     </div>
   )
