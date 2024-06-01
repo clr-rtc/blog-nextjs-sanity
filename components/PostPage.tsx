@@ -64,7 +64,7 @@ export default function PostPage(props: PostPageProps) {
                 <article>
                   <PostHeader {...post} />
                   {post.postType !== 'problem' ? (
-                    <PostText content={post.content} />
+                    <PostText {...post} content={post.content} />
                   ) : (
                     <></>
                   )}

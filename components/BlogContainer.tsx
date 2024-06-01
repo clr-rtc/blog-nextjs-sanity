@@ -16,5 +16,5 @@ export default function BlogContainer({ children }) {
    * - px-5: a class that sets the padding on the left and right to 1.25rem
    * - bg-[#F2F0EA]: a class that sets the background color to a light grey
    */
-  return <div className="container mx-auto px-5 bg-[#F2F0EA]">{children}</div>
+  return <div className=" mx-auto px-5 bg-[#F2F0EA]">{children}</div>
 }

@@ -106,7 +106,7 @@ export default function BlogHeader({
   menuItems?: MenuItem[]
 }) {
   return (
-    <header className=" mb-2 sm:mb-10 mt-4 flex flex-col items-center md:mb-12 md:flex-row md:justify-between border-b-2 pb-4 border-gray-700">
+    <header className=" mb-2 sm:mb-2 mt-4 flex flex-col items-center md:mb-4 md:flex-row md:justify-between border-b-2 pb-4 border-gray-700">
       <div className="pl-16 pr-4 sm:w-1/6 flex flex-row justify-start">
         <Image
           className="w-24 aspect-auto hidden sm:inline"

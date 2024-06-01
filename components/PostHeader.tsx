@@ -15,13 +15,22 @@ export default function PostHeader(
     | 'date'
     | 'coverImage'
     | 'author'
+    | 'link'
     | 'slug'
     | 'previousSlug'
     | 'nextSlug'
   >,
 ) {
-  const { title, coverImage, date, author, slug, previousSlug, nextSlug } =
-    props
+  const {
+    title,
+    coverImage,
+    date,
+    author,
+    slug,
+    link,
+    previousSlug,
+    nextSlug,
+  } = props
 
   return (
     <>
@@ -45,7 +54,13 @@ export default function PostHeader(
         </div>
         {coverImage && (
           <div className="mt-4 mb-2 pl-4 flow-right w-96">
-            <CoverImage title={title} image={coverImage} priority slug={slug} />
+            <CoverImage
+              title={title}
+              image={coverImage}
+              priority
+              slug={slug}
+              link={link}
+            />
           </div>
         )}
       </div>

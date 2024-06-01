@@ -8,10 +8,11 @@ interface Props {
   alt: string
   caption?: string
   size?: string
+  link?: string
 }
 
 export const SanityImage = (props: Props) => {
-  const { asset, alt, caption } = props
+  const { asset, alt, caption, link } = props
   let imageProps = useNextSanityImage(getSanityImageConfig(), asset)
 
   if (!imageProps) return null
@@ -53,7 +54,7 @@ export const SanityImage = (props: Props) => {
 
   const internalWidth = ''
   const internalWidthAlignment = ` ${internalWidth} ${alignment} `
-  const image = (
+  let image = (
     <Image
       {...imageProps}
       alt={alt}
@@ -61,6 +62,10 @@ export const SanityImage = (props: Props) => {
       className={internalWidthAlignment + ' p-2'}
     />
   )
+
+  if (link) {
+    image = <a href={link}>{image}</a>
+  }
 
   const imageComponent = (
     <div className={widthAlignment}>

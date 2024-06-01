@@ -76,6 +76,8 @@ const partFields = groq`
   content,
   content_en,
   coverImage,
+  link,
+  link_en,
   "slug": slug.current,
   "author": author->{name, picture}
 `
@@ -250,6 +252,7 @@ export interface Post {
   excerpt?: string
   author?: Author
   slug?: string
+  link?: string
   originalProblemSlug: string
   originalProblemStatus: string
   content?: any
@@ -296,8 +299,9 @@ export interface MenuItem {
 export interface Part {
   _id: string
   title?: string
-  appearance: 'title' | 'no-title' | 'title-only'
+  appearance: 'title' | 'no-title' | 'title-only' | 'banner' | 'post'
   coverImage?: any
+  link?: string
   date?: string
   _updatedAt?: string
   excerpt?: string

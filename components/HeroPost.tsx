@@ -57,12 +57,16 @@ export default function HeroPost(
   return (
     <section>
       <h3 className="py-4 text-2xl font-semibold lg:text-3xl  text-blue-900 text-center  ">
-        <Link
-          href={`${langUri}/posts/${effectiveSlug}`}
-          className="hover:underline"
-        >
-          {title || 'Untitled'}
-        </Link>
+        {slug ? (
+          <Link
+            href={`${langUri}/posts/${effectiveSlug}`}
+            className="hover:underline"
+          >
+            {title || 'Untitled'}
+          </Link>
+        ) : (
+          <>{title || 'Untitled'}</>
+        )}
       </h3>
       <div className="mb-4 text-lg md:mb-0">
         <Date dateString={date} />

@@ -18,11 +18,11 @@ const ROOT_PATH = '/'
  *
  * @description This function returns the current language of the page which is based on the presence of the `/en` prefix in the URL.
  */
-export function useLang(){
-    const router = useRouter()
+export function useLang() {
+  const router = useRouter()
 
-    const isEn = router.route === '/en' || router.route.startsWith('/en/')
-    return isEn? 'en' : 'fr'
+  const isEn = router.route === '/en' || router.route.startsWith('/en/')
+  return isEn ? 'en' : 'fr'
 }
 
 /**
@@ -34,8 +34,8 @@ export function useLang(){
  * For example, the `title` object member would be `title_en` for the English version.
  * The default language is french and the suffix is empty for that case.
  */
-export function useLangSuffix(){
-    return useLang() === 'en'? '_en' : ''
+export function useLangSuffix() {
+  return useLang() === 'en' ? '_en' : ''
 }
 
 /**
@@ -46,8 +46,8 @@ export function useLangSuffix(){
  * The URI segment is added at the start of the URL to switch between the English and French versions of the page.
  * That means that the English version of the pages is a subtree below the /en path
  */
-export function useLangUri(){
-    return useLang() === 'en' ? '/en' : ''
+export function useLangUri() {
+  return useLang() === 'en' ? '/en' : ''
 }
 
 /**
@@ -60,14 +60,31 @@ export function useLangUri(){
  * The function returns the French version if the current language is French and the English version otherwise.
  * This helper function is used to declutter a lot of the code in the components which needs to adapt to the language
  */
-export function useLabel(fr: string, en: string){
-    if (useLang() === 'en'){
-        return en
-    } else {
-        return fr
-    }
+export function useLabel(fr: string, en: string) {
+  if (useLang() === 'en') {
+    return en
+  } else {
+    return fr
+  }
 }
 
+/**
+ * @summary Returns the element based on the current language of the page.
+ * @param fr french element
+ * @param en english element
+ * @returns one of the two elements based on the current language of the page
+ *
+ * @description This function is called with two arguments, the French and English versions of the element.
+ * The function returns the French version if the current language is French and the English version otherwise.
+ * This helper function is used to declutter a lot of the code in the components which needs to adapt to the language
+ */
+export function useElement(fr: JSX.Element, en: JSX.Element) {
+  if (useLang() === 'en') {
+    return en
+  } else {
+    return fr
+  }
+}
 
 /**
  * #summary Returns the equivalent path in the desired language
@@ -84,51 +101,51 @@ export function useLabel(fr: string, en: string){
  * Examples of absolute paths are `/posts` and `/en/posts`
  * Examples of relative paths are `posts` and `en/posts`
  */
-export function localizePath(path:string, lang:string){
-    if (!path){
-        // This is the website root
-        return ''
+export function localizePath(path: string, lang: string) {
+  if (!path) {
+    // This is the website root
+    return ''
+  }
+
+  // If no language is specified, then the default is french
+  if (!lang || lang === 'fr') {
+    // We wqant to get the french path
+
+    if (path.startsWith('/en')) {
+      // An english path is provided - we want to remove the /en prefix
+      const otherPath = path.substring(3)
+
+      // If the path only contains the language prefix, we return the root '/'
+      return otherPath || ROOT_PATH
     }
 
-    // If no language is specified, then the default is french
-    if (!lang || lang === 'fr'){
-        // We wqant to get the french path
+    // This is a french path or a partial path without a language prefix
+    // It can be used for french as is
+    return path
+  }
 
-        if (path.startsWith('/en')){
-            // An english path is provided - we want to remove the /en prefix
-            const otherPath = path.substring(3)
+  // We want to return the english path
 
-            // If the path only contains the language prefix, we return the root '/'
-            return otherPath || ROOT_PATH
-        }
+  // Based on the language, build the target language prefix
 
-        // This is a french path or a partial path without a language prefix
-        // It can be used for french as is
-        return path
-    }
+  // Determine if this is a full path or a partial path
+  const isAbsolute = path[0] === ROOT_PATH
 
-    // We want to return the english path
+  const relativePath = isAbsolute ? path.substring(1) : path
 
-    // Based on the language, build the target language prefix
+  const langPrefix = (isAbsolute ? ROOT_PATH : '') + lang
 
-    // Determine if this is a full path or a partial path
-    const isAbsolute = path[0] === ROOT_PATH
+  if (!relativePath) {
+    // This is the website root
+    return langPrefix
+  }
 
-    const relativePath = isAbsolute? path.substring(1) : path
+  if (path.startsWith(langPrefix)) {
+    return path
+  }
 
-    const langPrefix = (isAbsolute? ROOT_PATH : '') + lang
+  // Add the prefix at the start of the path. If the path already starts with a `/` then we don't add it again
+  const localized = langPrefix + '/' + relativePath
 
-    if (!relativePath){
-        // This is the website root
-        return langPrefix
-    }
-
-    if (path.startsWith(langPrefix)){
-        return path
-    }
-
-    // Add the prefix at the start of the path. If the path already starts with a `/` then we don't add it again
-    const localized =  langPrefix + '/' + relativePath
-
-    return localized
+  return localized
 }

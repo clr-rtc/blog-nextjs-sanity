@@ -138,6 +138,12 @@ export function defineFormattedTextField(name, title, description, hidden) {
             },
             initialValue: 'inline',
           },
+          {
+            name: 'link',
+            type: 'string',
+            title: 'Lien',
+            description: 'URL utilisé quand on click dessus',
+          },
         ],
       },
     ],
@@ -212,6 +218,38 @@ export function defineBilingualTextField({ name, title, description, hidden }) {
   return [french, english]
 }
 
+export function defineBilingualStringField({
+  name,
+  title,
+  description,
+  hidden,
+}) {
+  const french = defineField({
+    name,
+    type: 'string',
+    title,
+    description,
+    hidden,
+  })
+  const english = defineField({
+    name: name + '_en',
+    type: 'string',
+    title: title + ' (anglais)',
+    description: description + ' en anglais',
+    hidden,
+  })
+
+  return [french, english]
+}
+
+/*
+ {
+            name: 'link',
+            type: 'string',
+            title: 'Lien',
+            description: 'URL utilisé quand on click dessus',
+          },
+*/
 /**
  * @summary defines a bilingual text field for a short summary of the article
  *

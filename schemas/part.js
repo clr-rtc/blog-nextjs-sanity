@@ -3,22 +3,25 @@ import { format, parseISO } from 'date-fns'
 import { defineField, defineType, defineArrayMember } from 'sanity'
 
 import authorType from './author'
-import { defineBilingualFormattedTextField, defineBilingualTextField, defineExcerpt } from './fields'
+import {
+  defineBilingualFormattedTextField,
+  defineBilingualStringField,
+  defineBilingualTextField,
+  defineExcerpt,
+} from './fields'
 
-const SmallStyle = props => (
-  <span className="text-sm">{props.children} </span>
-)
+const SmallStyle = (props) => <span className="text-sm">{props.children} </span>
 
-const VerySmallStyle = props => (
+const VerySmallStyle = (props) => (
   <span className="text-xs ">{props.children} </span>
 )
 
 /**
  * This file is the schema definition for a post.
  *
- * Here you'll be able to edit the different fields that appear when you 
+ * Here you'll be able to edit the different fields that appear when you
  * create or edit a post in the studio.
- * 
+ *
  * Here you can see the different schema types that are available:
 
   https://www.sanity.io/docs/schema-types
@@ -28,7 +31,8 @@ const VerySmallStyle = props => (
 export default defineType({
   name: 'part',
   title: 'Éléments prédéfinis',
-  description: 'Éléments référencés par le gabarit de page mais dont on peut changer le contenu',
+  description:
+    'Éléments référencés par le gabarit de page mais dont on peut changer le contenu',
   icon: BookIcon,
   type: 'document',
   fields: [
@@ -39,22 +43,27 @@ export default defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
-      title: "Apparemce",
-      description: "Choisir comment apparait cet item",
+      title: 'Apparemce',
+      description: 'Choisir comment apparait cet item',
       name: 'appearance',
       type: 'string',
       options: {
         list: [
-          {title: "Afficher avec titre", value: 'title'},
-          {title: "Afficher sans titre", value: 'no-title'},
-          {title: "Afficher seulement le titre", value: 'title-only'},
-        ], 
+          { title: 'Afficher avec titre', value: 'title' },
+          { title: 'Afficher sans titre', value: 'no-title' },
+          { title: 'Afficher seulement le titre', value: 'title-only' },
+          { title: 'Afficher avec titre en bannière', value: 'banner' },
+          { title: 'Afficher comme un article', value: 'post' },
+        ],
       },
-      initialValue: 'title'
-      
+      initialValue: 'title',
     }),
-    
-    ...defineBilingualFormattedTextField('content', 'Contenu', "Contenu principal de l'article"),
+
+    ...defineBilingualFormattedTextField(
+      'content',
+      'Contenu',
+      "Contenu principal de l'article",
+    ),
     ...defineExcerpt(),
 
     defineField({
@@ -65,6 +74,13 @@ export default defineType({
         hotspot: true,
       },
     }),
+    ...defineBilingualStringField({
+      name: 'link',
+      title: 'Lien',
+      type: 'string',
+      description: 'URL pour quand on clique dessus',
+    }),
+
     defineField({
       name: 'date',
       title: 'Date',

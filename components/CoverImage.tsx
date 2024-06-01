@@ -6,15 +6,24 @@ import Link from 'next/link'
 
 interface CoverImageProps {
   title: string
-  type?: 'post' | 'page'
+  type?: 'posts' | 'page'
   slug?: string
+  link?: string
   image: any
   priority?: boolean
   hero?: boolean
 }
 
 export default function CoverImage(props: CoverImageProps) {
-  const { title, hero, type = 'posts', slug, image: source, priority } = props
+  const {
+    title,
+    hero,
+    type = 'posts',
+    link,
+    slug,
+    image: source,
+    priority,
+  } = props
 
   const prefix = useLangUri()
 
@@ -38,9 +47,9 @@ export default function CoverImage(props: CoverImageProps) {
     />
   )
 
-  if (slug) {
+  if (link || slug) {
     return (
-      <Link href={`${prefix}/${type}/${slug}`} aria-label={title}>
+      <Link href={link || `${prefix}/${type}/${slug}`} aria-label={title}>
         {image}
       </Link>
     )

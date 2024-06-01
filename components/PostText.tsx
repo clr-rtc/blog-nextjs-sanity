@@ -19,6 +19,8 @@ import styles from './PostText.module.css'
 import { SanityImage } from './SanityImage'
 import PostDate from './PostDate'
 import { localizePath, useLabel, useLang, useLangSuffix } from 'lib/lang'
+import CoverImage from './CoverImage'
+import { propagateServerField } from 'next/dist/server/lib/render-server'
 
 const customPortableTextComponents: Partial<PortableTextReactComponents> = {
   types: {
@@ -96,7 +98,7 @@ type PostTextProps = {
 
 export default function PostText(props: PostTextProps) {
   return (
-    <div className={`w-full ${styles.portableText}  ${props.className}`}>
+    <div className={`w-full  ${styles.portableText}  ${props.className}`}>
       <PostPortableText content={props.content} />
     </div>
   )

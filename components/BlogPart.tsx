@@ -1,5 +1,8 @@
 import PostText from 'components/PostText'
 import type { Part } from 'lib/sanity.queries'
+import ListBanner from './ListBanner'
+import HeroPost from './HeroPost'
+import PostHeader from './PostHeader'
 
 type PartsProps = {
   name: string
@@ -35,18 +38,35 @@ export default function BlogPart(props: PartsProps) {
   const alignmentClass =
     alignments.find((a) => a.value === (props.align || 'center'))?.class || ''
 
+  if (part.appearance === 'post') {
+    return (
+      <>
+        <PostHeader
+          title={part.title}
+          coverImage={part.coverImage}
+          link={part.link}
+        />
+        <PostText {...part} content={part.content} />
+      </>
+    )
+  }
+
   return (
     <>
       <div className="flex flex-col w-full">
         {part.appearance !== 'no-title' ? (
-          <div
-            className={
-              'uppercase tracking-widest text-lg font-serif ' +
-              titleAlignmentClass
-            }
-          >
-            {part.title}
-          </div>
+          part.appearance === 'banner' ? (
+            <ListBanner highlight={true}>{part.title}</ListBanner>
+          ) : (
+            <div
+              className={
+                'uppercase tracking-widest text-lg font-serif ' +
+                titleAlignmentClass
+              }
+            >
+              {part.title}
+            </div>
+          )
         ) : (
           <></>
         )}
@@ -58,6 +78,11 @@ export default function BlogPart(props: PartsProps) {
           >
             <PostText content={part.content} className={props.textClassName} />
           </div>
+        ) : (
+          <></>
+        )}
+        {part.appearance === 'banner' ? (
+          <div className="h-10">&nbsp;</div>
         ) : (
           <></>
         )}
