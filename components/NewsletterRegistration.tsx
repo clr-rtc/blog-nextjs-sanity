@@ -150,7 +150,7 @@ function NewsletterRegistration() {
                     maxLength={100}
                     value={formData.email}
                     onChange={handleChange}
-                    className="px-2 w-96 invalid:outline-red-500 invalid:ring-red-500 invalid:ring-2 rounded-sm focus:invalid:bg-red-200"
+                    className="px-2 w-72 invalid:outline-red-500 invalid:ring-red-500 invalid:ring-2 rounded-sm focus:invalid:bg-red-200"
                   />
                 </div>
                 {formErrors?.email && (
@@ -169,6 +169,7 @@ function NewsletterRegistration() {
                   maxLength={100}
                   value={formData.name}
                   onChange={handleChange}
+                  className="w-72"
                 />
               </div>
               <div className="flex justify-end  px-2">
