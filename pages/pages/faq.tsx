@@ -20,13 +20,10 @@ import { readToken } from 'lib/sanity.api'
 
 /** functions to retrieve items from the DB (at build time) */
 import {
-  getAllPosts,
   getAllParts,
   getClient,
   getSettings,
   getMenuItems,
-  getAllPrioritizedPosts,
-  getThemes,
 } from 'lib/sanity.client'
 import { Post, Part, Settings, MenuItem, Keyword } from 'lib/sanity.queries'
 
@@ -85,8 +82,7 @@ export const getStaticProps: GetStaticProps<PageProps, Query> = async (ctx) => {
     getMenuItems(client),
   ])
 
-const faqs: FaqItem[] = [
-
+  const faqs: FaqItem[] = [
     {
       question:
         "Puis-je donner mes articles à une œuvre de bienfaisance ou à d'autres locataires ?",
@@ -135,14 +131,8 @@ const faqs: FaqItem[] = [
       answer: `Oui, c'est exact. C'est l'application Rentcafe. Elle est disponible sur l'App Store et Google Play.
       Elle offre tout ce que vous pouvez faire sur le site web: Vous pouvez payer votre loyer, soumettre une demande de maintenance,
       et plus encore, mais vous pouvez aussi voir des événements et des notifications.`,
-
     },
   ] //await getFaqs(client)
-
-
-
-
-
 
   return {
     props: {

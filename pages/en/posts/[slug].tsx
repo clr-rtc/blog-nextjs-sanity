@@ -10,7 +10,7 @@ import {
   getMenuItems,
   getFullPost,
   getRelatedPosts,
-  getAllPrioritizedPostSlugs
+  getAllPrioritizedPostSlugs,
 } from 'lib/sanity.client'
 import { Post, Part, Settings, MenuItem } from 'lib/sanity.queries'
 import { GetStaticProps } from 'next'
@@ -32,22 +32,34 @@ export default function ProjectSlugRoute(props: PageProps) {
 
   if (draftMode) {
     return (
-      <PreviewPostPage menuItems={props.menuItems} post={post} parts={parts}  settings={settings} />
+      <PreviewPostPage
+        menuItems={props.menuItems}
+        post={post}
+        parts={parts}
+        settings={settings}
+      />
     )
   }
 
-  return <PostPage menuItems={props.menuItems} post={post} parts={props.parts} settings={settings} />
+  return (
+    <PostPage
+      menuItems={props.menuItems}
+      post={post}
+      parts={props.parts}
+      settings={settings}
+    />
+  )
 }
 
 export const getStaticProps: GetStaticProps<PageProps, Query> = async (ctx) => {
   const { draftMode = false, params = {} } = ctx
   const client = getClient(draftMode ? { token: readToken } : undefined)
 
-  const [settings, post, parts, menuItems ] = await Promise.all([
-    getSettings(client),
+  const [settings, post, parts, menuItems] = await Promise.all([
+    getSettings(client, 'en'),
     getFullPost(client, params.slug, 'en'),
     getAllParts(client, 'en'),
-    getMenuItems(client,'en')
+    getMenuItems(client, 'en'),
   ])
 
   if (!post) {
@@ -56,16 +68,16 @@ export const getStaticProps: GetStaticProps<PageProps, Query> = async (ctx) => {
     }
   }
 
-  if (post.postType === 'problem'){
+  if (post.postType === 'problem') {
     const postSlugs = await getAllPrioritizedPostSlugs(client)
 
     const index = postSlugs.findIndex((postSlug) => postSlug.slug === post.slug)
-    if (index > -1){
-      if (index > 0){
+    if (index > -1) {
+      if (index > 0) {
         post.previousSlug = postSlugs[index - 1].slug
-      } 
+      }
 
-      if (index + 1 < postSlugs.length){
+      if (index + 1 < postSlugs.length) {
         post.nextSlug = postSlugs[index + 1].slug
       }
     }

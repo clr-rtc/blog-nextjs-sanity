@@ -85,11 +85,11 @@ export default function ProblemReportPage(props: ProblemReportPageProps) {
   )
   const resolvedProblems = problems.filter((p) => p.status === 'resolved')
 
-  const { title = demo.title, description = demo.description } = settings || {}
-  const PAGE_TITLE = useLabel('Priorités', 'Priorities')
+  const { title, description } = settings || {}
+  const PAGE_TITLE = useLabel('Enjeux', 'Issues')
   const MAIN_THEMES = useLabel('Enjeux Majeurs', 'Key Issues')
 
-  const SUMMARY = useLabel('Sommaire des problèmes', 'Summary of Problems')
+  const SUMMARY = useLabel('Problèmes individuels', 'Individual Problems')
   const RESOLVED = useLabel('Derniers résolus', 'Latest Resolved')
   return (
     <>

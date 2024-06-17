@@ -57,7 +57,7 @@ export const getStaticProps: GetStaticProps<PageProps, Query> = async (ctx) => {
   const client = getClient(draftMode ? { token: readToken } : undefined)
 
   const [settings, page, parts, menuItems] = await Promise.all([
-    getSettings(client),
+    getSettings(client, 'en'),
     getFullPage(client, params.slug, 'en'),
     getAllParts(client, 'en'),
     getMenuItems(client, 'en'),

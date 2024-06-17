@@ -80,16 +80,16 @@ export const getStaticProps: GetStaticProps<PageProps, Query> = async (ctx) => {
    * The calls happen asynchronously at the same time and Promise.all waits for all DB class to be finished
    * */
   const [settings, parts = [], menuItems = []] = await Promise.all([
-    getSettings(client),
+    getSettings(client, 'en'),
     getAllParts(client, 'en'),
     getMenuItems(client, 'en'),
-
   ])
 
   const faqs: FaqItem[] = [
     {
-      question: "Can I donate my items to charity or other tenants?",
-      answer: [`6th of March 2024 Edit: Since the 4th of March 2024, all 6 of the black donation boxes have been removed from each building.
+      question: 'Can I donate my items to charity or other tenants?',
+      answer: [
+        `6th of March 2024 Edit: Since the 4th of March 2024, all 6 of the black donation boxes have been removed from each building.
       This means for the moment that donations are not to be made. It was furthermore confirmed by 2 Rockhill employees that the reason seems
       to be due to the amount of items that were collecting on and around the box which likely unsightly. More about this to follow.`,
         ` `,
@@ -137,7 +137,6 @@ export const getStaticProps: GetStaticProps<PageProps, Query> = async (ctx) => {
     },
   ] //await getFaqs(client)
 
-
   return {
     props: {
       faqs,
@@ -153,4 +152,3 @@ export const getStaticProps: GetStaticProps<PageProps, Query> = async (ctx) => {
     },
   }
 }
-

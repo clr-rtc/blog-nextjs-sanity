@@ -43,7 +43,7 @@ export const getStaticProps: GetStaticProps<PageProps, Query> = async (ctx) => {
    * The calls happen asynchronously at the same time and Promise.all waits for all DB class to be finished
    * */
   const [settings, parts = [], menuItems = []] = await Promise.all([
-    getSettings(client),
+    getSettings(client, 'en'),
     getAllParts(client, 'en'),
     getMenuItems(client, 'en'),
   ])

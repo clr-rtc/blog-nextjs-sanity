@@ -1,8 +1,9 @@
 import { CogIcon } from '@sanity/icons'
-import * as demo from 'lib/demo.data'
+
 import { defineArrayMember, defineField, defineType } from 'sanity'
 
 import OpenGraphInput from './OpenGraphInput'
+import { defineBilingualStringField } from 'schemas/fields'
 
 export default defineType({
   name: 'settings',
@@ -13,21 +14,49 @@ export default defineType({
   // Uncomment below to have edits publish automatically as you type
   // liveEdit: true,
   fields: [
-    defineField({
+    ...defineBilingualStringField({
       name: 'title',
-      description: 'This field is the title of your blog.',
-      title: 'Title',
-      type: 'string',
-      initialValue: demo.title,
+      description: 'Titre du site',
+      title: 'Titre',
       validation: (rule) => rule.required(),
     }),
     defineField({
       name: 'description',
-      description:
-        'Used both for the <meta> description tag for SEO, and the blog subheader.',
+      description: 'Pour <meta> description tag (SEO)',
       title: 'Description',
       type: 'array',
-      initialValue: demo.description,
+      of: [
+        defineArrayMember({
+          type: 'block',
+          options: {},
+          styles: [],
+          lists: [],
+          marks: {
+            decorators: [],
+            annotations: [
+              defineField({
+                type: 'object',
+                name: 'link',
+                fields: [
+                  {
+                    type: 'string',
+                    name: 'href',
+                    title: 'URL',
+                    validation: (rule) => rule.required(),
+                  },
+                ],
+              }),
+            ],
+          },
+        }),
+      ],
+      validation: (rule) => rule.max(155).required(),
+    }),
+    defineField({
+      name: 'description_en',
+      description: 'Pour meta> description tag (SEO), en anglais.',
+      title: 'Description',
+      type: 'array',
       of: [
         defineArrayMember({
           type: 'block',
@@ -67,9 +96,8 @@ export default defineType({
       fields: [
         defineField({
           name: 'title',
-          title: 'Title',
+          title: 'Titre',
           type: 'string',
-          initialValue: demo.ogImageTitle,
         }),
       ],
     }),

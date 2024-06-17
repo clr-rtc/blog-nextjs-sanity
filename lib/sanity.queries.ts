@@ -312,6 +312,7 @@ export interface Part {
 
 export interface Settings {
   title?: string
+  title_en?: string
   description?: any[]
   ogImage?: {
     title?: string

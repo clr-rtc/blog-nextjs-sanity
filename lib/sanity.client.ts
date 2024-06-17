@@ -85,8 +85,18 @@ export function getSanityImageConfig() {
  * @param client used to access the Sanity backend
  * @returns  the settings for the site
  */
-export async function getSettings(client: SanityClient): Promise<Settings> {
-  return (await client.fetch(settingsQuery)) || {}
+export async function getSettings(
+  client: SanityClient,
+  lang?: string,
+): Promise<Settings> {
+  const settings = (await client.fetch(settingsQuery)) || {}
+
+  // If the language is English, then overwrite the French fields with the English fields
+  if (lang === 'en') {
+    return mapToLang(settings, 'en')
+  }
+
+  return settings
 }
 
 /**
@@ -172,10 +182,12 @@ export async function getAllPages(client: SanityClient): Promise<Page[]> {
  * @returns a collection of all the themes
  * @description The themes are used to categorize the problems and are displayed in the problem report page
  * The themes are used to filter the problems and are displayed in the problem report page
- * @todo refactor so that callers don't need to worry about language. The language will be specified by the caller
  */
-export async function getThemes(client: SanityClient): Promise<Keyword[]> {
-  return fetchLocalizedList(allThemeKeywordsQuery, client)
+export async function getThemes(
+  client: SanityClient,
+  lang?: string,
+): Promise<Keyword[]> {
+  return fetchLocalizedList(allThemeKeywordsQuery, client, lang)
 }
 
 /**

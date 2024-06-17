@@ -1,16 +1,5 @@
-import ProblemReportPage from 'components/ProblemReportPage'
-import PreviewProblemReportPage from 'components/PreviewProblemReportPage'
 import { readToken } from 'lib/sanity.api'
-import {
-  getAllPosts,
-  getAllParts,
-  getClient,
-  getSettings,
-  getMenuItems,
-  getAllPrioritizedPosts,
-  getThemes,
-} from 'lib/sanity.client'
-import { Post, Part, Settings, MenuItem, Keyword } from 'lib/sanity.queries'
+
 import { GetStaticProps } from 'next'
 import type { SharedPageProps } from 'pages/_app'
 import { devMode } from 'lib/devmode'

@@ -69,7 +69,7 @@ export const getStaticProps: GetStaticProps<PageProps, Query> = async (ctx) => {
 
   const [settings, posts, parts = [], menuItems = [], keywords = []] =
     await Promise.all([
-      getSettings(client),
+      getSettings(client, 'en'),
       getAllPosts(client, 'en'),
       getAllParts(client, 'en'),
       getMenuItems(client, 'en'),

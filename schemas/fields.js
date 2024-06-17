@@ -222,7 +222,8 @@ export function defineBilingualStringField({
   name,
   title,
   description,
-  hidden,
+  hidden = undefined,
+  validation = undefined,
 }) {
   const french = defineField({
     name,
@@ -230,6 +231,7 @@ export function defineBilingualStringField({
     title,
     description,
     hidden,
+    validation,
   })
   const english = defineField({
     name: name + '_en',
@@ -237,6 +239,7 @@ export function defineBilingualStringField({
     title: title + ' (anglais)',
     description: description + ' en anglais',
     hidden,
+    validation,
   })
 
   return [french, english]
