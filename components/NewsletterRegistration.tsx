@@ -23,7 +23,7 @@ const INTRO_FR = (
       Vous aurez aussi la possibilité de voir les messages des autres
       locataires, et même y répondre si vous le voulez.{' '}
     </p>
-    <p>C'est gratuit et vous pouvez vous désinscrire en tout temps.</p>
+    <p>C&apos;est gratuit et vous pouvez vous désinscrire en tout temps.</p>
   </>
 )
 
@@ -34,7 +34,7 @@ const INTRO_EN = (
       You will also have the opportunity to see messages from other tenants, and
       even respond to them if you wish.
     </p>
-    <p>It's free and you can unregister at any time.</p>
+    <p>It&apos;s free and you can unregister at any time.</p>
   </>
 )
 
