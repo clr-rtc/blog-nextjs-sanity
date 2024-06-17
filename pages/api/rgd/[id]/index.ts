@@ -17,10 +17,11 @@ export default async function handler(
   request: NextApiRequest,
   response: NextApiResponse,
 ) {
-  const { did, r } = request.query
+  const { id, r } = request.query
 
-  if (did) {
-    await retrieveFile(response, did)
+  if (id) {
+    const fakeFileName = id as string
+    await retrieveFile(response, fakeFileName.split('.')[0])
     return
   }
 
