@@ -74,3 +74,25 @@ async function saveSubscription({
     modified: true,
   })
 }
+
+async function saveSubscriptionRequest({
+  email,
+  name,
+  frequency,
+  building,
+  apartment,
+}: AddToGoogleSheetsProps) {
+  console.log(
+    `saveSubscriptionRequest: ${email} ${name} ${frequency} ${building} ${apartment}`,
+  )
+
+  kv.hset(`subrequest:${email}`, {
+    email,
+    name,
+    frequency,
+    building,
+    apartment,
+    updatedOn: new Date(),
+    modified: true,
+  })
+}

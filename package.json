@@ -4,6 +4,7 @@
   "scripts": {
     "build": "next build",
     "dev": "next",
+    "tunnel": "ngrok http --domain=pheasant-easy-chow.ngrok-free.app  http://localhost:3000",
     "format": "npx prettier --write . --ignore-path .gitignore --cache",
     "lint": "next lint -- --ignore-path .gitignore",
     "lint:fix": "npm run format && npm run lint -- --fix",
